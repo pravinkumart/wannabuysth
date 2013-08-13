@@ -4,12 +4,29 @@
     <list default="true" id="d1bdad75-1bcc-4237-be6b-f23b98f976e3" name="Default" comment="" />
     <ignored path="wannabuysth.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/models.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376363868179" ignored="false" />
+    <file path="/models.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376384051587" ignored="false" />
     <file path="$PROJECT_DIR$/../../TorCast/TorCast/client.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376294300744" ignored="false" />
     <file path="$PROJECT_DIR$/../../TorCast/demo/app.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376357453797" ignored="false" />
     <file path="/app.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376300408096" ignored="false" />
     <file path="$PROJECT_DIR$/../../TorCast/demo/template/index.html" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376299416239" ignored="false" />
     <file path="/index.html" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376299139240" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/www/product/views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376376260615" ignored="false" />
+    <file path="/views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376381720922" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/www/sportsvisualization/views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376380457230" ignored="false" />
+    <file path="/a.dummy" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376379472011" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/data_service/views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376382387223" ignored="false" />
+    <file path="/interface.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376374749061" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/www/product/interface.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376374749917" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/www/async_worker/task.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376380153283" ignored="false" />
+    <file path="/task.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376379580294" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/common/sports_data.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376380174965" ignored="false" />
+    <file path="/sports_data.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376379735254" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/data_service/ride_views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376382387223" ignored="false" />
+    <file path="/ride_views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376375460328" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/www/gps_sports/views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376376259621" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/ext_data_service/ext_data_service.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376382316154" ignored="false" />
+    <file path="/ext_data_service.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376382316154" ignored="false" />
+    <file path="$PROJECT_DIR$/../../codoon/codoon_openapi/api/views.py" changelist="d1bdad75-1bcc-4237-be6b-f23b98f976e3" time="1376381726487" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +58,7 @@
       <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="32" selection-start="4736" selection-end="4736" vertical-scroll-proportion="0.84210527">
+            <state line="22" column="7" selection-start="812" selection-end="812" vertical-scroll-proportion="-2.0451128">
               <folding>
                 <element signature="e#47#62#0" expanded="true" />
               </folding>
@@ -124,7 +141,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../315cms" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../codoon" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -197,8 +214,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="22" width="1420" height="813" extended-state="1" />
-    <editor active="false" />
+    <frame x="3" y="22" width="1420" height="813" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -289,7 +306,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="32" selection-start="4736" selection-end="4736" vertical-scroll-proportion="0.84210527">
+        <state line="22" column="7" selection-start="812" selection-end="812" vertical-scroll-proportion="-2.0451128">
           <folding>
             <element signature="e#47#62#0" expanded="true" />
           </folding>

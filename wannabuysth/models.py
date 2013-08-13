@@ -1,10 +1,9 @@
 #-*- coding:utf-8 -*-
 __author__ = 'Alexander'
 import datetime
-from sqlalchemy import Column,Integer,String,DateTime,Boolean,Text,UniqueConstraint,Table, MetaData,ForeignKey, SmallInteger
+from sqlalchemy import Column,Integer,String,DateTime,Boolean,Text,UniqueConstraint,ForeignKey, SmallInteger, Index
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy.orm import relationship,backref
-from decimal import Decimal
 
  
 class DeclaredBase(object):
@@ -18,16 +17,13 @@ class DeclaredBase(object):
  
 Base = declarative_base(cls=DeclaredBase)
 
-
 #-------------------上面的是基类，不要动---------------------------------
-
-
 
 class Catalog(Base):
     """
     频道
     """
-    name = Column(String(100))        #频道名
+    name = Column(String(100), unique=True)        #频道名
     descp = Column(String(500))       #频道说明
     icon_smaill = Column(String(200)) #小图标
     icon_large = Column(String(200))  #大图标
@@ -38,8 +34,8 @@ class SubCataog(Base):
     """
     catalog_id = Column(Integer,ForeignKey("catalog.id"))            #父级频道编号
     catalog = relationship("Catalog",backref=backref("subcatalogs")) #父级频道对象
-    name = Column(100)                                               #分类名
-    descp = Column(500)                                              #分类介绍
+    name = Column(String(100), unique=True)                                               #分类名
+    descp = Column(String(500))                                              #分类介绍
     icon_smaill = Column(String(200))                                #小图标
     icon_large = Column(String(200))                                 #大图标
 
@@ -55,8 +51,8 @@ class Customer(Base):
     publish_count = Column(Integer)              #发布需求总数
     success_count = Column(Integer)              #成功需求总数
     total_payed = Column(Integer)                #总金额
-    fee = Column(Integer)                        #消费基金总数
-    current_fee = Column(Integer)                #消费基金余额
+    fee = Column(Integer)                        #消费基金总数(单位：分)
+    current_fee = Column(Integer)                #消费基金余额(单位：分)
     used_fee = Column(Integer)                   #使用金额
 
 
@@ -67,7 +63,7 @@ class Merchant(Base):
     name = Column(String(20), unique=True)       #商家名
     password = Column(String(48))                #密码
     mobile = Column(String(11))                  #手机号
-    pre_payed = Column(Integer)                  #预付款总额
+    pre_payed = Column(Integer)                  #预付款总额 (单位：分)
     credit = Column(Integer)                     #信誉度
     success_count = Column(Integer)              #成功次数
     faild_count = Column(Integer)                #失败次数
@@ -94,10 +90,14 @@ class Requirment(Base):
     customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
     customer = relationship("Customer", backref=backref("requirments")) #消费者
     merchant_id = Column(Integer)                                       #中标商家ID
+    wanna_fee = Column(Integer)                                         #心理价位 (单位：分)
     descrip = Column(String(500))                                       #需求描述
     end_time = Column(DateTime)                                         #截止时间
     location = Column(String(200))                                      #服务地点
     state = Column(SmallInteger)                                        #状态
+    __table_args__ = (
+        Index("customer_requirment_idx","customer_id","state"),
+    )
 
 class Reply(Base):
     """
@@ -107,8 +107,12 @@ class Reply(Base):
     requirment = relationship("Requirment",backref=backref("replys"))   #需求对象
     merchant_id = Column(Integer, ForeignKey("merchant.id"))            #回复商家ID
     merchant = relationship("Merchant",backref=backref("replys"))       #回复商家对象
-    fee = Column(Integer)                                               #服务价格
+    fee = Column(Integer)                                               #服务价格 (单位：分)
     descrip = Column(String(500))                                       #服务描述
+    __table_args__ = (
+        Index("merchant_reply_idx", "requirment_id", "merchant_id"),
+    )
+
 
 class SuccessRequirment(Base):
     """
@@ -117,7 +121,31 @@ class SuccessRequirment(Base):
     customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
     customer = relationship("Customer", backref=backref("requirments")) #消费者
     merchant_id = Column(Integer)                                       #中标商家ID
+    wanna_fee = Column(Integer)                                         #心理价位 (单位：分)
     descrip = Column(String(500))                                       #需求描述
     end_time = Column(DateTime)                                         #截止时间
     location = Column(String(200))                                      #服务地点
+    succes_fee = Column(Integer)                                        #成交价位 (单位：分)
     state = Column(SmallInteger)
+
+
+class ShowCase(Base):
+    """
+    秀单帖
+    """
+    show_type = Column(SmallInteger)                                           #秀单帖类型 0比低 1比高
+    requirment_id = Column(Integer,ForeignKey("successrequirment.id"))         #需求编号
+    requirment = relationship("SuccessRequirment",backref=backref("showcase", use_list=False))   #需求对象
+    customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
+    customer = relationship("Customer", backref=backref("requirments")) #消费者
+
+class ShowCaseReplay(Base):
+    """
+    跟帖
+    """
+    showcase_id = Column(Integer, ForeignKey("showcase.id"))
+    showcase = relationship("ShowCase",backref=backref("replys"))
+    requirment_id = Column(Integer,ForeignKey("successrequirment.id"))         #需求编号
+    requirment = relationship("SuccessRequirment",backref=backref("showcase", use_list=False))   #需求对象
+    customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
+    customer = relationship("Customer", backref=backref("requirments")) #消费者
