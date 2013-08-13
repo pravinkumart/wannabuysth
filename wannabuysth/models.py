@@ -27,6 +27,7 @@ class Catalog(Base):
     descp = Column(String(500))       #频道说明
     icon_smaill = Column(String(200)) #小图标
     icon_large = Column(String(200))  #大图标
+    idx = Column(SmallInteger)        #排序
 
 class SubCataog(Base):
     """
@@ -34,10 +35,11 @@ class SubCataog(Base):
     """
     catalog_id = Column(Integer,ForeignKey("catalog.id"))            #父级频道编号
     catalog = relationship("Catalog",backref=backref("subcatalogs")) #父级频道对象
-    name = Column(String(100), unique=True)                                               #分类名
-    descp = Column(String(500))                                              #分类介绍
+    name = Column(String(100), unique=True)                          #分类名
+    descp = Column(String(500))                                      #分类介绍
     icon_smaill = Column(String(200))                                #小图标
     icon_large = Column(String(200))                                 #大图标
+    idx = Column(SmallInteger)                                       #排序
 
 
 
@@ -74,12 +76,14 @@ class Product(Base):
     商家发布的商品或者服务
     """
     catalog_id = Column(Integer,ForeignKey("catalog.id"))               #父级频道编号
-    catalog = relationship("Catalog",backref=backref("subcatalogs"))    #父级频道对象
+    catalog = relationship("Catalog",backref=backref("products"))       #父级频道对象
     merchant_id = Column(Integer, ForeignKey("merchant.id"))            #商家ID
     merchant = relationship("Merchant",backref=backref("replys"))       #商家对象
     descrip = Column(String(500))                                       #商品
-    icon_smaill = Column(String(200)) #小图标
-    icon_large = Column(String(200))  #大图标
+    acept_fee = Column(Integer)                                         #最低接收价格
+    show_fee = Column(Integer)                                          #显示价格
+    icon_smaill = Column(String(200))                                   #小图标
+    icon_large = Column(String(200))                                    #大图标
 
 
 
@@ -106,7 +110,7 @@ class Reply(Base):
     requirment_id = Column(Integer,ForeignKey("requirment.id"))         #需求编号
     requirment = relationship("Requirment",backref=backref("replys"))   #需求对象
     merchant_id = Column(Integer, ForeignKey("merchant.id"))            #回复商家ID
-    merchant = relationship("Merchant",backref=backref("replys"))       #回复商家对象
+    merchant = relationship("Merchant")       #回复商家对象
     fee = Column(Integer)                                               #服务价格 (单位：分)
     descrip = Column(String(500))                                       #服务描述
     __table_args__ = (
@@ -119,7 +123,7 @@ class SuccessRequirment(Base):
     成功的需求单独备份
     """
     customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
-    customer = relationship("Customer", backref=backref("requirments")) #消费者
+    customer = relationship("Customer", backref=backref("success_requirments")) #消费者
     merchant_id = Column(Integer)                                       #中标商家ID
     wanna_fee = Column(Integer)                                         #心理价位 (单位：分)
     descrip = Column(String(500))                                       #需求描述
@@ -135,9 +139,9 @@ class ShowCase(Base):
     """
     show_type = Column(SmallInteger)                                           #秀单帖类型 0比低 1比高
     requirment_id = Column(Integer,ForeignKey("successrequirment.id"))         #需求编号
-    requirment = relationship("SuccessRequirment",backref=backref("showcase", use_list=False))   #需求对象
+    requirment = relationship("SuccessRequirment",backref=backref("showcase", uselist=False))   #需求对象
     customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
-    customer = relationship("Customer", backref=backref("requirments")) #消费者
+    customer = relationship("Customer") #消费者
 
 class ShowCaseReplay(Base):
     """
@@ -146,6 +150,6 @@ class ShowCaseReplay(Base):
     showcase_id = Column(Integer, ForeignKey("showcase.id"))
     showcase = relationship("ShowCase",backref=backref("replys"))
     requirment_id = Column(Integer,ForeignKey("successrequirment.id"))         #需求编号
-    requirment = relationship("SuccessRequirment",backref=backref("showcase", use_list=False))   #需求对象
+    requirment = relationship("SuccessRequirment")   #需求对象
     customer_id = Column(Integer,ForeignKey("customer.id"))             #消费者编号
-    customer = relationship("Customer", backref=backref("requirments")) #消费者
+    customer = relationship("Customer") #消费者
