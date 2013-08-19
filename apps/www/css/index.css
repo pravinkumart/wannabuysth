@@ -21,6 +21,13 @@ body {
 	background:none;
 }
 
+.fb{font-weight: bold;}
+.tc{text-align:center;}
+.f18{font-size: 18px;}
+.f24{font-size:24px;}
+
+.box_flex1{ -webkit-box-flex: 1;-moz-box-flex:1; }
+
 /*  帮助页面   */
 #wrapper_help {
   width:100%;
@@ -60,3 +67,31 @@ body {
   text-align: center;
   font-size:48px;
 }
+
+/* 注册  登录 选择界面   */
+.vertical {
+	display: -moz-box;
+    display: -webkit-box;
+    display: box;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    box-orient:vertical;
+    height:100%;
+    width:100%;
+    position: relative;
+}
+
+.horizontal {
+	display: -moz-box;
+    display: -webkit-box;
+    display: box;
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    box-orient:horizontal;
+    position: relative;
+    height:100%;
+    width:100%;
+}
+
+
+

@@ -14,18 +14,52 @@
 <!-- <script type="text/javascript" src="common/cordova.js"></script> -->
 </head>
 <body>
+<div data-role="page" id="accounts">
+	<div class="vertical">
+		<div style="color:#fff;" class="tc fb f24 box_flex1" onclick="$.mobile.changePage('#index')">
+			<div style="margin-top: 50px;" >
+				全方位手机购物
+			</div>
+		</div>
+		<div style="height: 112px;line-height: 112px;" class="horizontal">
+				<div style="background-color: red;color:#fff;"  class="tc fb box_flex1 f18" onclick="$.mobile.changePage('#login')">
+					登录
+				</div>
+				<div style="background-color:#fff;color: red;" class="tc fb box_flex1 f18" onclick="$.mobile.changePage('#regedit')">
+					注册
+				</div>
+		</div>
+	</div>
+</div>
+
 <div data-role="page" id="help">
 	<div id="wrapper_help" >
 	  <div class="scroller" id="scroller">
 	    <ul class="thelist">
 	      <li>帮助1</li>
 	      <li>帮助2</li>
-	      <li>
-	      	<a href="#login" style="font-size: 18px;">进入邦办管家</a>
+	      <li style="position:relative;">
+	      	帮助3
+      		<div style="position:absolute;bottom:120px;left: 0;text-align:center;width: 100%;" onclick="$.mobile.changePage('#accounts',{}); ">
+      			开启邦办管家
+      		</div>
 	      </li>
 	    </ul>
 	  </div>
 	</div>
+</div>
+
+
+<div data-role="page" id="login">
+	<a href="#regedit">
+		<img alt="index" src="img/login.png">
+	</a>
+</div>
+
+<div data-role="page" id="regedit">
+	<a href="#setings">
+		<img alt="index" src="img/regedit.png">
+	</a>
 </div>
 
 <div data-role="page" id="index">
@@ -64,16 +98,7 @@
 		<img alt="index" src="img/item_search.png">
 	</a>
 </div>
-<div data-role="page" id="login">
-	<a href="#regedit">
-		<img alt="index" src="img/login.png">
-	</a>
-</div>
-<div data-role="page" id="regedit">
-	<a href="#setings">
-		<img alt="index" src="img/regedit.png">
-	</a>
-</div>
+
 <div data-role="page" id="setings">
 	<a href="#home">
 		<img alt="index" src="img/setings.png">

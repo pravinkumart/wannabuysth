@@ -1,7 +1,9 @@
 
 
 $(function(){
+	$.mobile.changePage('#help',{changeHash: false,transition:'none'}); 
 	help_init() //帮助页面
+	accounts_init() //登录注册选择页面
 })
 
 function help_init(){
@@ -15,5 +17,10 @@ function help_init(){
     momentum: false,
     hScrollbar: false
   });
+	
+}
+
+function accounts_init(){
+	$('.vertical').height($(window).height());
 	
 }

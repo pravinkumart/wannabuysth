@@ -1,2 +1,2 @@
-E:\workspace\wannabuysth\apps\platforms\android\bin\AndroidManifest.xml : \
-E:\workspace\wannabuysth\apps\platforms\android\AndroidManifest.xml \
+e:\workspace\wannabuysth\apps\platforms\android\bin\AndroidManifest.xml : \
+e:\workspace\wannabuysth\apps\platforms\android\AndroidManifest.xml \
