@@ -13,6 +13,7 @@ $(document).bind('pageshow', function() {
 function help_init(){
    // $('#help').show();	
    $.mobile.changePage('#help');
+   return 
   var obj = $('#wrapper_help');
   var width = $(window).width();
   var count = obj.find('.thelist li').length;

@@ -23,11 +23,15 @@ body.ui-overlay-c {
     color: #FFFFFF;
     font-weight: 700;
     text-shadow: 0 0 0 #FFFFFF;
+    height:42px;
+    line-height: 42px;
 }
 
 .ui-body-c,.ui-dialog.ui-overlay-c{
 	background:none;
 }
+
+.header_b .back img{width: 32px;margin-left: 10px;margin-top: 5px; cursor:pointer;}
 
 .fb{font-weight: bold;}
 .tl{text-align:left;}
@@ -58,23 +62,24 @@ body.ui-overlay-c {
 
 
 .help_des {
-	padding: 20px;
-	border: 1px solid #E3E3E3;
-	color:#969696;
+	padding: 15px;
+	border: 1px solid #d4d4d4;
+	color:#666;
 	background-color:#FFFFFF;
 	border-bottom:none;
+	font-size: 20px;
 }
 
 #help .help_des:last-child{
-	border: 1px solid #E3E3E3;
+	border: 1px solid #d4d4d4;
 }
 
 .help_des h1 {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
-	color:#6B6B6B;
-	line-height: 48px;
-	
+	color:#333;
+	line-height:100%;
+	margin-bottom: 15px;
 }
 
 
@@ -142,6 +147,12 @@ body.ui-overlay-c {
     width:100%;
 }
 
+.header_a{
+	width: 80px;
+}
+.header_b{
+	width: 80px;
+}
 
 .info_list {
 	margin: 0 0 15px;
@@ -152,12 +163,13 @@ body.ui-overlay-c {
 .username,.password {
 	height: 50px;
 	vertical-align: middle;
-	color: #808080;
+	color: #999999;
 	background-color:#FFFFFF;
 	text-indent:15px;
 	border: 0px solid;
 	width: 100%;
 	imeMode:disable;
+	font-size:18px;
 	
 }
 input,button,select,textarea{outline:none}
@@ -175,22 +187,10 @@ input,button,select,textarea{outline:none}
 	background-color:#CCCCCC;
 }
 
-.W_login_form .username input, 
-.W_login_form .password input{
-	width: 100%;
-	height: 46px;
-	background: none;
-	color: #808080;
-	border: 1px solid transparent;
-	line-height: 46px;
-	background-color:#FFFFFF;
-}
-
-
-
 .br_3 {border-radius: 3px;}
-.login {background-color: #E64C65; color:#EAEAEA;}
-.regedit {background-color: #75B953;color:#EAEAEA;}
+.br_5 {border-radius: 5px;}
+.login {background-color: #E64C65; color:#FFFFFF;}
+.regedit {background-color: #75b953;color:#FFFFFF;}
 .open_list{background-color:#FFF;}
 
 .ui-link.col1,.ui-link.col1:active,.ui-link.col1:after,.ui-link.col1:link,.ui-link.col1:visited  {
@@ -210,4 +210,11 @@ input,button,select,textarea{outline:none}
 #help {
 	background-color:#F6F6F6;
 }
+
+#login .ui-content{
+	  padding-left: 20px;
+	  padding-right: 20px;
+}
+
+
 
