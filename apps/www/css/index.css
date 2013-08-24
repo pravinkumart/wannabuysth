@@ -23,13 +23,15 @@ body {
 
 .fb{font-weight: bold;}
 .tc{text-align:center;}
+.tr{text-align:right;}
 .f18{font-size: 18px;}
 .f24{font-size:24px;}
 
 
 .ui-bar-a {text-shadow :0 -1px 1px #E64C65;}
 .box_flex1{ -webkit-box-flex: 1;-moz-box-flex:1; }
-
+.box_flex2{ -webkit-box-flex: 2;-moz-box-flex:2; }
+.box_flex3{ -webkit-box-flex: 3;-moz-box-flex:3; }
 /*  帮助页面   */
 
 #help {
@@ -110,4 +112,41 @@ body {
 }
 
 
+.W_login_form .info_list {
+	margin: 0 0 15px;
+	line-height: 40px;
+	height: 40px
+}
 
+.W_login_form .username, .W_login_form .password {
+	padding-left: 39px;
+	padding-right: 4px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	height: 40px;
+	vertical-align: middle;
+	color: #808080;
+	background-position: 0 5px;
+	-webkit-box-shadow: 1px 1px 1px 0px #eaeaea inset;
+	-moz-box-shadow: 1px 1px 1px 0px #eaeaea inset;
+	box-shadow: 1px 1px 1px 0px #eaeaea inset;
+	background-image: url("../images/form_login.png");
+	background-repeat: no-repeat;
+}
+
+.W_login_form .password {
+	background-position: 0 -43px;
+}
+
+.W_login_form .username input, 
+.W_login_form .password input{
+	width: 100%;
+	height: 40px;
+	background: none;
+	color: #808080;
+	border: 1px solid transparent;
+	line-height: 40px;
+}
+.br_3 {border-radius: 3px;}
+.login {background-color: #E64C65; color:#EAEAEA;}
+.regedit {background-color: #75B953;color:#EAEAEA;}
