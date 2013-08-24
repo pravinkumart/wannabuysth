@@ -61,19 +61,21 @@
 				<a  data-theme="c" data-iconpos="notext" data-icon="arrow-l" data-rel="back">back</a>
 				<h1>登录</h1>
 			</div>
-			<div data-role="content" class="W_login_form">
-				<div  class="info_list">
-					<div class="inp username ">
-						<input type="text"data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
+			<div data-role="content">
+				<div class="horizontal" style="border:1px solid #E2E2E2;">
+					<div class="username_icon"></div>
+					<div class="box_flex1">
+						<input class="username" type="number" data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
 					</div>
 				</div>
-				<div  class="info_list">
-					<div class="inp password">
-						<input type="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
+				<div class="horizontal" style="border:1px solid #E2E2E2;">
+					<div class="password_icon"></div>
+					<div class="box_flex1">
+						<input type="password" class="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
 					</div>
 				</div>
-				<div  class="info_list">
-					<div class="tr"><a href="">忘记密码？</a></div>
+				<div  class="info_list"  style="margin:0;">
+					<div class="tr "><a href="" class="col1">忘记密码？</a></div>
 				</div>
 				<div  class="info_list horizontal">
 					<div class="login box_flex3 tc br_3 f18" style="">登录</div>
@@ -81,9 +83,9 @@
 					<div class="regedit box_flex1 tc br_3 f18">注册</div>
 				</div>
 				
-				<div  class="info_list horizontal">
-					<div class="box_flex1 tc f18 fb">使用QQ帐号登录</div>
-					<div style="width: 18px;padding-top: 10px;">
+				<div  class="info_list horizontal open_list br_3">
+					<div class="box_flex1 qq_show f18" style="padding-left: 40px; color: #A4A4A4;line-height: 40px;">使用QQ帐号登录</div>
+					<div style="width: 18px;padding:10px 10px 0 0;">
 						<div class="ui-icon ui-icon-arrow-r ui-icon-shadow" >&nbsp;</div>
 					</div>
 				</div>

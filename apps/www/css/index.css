@@ -3,7 +3,7 @@
 	margin: 0;
 }
 
-body {
+body.ui-overlay-c {
 	-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none; 
@@ -15,6 +15,14 @@ body {
 	background-size:100%;
 	background-position:center top;
 	
+}
+
+.ui-bar-c {
+    background: linear-gradient(#E64C65, #E64C65) repeat scroll 0 0 #E64C65;
+    border: 1px solid #E64C65;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-shadow: 0 0 0 #FFFFFF;
 }
 
 .ui-body-c,.ui-dialog.ui-overlay-c{
@@ -112,41 +120,67 @@ body {
 }
 
 
-.W_login_form .info_list {
+.info_list {
 	margin: 0 0 15px;
 	line-height: 40px;
-	height: 40px
+	height: 40px;
 }
 
-.W_login_form .username, .W_login_form .password {
-	padding-left: 39px;
-	padding-right: 4px;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-	height: 40px;
+.username,.password {
+	height: 50px;
 	vertical-align: middle;
 	color: #808080;
-	background-position: 0 5px;
-	-webkit-box-shadow: 1px 1px 1px 0px #eaeaea inset;
-	-moz-box-shadow: 1px 1px 1px 0px #eaeaea inset;
-	box-shadow: 1px 1px 1px 0px #eaeaea inset;
-	background-image: url("../images/form_login.png");
-	background-repeat: no-repeat;
+	background-color:#FFFFFF;
+	text-indent:15px;
+	border: 0px solid;
+	width: 100%;
+	imeMode:disable;
+	
+}
+input,button,select,textarea{outline:none}
+.username_icon{
+	width: 80px;
+	background:url("../images/regedit.png") no-repeat center center;
+	background-size:22px 22px;
+	background-color:#CCCCCC;
 }
 
-.W_login_form .password {
-	background-position: 0 -43px;
+.password_icon{
+	width: 80px;
+	background:url("../images/login.png") no-repeat center center;
+	background-size:22px 22px;
+	background-color:#CCCCCC;
 }
 
 .W_login_form .username input, 
 .W_login_form .password input{
 	width: 100%;
-	height: 40px;
+	height: 46px;
 	background: none;
 	color: #808080;
 	border: 1px solid transparent;
-	line-height: 40px;
+	line-height: 46px;
+	background-color:#FFFFFF;
 }
+
+
+
 .br_3 {border-radius: 3px;}
 .login {background-color: #E64C65; color:#EAEAEA;}
 .regedit {background-color: #75B953;color:#EAEAEA;}
+.open_list{background-color:#FFF;}
+
+.ui-link.col1,.ui-link.col1:active,.ui-link.col1:after,.ui-link.col1:link,.ui-link.col1:visited  {
+	color:#fff;
+	text-decoration:none;
+}
+.ui-body-c{
+	text-shadow: 0 0px 0 #FFFFFF;
+}
+
+.qq_show {
+	background: url('../images/qq.png') no-repeat 10px 10px;
+	background-size: 20px 20px;
+}
+
+
