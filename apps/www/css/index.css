@@ -30,6 +30,7 @@ body.ui-overlay-c {
 }
 
 .fb{font-weight: bold;}
+.tl{text-align:left;}
 .tc{text-align:center;}
 .tr{text-align:right;}
 .f18{font-size: 18px;}
@@ -42,7 +43,7 @@ body.ui-overlay-c {
 .box_flex3{ -webkit-box-flex: 3;-moz-box-flex:3; }
 /*  帮助页面   */
 
-#help {
+/*#help {
 	display: none;
 	position: absolute;
 	background: url("../img/logo.png") no-repeat;
@@ -53,7 +54,29 @@ body.ui-overlay-c {
 	width: 100%;
 	height: 100%;
 	z-index: 1000;
+}*/
+
+
+.help_des {
+	padding: 20px;
+	border: 1px solid #E3E3E3;
+	color:#969696;
+	background-color:#FFFFFF;
+	border-bottom:none;
 }
+
+#help .help_des:last-child{
+	border: 1px solid #E3E3E3;
+}
+
+.help_des h1 {
+	font-size: 24px;
+	font-weight: bold;
+	color:#6B6B6B;
+	line-height: 48px;
+	
+}
+
 
 #wrapper_help {
   width:100%;
@@ -183,4 +206,8 @@ input,button,select,textarea{outline:none}
 	background-size: 20px 20px;
 }
 
+
+#help {
+	background-color:#F6F6F6;
+}
 

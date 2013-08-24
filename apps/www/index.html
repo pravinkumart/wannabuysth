@@ -17,6 +17,7 @@
 		<div data-role="page" id="accounts">
 			<div class="vertical">
 				<div style="color:#fff;" class="tc fb f24 box_flex1" onclick="$.mobile.changePage('#index')">
+					<div>邦办管家</div>
 					<div style="padding-top: 150px; color: red;" >
 						全方位手机购物
 					</div>
@@ -34,20 +35,40 @@
 			</div>
 		</div>
 		
-		<div id="help">
+		<div data-role="page" id="help">
+			<div data-role="header"  data-theme="c">
+				<a  data-theme="c" data-iconpos="notext" data-icon="arrow-l" data-rel="back">back</a>
+				<h1>帮助</h1>
+			</div>
 			<div id="wrapper_help" >
 				<div class="scroller" id="scroller">
 					<ul class="thelist">
 						<li>
-							帮助1
-						</li>
-						<li>
-							帮助2
-						</li>
-						<li style="position:relative;">
-							帮助3
-							<div style="position:absolute;bottom:120px;left: 0;text-align:center;width: 100%;" onclick=" $('#help').hide(); ">
-								开启邦办管家
+							<div data-role="content" class="tl">
+								<div class="help_des f18">
+									<h1>
+										什么是信用基金
+									</h1>
+									<div>
+										信用基金用户在交易之后
+									</div>
+								</div>
+								<div class="help_des f18">
+									<h1>
+										什么是信用基金
+									</h1>
+									<div>
+										信用基金用户在交易之后
+									</div>
+								</div>
+								<div class="help_des f18">
+									<h1>
+										什么是信用基金
+									</h1>
+									<div>
+										信用基金用户在交易之后
+									</div>
+								</div>
 							</div>
 						</li>
 					</ul>
@@ -55,32 +76,32 @@
 			</div>
 		</div>
 		
-
+		
 		<div data-role="page" id="login">
 			<div data-role="header"  data-theme="c">
 				<a  data-theme="c" data-iconpos="notext" data-icon="arrow-l" data-rel="back">back</a>
 				<h1>登录</h1>
 			</div>
 			<div data-role="content">
-				<div class="horizontal" style="border:1px solid #E2E2E2;">
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius: 5px 5px 0 0;">
 					<div class="username_icon"></div>
 					<div class="box_flex1">
 						<input class="username" type="number" data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
 					</div>
 				</div>
-				<div class="horizontal" style="border:1px solid #E2E2E2;">
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:0 0 5px 5px;">
 					<div class="password_icon"></div>
 					<div class="box_flex1">
 						<input type="password" class="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
 					</div>
 				</div>
 				<div  class="info_list"  style="margin:0;">
-					<div class="tr "><a href="" class="col1">忘记密码？</a></div>
+					<div class="tr "><a href="#forget"  class="col1">忘记密码？</a></div>
 				</div>
 				<div  class="info_list horizontal">
-					<div class="login box_flex3 tc br_3 f18" style="">登录</div>
+					<div class="login box_flex3 tc br_3 f18" onclick="login_ok(this)" style="">登录</div>
 					<div style="width: 15px;"></div>
-					<div class="regedit box_flex1 tc br_3 f18">注册</div>
+					<div class="regedit box_flex1 tc br_3 f18" onclick="$.mobile.changePage('#regedit')">注册</div>
 				</div>
 				
 				<div  class="info_list horizontal open_list br_3">
@@ -95,11 +116,41 @@
 		</div>
 
 		<div data-role="page" id="regedit">
-			<a href="#setings"> <img alt="index" src="img/regedit.png"> </a>
+			<div data-role="header"  data-theme="c">
+				<a  data-theme="c" data-iconpos="notext" data-icon="arrow-l" data-rel="back">back</a>
+				<h1>注册</h1>
+			</div>
+			<div data-role="content">
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:5px 5px 0 0;">
+					<div class="username_icon"></div>
+					<div class="box_flex1">
+						<input class="username" type="number" data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
+					</div>
+				</div>
+				<div class="horizontal" style="border:1px solid #E2E2E2;">
+					<div class="password_icon"></div>
+					<div class="box_flex1">
+						<input type="password" class="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
+					</div>
+				</div>
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:0 0 5px 5px;">
+					<div class="password_icon"></div>
+					<div class="box_flex1">
+						<input type="password" class="password" data-role="none" placeholder="确认密码" maxlength="24" tabindex="3"  name="password"  value="">
+					</div>
+				</div>
+				<div  class="info_list"></div>
+				<div  class="info_list">
+					<div class="regedit box_flex1 tc br_3 f18" onclick="regedit_ok(this)">注册</div>
+				</div>
+			</div>
+			
+			
 		</div>
 
 		<div data-role="page" id="index">
-			<a href="#node_type"> <img alt="index" src="img/index.png"> </a>
+			
+			
 		</div>
 		<div data-role="page" id="node_type">
 			<a href="#item_list"> <img alt="index" src="img/node_type.png"> </a>

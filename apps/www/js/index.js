@@ -11,7 +11,8 @@ $(document).bind('pageshow', function() {
 	
 });
 function help_init(){
-   $('#help').show();	
+   // $('#help').show();	
+   $.mobile.changePage('#help');
   var obj = $('#wrapper_help');
   var width = $(window).width();
   var count = obj.find('.thelist li').length;
@@ -28,4 +29,11 @@ function help_init(){
 function accounts_init(){
 	$('.vertical').height($(window).height());
 	
+}
+
+function login_ok(){
+	alert('....')
+}
+function regedit_ok(){
+	alert('.....')
 }
