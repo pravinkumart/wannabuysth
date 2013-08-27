@@ -15,7 +15,7 @@ function gopage(page_id){
 	$.mobile.changePage(page_id,{transition:'slide'})
 }
 function help_init(){
-	 $('#help_href').click();
+	 // $('#help_href').click();
 }
 
 $("#index").live("pagecreate",function(){

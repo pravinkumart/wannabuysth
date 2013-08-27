@@ -138,6 +138,23 @@ body.ui-overlay-c {
   float:left;
   width: 115px;
 }
+.portrait img{
+	width:40px;
+	border-radius:40px;
+	border:2px solid #C8C7BC;
+}
+.inform_num{
+	position: absolute;
+	top:-5px;
+	left: 30px;
+	width: 15px;
+	height: 15px;
+	line-height:15px;
+	color:#fff;
+	border-radius:15px;
+	background-color:#e64c65;
+}
+
 /* 注册  登录 选择界面   */
 .vertical {
 	display: -moz-box;
