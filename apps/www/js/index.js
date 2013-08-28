@@ -1,29 +1,29 @@
 var index_page = {}
 $(document).ready(function() {
-    help_init() //帮助页面nts_init() //登录注册选择页面
 	//index_init() 
 });
 
-$(document).bind('pageinit', function() {
-	// myScroll.refresh()
+$("#accounts").bind('pageinit', function() {
+	gopage('help')
 });
 
 $(document).bind('pageshow', function() {
 	
 });
+$(document).bind('pagebeforechange',function(e,data){ 
+	console.log(e)
+}); 
+
 function gopage(page_id){
-	$.mobile.changePage(page_id,{transition:'slide'})
-}
-function help_init(){
-	 // $('#help_href').click();
+	$.mobile.changePage('home/'+page_id+'.html',{transition:'slide'})
 }
 
+
 $("#index").live("pagecreate",function(){
- 	// index_init()
+ 	 index_init()
 })
-$("#index").bind('pageshow', function() {
+$("#index").live('pageshow', function() {
 	index_init()
-	// myScroll.refresh()
 });
 function index_init(){
   get_index_types_data()

@@ -2,43 +2,35 @@
 	padding: 0;
 	margin: 0;
 }
-.ui-page { -webkit-backface-visibility: hidden; }
-body.ui-overlay-c {
-	-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none; 
-	font-size: 12px;
-	font-family: helvetica;
-	overflow: hidden;
-	background-color:#E4E4E4;
+
+body.body {
 	background:url("../images/bg.png") no-repeat;
 	background-size:100%;
 	background-position:center top;
+}
+
+.ui-body-c{background:none;}
+
+.ui-bar-me {
+	height:42px;
+	background:#E64C65;
+	line-height:42px;
+	overflow:hidden;
+	color:#FFFFFF;
 	
 }
 
-.ui-bar-c {
-    background: linear-gradient(#E64C65, #E64C65) repeat scroll 0 0 #E64C65;
-    border: 1px solid #E64C65;
-    color: #FFFFFF;
-    font-weight: 700;
-    text-shadow: 0 0 0 #FFFFFF;
-    height:42px;
-    line-height: 42px;
-    background-color: #E64C65;
-    overflow: hidden;
-}
 
-.ui-body-c,.ui-dialog.ui-overlay-c{
-	background:none;
-}
-.header_m,.header_b,.header_a{ background-color: #E64C65;}
-
-.header_b .back img {
+.header_b .back{
 	width: 32px;
 	margin-left: 10px;
 	margin-top: 5px;
 	cursor: pointer;
+	height: 32px;
+	background:#E64C65;
+	background:url("../images/back_icon.png") no-repeat 0 0;
+	background-size:32px 32px;
+	display:inline-block;
 }
 
 
@@ -46,6 +38,8 @@ body.ui-overlay-c {
 .tl{text-align:left;}
 .tc{text-align:center;}
 .tr{text-align:right;}
+
+.f16{font-size: 16px;}
 .f18{font-size: 18px;}
 .f24{font-size:24px;}
 
@@ -126,7 +120,7 @@ body.ui-overlay-c {
   display:block; 
   float:left;
   width:100%;
-  min-height: 640px;
+  max-height: 360px;
   text-align: center;
   font-size:48px;
 }

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>邦办管家</title>
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript" src="common/jquery.js"></script>
+		<script type="text/javascript" src="common/jquerymobile.js"></script>
+		<script type="text/javascript" src="common/iscroll.js"></script>
+		<!-- <script type="text/javascript" src="common/cordova.js"></script> -->
+	</head>
+	<body class="">
+		<a href="#help" data-rel="page" data-transition="slide"  id="help_href" style="display: none;"></a>
+		<div data-role="page" id="accounts">
+			<div style="color:#fff;height: 100%;width: 100%;position:absolute;top:0;left: 0;" class="tc fb f24" onclick="gopage('#index')" >
+				<img src="images/logo.png" width="170" style="margin-top: 130px;" />
+			</div>
+			<div data-role="footer" data-position="fixed"  data-theme="none" >
+				<div style="height: 112px;line-height: 112px;" class="horizontal">
+					<div style="background-color: red;color:#fff;"  class="tc fb box_flex1  f18" onclick="gopage('#login')">
+						登录
+					</div>
+					<div style="background-color:#fff;color: red;" class="tc fb box_flex1 f18" onclick="gopage('#regedit')">
+						注册
+					</div>
+				</div>
+		    </div>
+		</div>
+		
+		<div data-role="page" id="help">
+			<div data-role="header"  data-theme="c">
+				<div class="horizontal">
+					<div class="header_b">
+						<a  class="back" href="#accounts" data-rel="page">
+							<img src="images/back_icon.png"  />
+						</a>
+					</div>
+					<div class="tc header_m box_flex1">
+						<h1>帮助</h1>
+					</div>
+					<div class="header_a">
+						
+					</div>
+				</div>
+			</div>
+			<div data-role="content" class="tl">
+				<div class="help_des f18">
+					<h1>
+						什么是信用基金
+					</h1>
+					<div>
+						信用基金用户在交易之后,信用基金用户在交易之后,信用基金用户在交易之后,信用基金用户在交易之后,信用基金用户在交易之后,
+						信用基金用户在交易之后,信用基金用户在交易之后,信用基金用户在交易之后
+					</div>
+				</div>
+				<div class="help_des f18">
+					<h1>
+						什么是信用基金
+					</h1>
+					<div>
+						信用基金用户在交易之后
+					</div>
+				</div>
+				<div class="help_des f18">
+					<h1>
+						什么是信用基金
+					</h1>
+					<div>
+						信用基金用户在交易之后
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div data-role="page" id="login">
+			<div data-role="header"  data-theme="c">
+				<div class="horizontal">
+					<div class="header_b">
+						<a  class="back" href="#accounts" data-rel="page">
+							<img src="images/back_icon.png"  />
+						</a>
+					</div>
+					<div class="tc header_m box_flex1">
+						<h1>登录</h1>
+					</div>
+					<div class="header_a">
+						
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius: 5px 5px 0 0;">
+					<div class="username_icon"></div>
+					<div class="box_flex1 bg1 padl_15">
+						<input class="username" type="text" data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
+					</div>
+				</div>
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:0 0 5px 5px;">
+					<div class="password_icon"></div>
+					<div class="box_flex1 bg1 padl_15">
+						<input type="password" class="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
+					</div>
+				</div>
+				<div  class="info_list"  style="margin:0;">
+					<div class="tr "><a href="#forget"  class="col1">忘记密码？</a></div>
+				</div>
+				<div  class="info_list horizontal">
+					<div class="login box_flex3 tc br_5 f18" onclick="login_ok(this)" style="">登录</div>
+					<div style="width: 10px;"></div>
+					<div class="regedit box_flex1 tc br_5 f18" onclick="$.mobile.changePage('#regedit')">注册</div>
+				</div>
+				
+				<div  class="info_list horizontal open_list br_5" style="margin-top: 45px;">
+					<div class="box_flex1 qq_show f18" style="padding-left: 40px; color: #666;line-height: 40px;">使用QQ帐号登录</div>
+					<div style="width: 24px;">
+						<img src="images/go.png" style="width: 14px;margin-top: 13px;" />
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+
+		<div data-role="page" id="regedit">
+			<div data-role="header"  data-theme="c">
+				<div class="horizontal">
+					<div class="header_b">
+						<a  class="back" href="#accounts" data-rel="page">
+							<img src="images/back_icon.png"  />
+						</a>
+					</div>
+					<div class="tc header_m box_flex1">
+						<h1>注册</h1>
+					</div>
+					<div class="header_a">
+						
+					</div>
+				</div>
+			</div>
+			<div data-role="content">
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:5px 5px 0 0;">
+					<div class="username_icon"></div>
+					<div class="box_flex1 bg1 padl_15">
+						<input class="username" type="text" data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
+					</div>
+				</div>
+				<div class="horizontal" style="border:1px solid #E2E2E2;">
+					<div class="password_icon"></div>
+					<div class="box_flex1 bg1 padl_15">
+						<input type="password" class="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
+					</div>
+				</div>
+				<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:0 0 5px 5px;">
+					<div class="password_icon"></div>
+					<div class="box_flex1 bg1 padl_15">
+						<input type="password" class="password" data-role="none" placeholder="确认密码" maxlength="24" tabindex="3"  name="password"  value="">
+					</div>
+				</div>
+				<div  class="info_list"></div>
+				<div  class="info_list">
+					<div class="regedit box_flex1 tc br_5 f18" onclick="regedit_ok(this)">注册</div>
+				</div>
+			</div>
+			
+			
+		</div>
+
+		<div data-role="page" id="index">
+			<div data-role="content">
+				<div class="horizontal">
+					<div style="width: 230px">
+						<img src="data/recommend.jpg"  style="width:230px;" />
+						<div class="tc bg2 f18 col1" style="height: 40px;line-height: 40px; width: 230px;">今日推荐</div>
+						<div id="wrapper_index">
+							  <div class="scroller">
+							    <ul class="thelist">
+							      <li>
+							      	<img src="data/index_1.png" />
+							      	<img src="data/index_2.png" />
+							      	<img src="data/index_3.png" />
+							      	<img src="data/index_4.png" />
+							      	<img src="data/index_5.png" />
+							      	<img src="data/index_6.png" />
+							      	<img src="data/index_4.png" />
+							      	<img src="data/index_7.png" />
+							      </li>
+							      <li>
+							      	<img src="data/index_7.png" />
+							      	<img src="data/index_3.png" />
+							      	<img src="data/index_5.png" />
+							      	<img src="data/index_2.png" />
+							      </li>
+							    </ul>
+							  </div>
+						</div>
+					</div>
+					<div class="box_flex1">
+					</div>
+					<div style="width: 50px" class="tr">
+						<div class="portrait tr">
+							<img src="data/portrait.jpg"   />
+						</div>
+						<div style="position: relative;margin-top: 25px;" class="tc">
+							<div class="inform_num">5</div>
+							<img src="images/inform.png"  width="22" />
+						</div>
+						<div style="margin-top: 210px">
+							<img src="images/bb.png"  width="22"/>
+							<div class="col1 ">购买</div>
+						</div>
+						<div style="margin-top: 25px">
+							<img src="images/setting.png" width="22"  />
+							<div class="col1 ">设置</div>
+						</div>
+						<div style="margin-top: 25px">
+							<img src="images/buy.png" width="22" />
+							<div class="col1 ">比价</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div data-role="page" id="node_type">
+			<a href="#item_list"> <img alt="index" src="img/node_type.png"> </a>
+		</div>
+		<div data-role="page" id="item_list">
+			<a href="#bidding"> <img alt="index" src="img/item_list.png"> </a>
+		</div>
+		<div data-role="page" id="bidding">
+			<a href="#choose"> <img alt="index" src="img/bidding.png"> </a>
+
+		</div>
+		<div data-role="page" id="choose">
+			<a href="#item_detail"> <img alt="index" src="img/choose.png"> </a>
+		</div>
+		<div data-role="page" id="item_detail">
+			<a href="#item_search"> <img alt="index" src="img/item_detail.png"> </a>
+		</div>
+		<div data-role="page" id="item_search">
+			<a href="#login"> <img alt="index" src="img/item_search.png"> </a>
+		</div>
+
+		<div data-role="page" id="setings">
+			<a href="#home"> <img alt="index" src="img/setings.png"> </a>
+		</div>
+		<div data-role="page" id="home">
+			<a href="#item_search"> <img alt="index" src="img/home.png"> </a>
+		</div>
+		<div data-role="page" id="item_search">
+			<a href="#my_offer"> <img alt="index" src="img/item_search.png"> </a>
+		</div>
+		<div data-role="page" id="my_offer">
+			<a href="#my_item"> <img alt="index" src="img/my_offer.png"> </a>
+		</div>
+		<div data-role="page" id="my_item">
+			<a href="#index"> <img alt="index" src="img/my_item.png"> </a>
+		</div>
+
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+</html>
