@@ -14,10 +14,14 @@ $(document).bind('pagebeforechange',function(e,data){
 	console.log(e)
 }); 
 
-function gopage(page_id){
-	$.mobile.changePage('/home/'+page_id+'.html',{transition:'slide'})
+function gopage(page_id,offset){
+	if(offset == 0){
+		$.mobile.changePage(page_id+'.html',{transition:'slide'})
+	}else{
+		$.mobile.changePage('home/'+page_id+'.html',{transition:'slide'})
+		
+	}
 }
-
 
 $("#index").live("pagecreate",function(){
  	 index_init()
