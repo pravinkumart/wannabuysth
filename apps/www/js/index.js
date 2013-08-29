@@ -15,7 +15,7 @@ $(document).bind('pagebeforechange',function(e,data){
 }); 
 
 function gopage(page_id){
-	$.mobile.changePage('home/'+page_id+'.html',{transition:'slide'})
+	$.mobile.changePage('/home/'+page_id+'.html',{transition:'slide'})
 }
 
 
