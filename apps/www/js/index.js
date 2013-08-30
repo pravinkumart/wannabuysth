@@ -1,26 +1,34 @@
 var index_page = {}
 $(document).ready(function() {
-	//index_init() 
+	init_main();
 });
 
+function init_main(){
+	$('.me_tap').live('tap',function(){
+		var obj = $(this);
+		var me_event = obj.attr('me_event');
+		var me_data = obj.attr('me_data');
+		if(!me_event){return false;}
+		var me_event = eval(me_event);
+			me_event(me_data)
+		
+	})
+}
+
 $("#accounts").bind('pageinit', function() {
-	gopage('help')
+	gopage('home/help')
 });
 
 $(document).bind('pageshow', function() {
 	
 });
+
 $(document).bind('pagebeforechange',function(e,data){ 
 	console.log(e)
 }); 
 
-function gopage(page_id,offset){
-	if(offset == 0){
-		$.mobile.changePage(page_id+'.html',{transition:'slide'})
-	}else{
-		$.mobile.changePage('home/'+page_id+'.html',{transition:'slide'})
-		
-	}
+function gopage(page_id){
+	$.mobile.changePage(page_id+'.html',{transition:'slide'})
 }
 
 $("#index").live("pagecreate",function(){
