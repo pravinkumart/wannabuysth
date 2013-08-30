@@ -19,10 +19,6 @@ $("#accounts").bind('pageinit', function() {
 	gopage('home/help')
 });
 
-$(document).bind('pageshow', function() {
-	
-});
-
 $(document).bind('pagebeforechange',function(e,data){ 
 	console.log(e)
 }); 
@@ -31,9 +27,6 @@ function gopage(page_id){
 	$.mobile.changePage(page_id+'.html',{transition:'slide'})
 }
 
-$("#index").live("pagecreate",function(){
- 	 index_init()
-})
 $("#index").live('pageshow', function() {
 	index_init()
 });
@@ -45,8 +38,7 @@ function index_init(){
   	  obj.find('.thelist li').width(width);
   	  obj.find('.scroller').width(count*width);
   if(index_page.myScroll){
-  		index_page.myScroll.refresh()
-  		return false;
+  		index_page.myScroll.destroy();
   	}
   var myScroll = new iScroll('wrapper_index',{
     snap: true,
@@ -74,3 +66,34 @@ function login_ok(){
 function regedit_ok(){
 	alert('.....')
 }
+
+
+/*  二级分类 */
+var second_lv_page = {}
+
+$("#second_lv").live('pageshow', function() {
+	second_lv_init()
+});
+
+function second_lv_init(){
+	
+  var obj = $('#wrapper_second_lv');
+  var width = $('#wrapper_second_lv').width();
+  var count = obj.find('.thelist li').length;
+  	  obj.find('.thelist li').width(width);
+  	  obj.find('.scroller').width(count*width);
+  if(second_lv_page.myScroll){
+  		second_lv_page.myScroll.destroy();
+  	}
+  var myScroll = new iScroll('wrapper_second_lv',{
+    snap: true,
+    momentum: false,
+    hScrollbar: false
+  });
+  second_lv_page.myScroll = myScroll;
+}
+
+
+
+
+
