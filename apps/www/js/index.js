@@ -16,7 +16,7 @@ function init_main(){
 }
 
 $("#accounts").bind('pageinit', function() {
-	gopage('home/item_list')
+	gopage('home/second_lv')
 	// gopage('home/help')
 });
 
@@ -80,21 +80,97 @@ function second_lv_init(){
 	
   var obj = $('#wrapper_second_lv');
   var width = $('#wrapper_second_lv').width();
-  var count = obj.find('.thelist li').length;
-  	  obj.find('.thelist li').width(width);
-  	  obj.find('.scroller').width(count*width);
   if(second_lv_page.myScroll){
   		second_lv_page.myScroll.destroy();
   	}
+  function pullUpAction () {
+  	setTimeout(function(){
+		$('.thelist').append($('.thelist li').eq(0).clone())
+		myScroll.refresh();	
+		  		
+  	},3000)
+	}
+	pullUpEl = document.getElementById('pullUp');	
+	pullUpOffset = pullUpEl.offsetHeight;
   var myScroll = new iScroll('wrapper_second_lv',{
-    snap: true,
-    momentum: false,
-    hScrollbar: false
+		useTransition: true,
+		onRefresh: function () {
+			if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'flip';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}
   });
   second_lv_page.myScroll = myScroll;
 }
 
+/* 商品列表 */
+var item_list_page = {}
+$("#item_list").live('pageshow', function() {
+	item_list_init()
+});
 
 
-
+function item_list_init(){
+  if(item_list_page.myScroll){
+  		item_list_page.myScroll.destroy();
+  	}
+  function pullUpAction () {
+  	setTimeout(function(){
+		$('.item_list').append($('.item_list li').eq(0).clone())
+		myScroll.refresh();	
+		  		
+  	},3000)
+	}
+	pullUpEl = document.getElementById('pullUp');	
+	pullUpOffset = pullUpEl.offsetHeight;
+	
+  var myScroll = new iScroll('item_list_wrapper',{
+  	
+  		useTransition: true,
+		onRefresh: function () {
+			if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'flip';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}
+  });
+  item_list_page.myScroll = myScroll;
+}
 
