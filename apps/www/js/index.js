@@ -1,5 +1,9 @@
-var index_page = {}
-$(document).ready(function() {
+var index_page = {};
+var is_init_main = false;
+$(document).bind('pageinit',function() {
+	if(is_init_main){return false;}
+	is_init_main =true;
+	alert(0)
 	init_main();
 });
 
@@ -13,6 +17,11 @@ function init_main(){
 			me_event(me_data)
 		
 	})
+	// $('.header_b').live('tap',function(){
+		// $.mobile.back();
+		// return false;
+	// })
+	$('.header_b a').unbind('tap');
 }
 
 $("#accounts").bind('pageinit', function() {
@@ -28,7 +37,7 @@ function gopage(page_id){
 	$.mobile.changePage(page_id+'.html',{transition:'slide'})
 }
 
-$("#index").live('pageshow', function() {
+$("#index").live('pageinit', function() {
 	index_init()
 });
 function index_init(){
@@ -72,7 +81,7 @@ function regedit_ok(){
 /*  二级分类 */
 var second_lv_page = {}
 
-$("#second_lv").live('pageshow', function() {
+$("#second_lv").live('pageinit', function() {
 	second_lv_init()
 });
 
@@ -124,7 +133,7 @@ function second_lv_init(){
 
 /* 商品列表 */
 var item_list_page = {}
-$("#item_list").live('pageshow', function() {
+$("#item_list").live('pageinit', function() {
 	item_list_init()
 });
 
