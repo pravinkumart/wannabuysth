@@ -16,7 +16,8 @@ function init_main(){
 }
 
 $("#accounts").bind('pageinit', function() {
-	gopage('home/help')
+	gopage('home/item_list')
+	// gopage('home/help')
 });
 
 $(document).bind('pagebeforechange',function(e,data){ 
