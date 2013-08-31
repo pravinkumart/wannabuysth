@@ -3,7 +3,6 @@ var is_init_main = false;
 $(document).bind('pageinit',function() {
 	if(is_init_main){return false;}
 	is_init_main =true;
-	alert(0)
 	init_main();
 });
 
@@ -17,11 +16,10 @@ function init_main(){
 			me_event(me_data)
 		
 	})
-	// $('.header_b').live('tap',function(){
-		// $.mobile.back();
-		// return false;
-	// })
-	$('.header_b a').unbind('tap');
+	$('.header_b').live('tap',function(){
+		$.mobile.back();
+		return false;
+	})
 }
 
 $("#accounts").bind('pageinit', function() {
