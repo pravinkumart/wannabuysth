@@ -23,7 +23,7 @@ function init_main(){
 }
 
 $("#accounts").bind('pageinit', function() {
-	gopage('home/second_lv')
+	gopage('home/setings')
 	// gopage('home/help')
 });
 
@@ -35,7 +35,7 @@ function gopage(page_id){
 	$.mobile.changePage(page_id+'.html',{transition:'slide'})
 }
 
-$("#index").live('pageinit', function() {
+$("#index").live('pageshow', function() {
 	index_init()
 });
 function index_init(){
@@ -54,6 +54,7 @@ function index_init(){
     hScrollbar: false
   });
   index_page.myScroll = myScroll;
+  index_page.myScroll.refresh()
 }
 
 //首页类型数据填充
@@ -79,7 +80,7 @@ function regedit_ok(){
 /*  二级分类 */
 var second_lv_page = {}
 
-$("#second_lv").live('pageinit', function() {
+$("#second_lv").live('pageshow', function() {
 	second_lv_init()
 });
 
@@ -131,7 +132,7 @@ function second_lv_init(){
 
 /* 商品列表 */
 var item_list_page = {}
-$("#item_list").live('pageinit', function() {
+$("#item_list").live('pageshow', function() {
 	item_list_init()
 });
 
@@ -181,3 +182,53 @@ function item_list_init(){
   item_list_page.myScroll = myScroll;
 }
 
+/* 购买列表 */
+var sell_list_page = {}
+$("#sell_list").live('pageshow', function() {
+	sell_list_init()
+});
+
+
+function sell_list_init(){
+  if(sell_list_page.myScroll){
+  		sell_list_page.myScroll.destroy();
+  	}
+  function pullUpAction () {
+  	setTimeout(function(){
+		$('.thelist').append($('.thelist li').eq(0).clone())
+		myScroll.refresh();	
+		  		
+  	},3000)
+	}
+  var pullUpEl = document.getElementById('pullUp');	
+  var pullUpOffset = pullUpEl.offsetHeight;
+	
+  var myScroll = new iScroll('sell_list_wrapper',{
+  		useTransition: true,
+		onRefresh: function () {
+			if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'flip';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}
+  });
+  sell_list_page.myScroll = myScroll;
+}

@@ -10,6 +10,8 @@ body.body {
 	min-width:320px;
 }
 
+.header_m h1{font-size: 20px;}
+
 .ui-body-c{background:none;}
 
 .ui-bar-me {
@@ -40,6 +42,7 @@ body.body {
 .tc{text-align:center;}
 .tr{text-align:right;}
 
+.f0{font-size: 0;}
 .f12{font-size: 12px;}
 .f14{font-size: 14px;}
 .f16{font-size: 16px;}
@@ -207,8 +210,13 @@ textarea,input{
     -webkit-appearance: none; 
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-user-modify: read-write-plaintext-only; 
+    resize: none;
 }
 
+
+textarea::-moz-placeholder{
+	line-height: 80px;
+}
 .username_icon{
 	width: 80px;
 	background:url("../images/regedit.png") no-repeat center center;
@@ -349,6 +357,7 @@ textarea,input{
 	
 }
 .blank0{width: 100%;height: 0;clear: both;}
+.blank15{width: 100%;height: 15px;clear: both;}
 
 
 /* 二级分类  */
@@ -441,5 +450,52 @@ textarea,input{
 
 #item_list_wrapper .scroller li {
 	
+}
+
+/* 提供报价 */
+
+.me_field {
+	border: 2px solid #d4d4d4;
+	background-color: #FFFFFF;
+}
+.me_list {
+	border: 1px solid #d4d4d4;
+	background-color: #FFFFFF;
+}
+.me_field .field_msg{
+	text-align:center;
+	width: 100px;	
+	color:#888888;
+	height: 100%;
+	border:1px solid #FFFFFF;
+}
+.me_field .field_msg div{
+	border-right: 2px solid #d4d4d4;
+	margin-top: 15px;
+}
+
+
+textarea::-webkit-input-placeholder {
+    line-height: 80px;
+}
+
+.go_grey {
+	background:url('../images/go_grey.png') no-repeat center center;
+	width: 28px;
+	height: 28px;
+}
+
+/* 购买 */
+#sell_list_wrapper {
+	position:absolute;
+	top: 172px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow:hidden;
+}
+
+#sell_list_wrapper .item div {
+	width: 50px;
 }
 
