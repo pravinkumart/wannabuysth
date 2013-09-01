@@ -23,7 +23,7 @@ function init_main(){
 }
 
 $("#accounts").bind('pageinit', function() {
-	gopage('home/setings')
+	gopage('home/my_keeper')
 	// gopage('home/help')
 });
 
