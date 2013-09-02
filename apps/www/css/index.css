@@ -278,10 +278,11 @@ textarea::-moz-placeholder{
 .bg3{background-color:#eaeaea;}
 
 .col1{color: #fff;}
-.col2{color: #e74c3c;}
+.col2{color: #E74C3C;}
 .col3{color:#9f9f9f;}
 .col4{color:#333333;}
 .col5{color:#555555;}
+.col6{color:#666666;}
 .t_line{text-decoration:line-through}
 
 .fl{float:left;}
