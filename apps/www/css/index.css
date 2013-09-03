@@ -48,7 +48,7 @@ body.body {
 .f16{font-size: 16px;}
 .f18{font-size: 18px;}
 .f24{font-size:24px;}
-
+.f30{font-size: 30px;}
 
 .ui-bar-a {text-shadow :0 -1px 1px #E64C65;}
 .box_flex1{ -webkit-box-flex: 1;-moz-box-flex:1; }
@@ -212,7 +212,17 @@ textarea,input{
     -webkit-user-modify: read-write-plaintext-only; 
     resize: none;
 }
-
+.button_01{
+	height: 20px;
+	width: 72px;
+	font-size:18px;
+	padding: 5px 10px;
+	line-height: 20px;
+	background-color: #E74C3C;
+	color: #FFFFFF;
+	text-align: center;
+	border-radius: 5px;
+}
 
 textarea::-moz-placeholder{
 	line-height: 80px;
@@ -260,6 +270,8 @@ textarea::-moz-placeholder{
 	  padding-right: 20px;
 }
 
+.pad10{padding:10px;}
+
 .padl_15{padding-left: 15px;}
 .padr_15{padding-right: 15px;}
 .padt_15{padding-top: 15px;}
@@ -269,6 +281,10 @@ textarea::-moz-placeholder{
 .padt_5{padding-top: 5px;}
 .padt_2{padding-top:2px;}
 
+.mart1{margin-top:1px;}
+.marr1{margin-right:1px;}
+.marr_5{margin-right:5px;}
+
 .marr_10{margin-right:10px;}
 .mart_10{margin-top: 10px;}
 
@@ -277,12 +293,13 @@ textarea::-moz-placeholder{
 .bg2{background-color:#333333;}
 .bg3{background-color:#eaeaea;}
 
-.col1{color: #fff;}
-.col2{color: #E74C3C;}
+.col1{color:#FFFFFF;}
+.col2{color:#E74C3C;}
 .col3{color:#9f9f9f;}
 .col4{color:#333333;}
 .col5{color:#555555;}
 .col6{color:#666666;}
+.col7{color:#75B953;}
 .t_line{text-decoration:line-through}
 
 .fl{float:left;}
@@ -292,8 +309,9 @@ textarea::-moz-placeholder{
 .line_top {border-top:1px solid #D4D4D4}
 .line_top2 {border-top:2px solid #D4D4D4}
 .show_on{display:block;width: 80px;height: 38px;border-bottom: 2px solid #75B953; margin: 0 auto;}
-
-
+.pt_bom {position:absolute;left: 0;bottom: 0}
+.sham_line {background:url("../images/sham_line.png") repeat-x ;height: 2px; background-size:320px 2px; background-position: -10px 0;}
+.footer{height: 50px;position:absolute;left: 0;bottom: 0;background-color: #2c2c2c;width: 100%;z-index: 100;}
 /**
  *
  * Pull down styles
@@ -346,10 +364,10 @@ textarea::-moz-placeholder{
 #item_detail {background-color:#F6F6F6;}
 #item_detail .item_p{height:45px;}
 
-#item_detail .item_p_b{width: 65px;}
+#item_detail .item_p_b{width: 80px;}
 #item_detail .item_p_m{}
 #item_detail .item_p_a{width:100px;}
-#item_detail .item_p_a div{
+#item_detail .item_p_a .ok{
 	width: 95px;height: 40px;line-height: 40px;float: right
 }
 #item_detail .detail{
@@ -493,7 +511,7 @@ textarea::-webkit-input-placeholder {
 #sell_list_wrapper {
 	position:absolute;
 	top: 172px;
-	bottom: 0;
+	bottom: 50px;
 	left: 0;
 	width: 100%;
 	overflow:hidden;
@@ -530,4 +548,39 @@ textarea::-webkit-input-placeholder {
 .price_on{
 	background-color: #75b953;
 	color:#fff;
+}
+
+/*  */
+.reply_list{
+	padding:20px;
+	
+}
+.reply_item{padding: 10px 0;}
+
+
+/* 管一管  */
+
+#history_list_wrapper {
+	position: absolute;
+	top: 82px;
+	left: 0;
+	width: 100%;
+	bottom: 50px;
+	overflow:hidden;
+}
+
+#history_list_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#history_list_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
 }

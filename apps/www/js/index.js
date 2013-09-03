@@ -232,3 +232,55 @@ function sell_list_init(){
   });
   sell_list_page.myScroll = myScroll;
 }
+
+
+/* 管一管 */
+var history_list_page = {}
+$("#history_list").live('pageshow', function() {
+	history_list_init()
+});
+
+
+function history_list_init(){
+  if(history_list_page.myScroll){
+  		history_list_page.myScroll.destroy();
+  	}
+  function pullUpAction () {
+  	setTimeout(function(){
+		$('.thelist').append($('.thelist li').eq(0).clone())
+		myScroll.refresh();	
+		  		
+  	},3000)
+	}
+  var pullUpEl = document.getElementById('pullUp');	
+  var pullUpOffset = pullUpEl.offsetHeight;
+	
+  var myScroll = new iScroll('history_list_wrapper',{
+  		useTransition: true,
+		onRefresh: function () {
+			if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'flip';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}
+  });
+  history_list_page.myScroll = myScroll;
+}
