@@ -385,6 +385,7 @@ textarea::-moz-placeholder{
 	
 }
 .blank0{width: 100%;height: 0;clear: both;}
+.blank5{width: 100%;height: 5px;clear: both;}
 .blank10{width: 100%;height: 10px;clear: both;}
 .blank15{width: 100%;height: 15px;clear: both;}
 
@@ -424,7 +425,7 @@ textarea::-moz-placeholder{
 }
 
 #wrapper_second_lv li .horizontal {
-	margin-top: 15px;
+	margin-top: 7px;
 	height: 40px;
 	line-height: 40px;
 }

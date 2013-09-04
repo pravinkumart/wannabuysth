@@ -23,7 +23,7 @@ function init_main(){
 }
 
 $("#accounts").bind('pageinit', function() {
-	gopage('home/personal')
+	gopage('home/bijia')
 	// gopage('home/help')
 });
 
