@@ -196,13 +196,20 @@ body.body {
 .username,.password {
 	height: 50px;
 	vertical-align: middle;
-	color: #999999;
+	
 	background-color:#FFFFFF;
 	border: 0px solid;
 	width: 100%;
 	imeMode:disable;
 	font-size:18px;
 	
+}
+.clear_but{
+	background: url('../images/clear.png') no-repeat center center;
+	background-size:16px 16px;
+	width: 16px;
+	height: 16px;
+	margin-top: 16px;
 }
 input,button,select,textarea{outline:none}
 textarea,input{ 
@@ -584,3 +591,37 @@ textarea::-webkit-input-placeholder {
 	width:100%;
 	text-align:left;
 }
+
+
+.search_icon {
+	width: 32px;
+	height: 32px;
+	background: url("../images/search.png") no-repeat 0 5px;
+	background-size: 32px;
+}
+
+.check_del{
+	text-align: center;
+    background-color: #797979;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    font-size: 13px;
+    height: 25px;
+    left: 0;
+    line-height: 25px;
+    padding: 5px 10px;
+    position: absolute;
+    top: 20px;
+    width: 40px;
+}
+
+.check_del.on{
+	background-color: #E74C3C;
+    color: #FFFFFF;
+}
+
+
+
+
+
+
