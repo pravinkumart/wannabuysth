@@ -8,6 +8,7 @@ $(document).bind('pageinit',function() {
 
 function init_main(){
 	$('.me_tap').live('tap',function(){
+		$.mobile.showPageLoadingMsg();
 		var obj = $(this);
 		var me_event = obj.attr('me_event');
 		var me_data = obj.attr('me_data');
@@ -17,6 +18,7 @@ function init_main(){
 		
 	})
 	$('.header_b').live('tap',function(){
+		$.mobile.showPageLoadingMsg();
 		$.mobile.back();
 		return false;
 	})
@@ -27,9 +29,9 @@ $("#accounts").bind('pageinit', function() {
 	// gopage('home/help')
 });
 
-$(document).bind('pagebeforechange',function(e,data){ 
-	console.log(e)
-}); 
+// $(document).bind('pagebeforechange',function(e,data){ 
+	// console.log(e)
+// }); 
 
 function gopage(page_id){
 	$.mobile.changePage(page_id+'.html',{transition:'slide'})
