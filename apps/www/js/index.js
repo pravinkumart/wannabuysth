@@ -18,7 +18,6 @@ function init_main(){
 		
 	})
 	$('.header_b').live('tap',function(){
-		$.mobile.showPageLoadingMsg();
 		$.mobile.back();
 		return false;
 	})
