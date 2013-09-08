@@ -36,6 +36,11 @@ body.body {
 	display:inline-block;
 }
 
+.header_b.on .back{
+	background:url("../images/back_on_icon.png") no-repeat 0 0;
+	background-size:32px 32px;
+	display:inline-block;
+}
 
 .fb{font-weight: bold;}
 .tl{text-align:left;}

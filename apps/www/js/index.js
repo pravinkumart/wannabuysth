@@ -39,8 +39,8 @@ function init_main(){
 		
 	})
 	$('.header_b').live('fastClick',function(){
-		$.mobile.loading('show', {text : 'test', theme : 'a'});
 		if($(this).hasClass('on')){return false;}
+		$.mobile.loading('show', {text : 'test', theme : 'a'});
 		$(this).addClass('on');
 		if(pre_domin){
 			gopage(pre_domin);
