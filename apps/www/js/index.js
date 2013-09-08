@@ -7,6 +7,8 @@ $(document).bind('pagechangefailed',function(){
 	$('.header_b').removeClass('on');
 	if(!confirm('网络获取失败，是否使用本地数据?')){return false;}
 	www = '';
+	gopage('home/accounts');
+	
 });
 $(document).bind('pageinit',function() {
 	$.mobile.allowCrossDomainPages=true;
@@ -14,13 +16,7 @@ $(document).bind('pageinit',function() {
 	is_init_main =true;
 	init_main();
 });
-$(document).bind('pageshow',function(e) {
-	var obj = $(e.target);
-	if(obj.id == 'accounts'&&pre_domin=='pre_domin'){
-		pre_domin= ''
-	}
-	
-});
+
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -55,7 +51,7 @@ function init_main(){
 	})
 }
 
-$("#loading").bind('pageshow', function() {
+$("#loading").live('pageshow', function() {
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	pre_domin = 'accounts'
 	if(www){
@@ -63,12 +59,16 @@ $("#loading").bind('pageshow', function() {
 	}else{
 		gopage('home/help');
 	}
-	// gopage('home/help')
 });
 
-// $(document).bind('pagebeforechange',function(e,data){ 
-	// console.log(e)
-// }); 
+$('#accounts').live('pageshow',function() {
+	
+	if(pre_domin== 'accounts'){
+		pre_domin = '';
+	}
+	
+});
+
 function getPicture(){
 	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
 	    destinationType: Camera.DestinationType.DATA_URL
