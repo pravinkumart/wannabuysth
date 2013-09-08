@@ -12,23 +12,15 @@
 		<script type="text/javascript" src="common/jquerymobile.js"></script>
 		<script type="text/javascript" src="common/iscroll.js"></script>
 		<script type="text/javascript" src="common/cordova.js"></script>
-		<script src="http://192.168.1.251:8080/target/target-script-min.js#cordova"></script>
+		<script type="text/javascript" src="common/fastbutton.js"></script>
+		<script type="text/javascript" src="common/jquery_ext_fastbutton.js"></script>
+		<script type="text/javascript" src="http://192.168.1.251:8080/target/target-script-min.js#anonymous"></script>
 	</head>
 	<body class="body">
-		<div data-role="page" id="accounts">
-			<div style="color:#fff;height: 100%;width: 100%;position:absolute;top:0;left: 0;" class="tc fb f24 me_tap"  me_event="gopage" me_data='home/index' >
-				<img src="images/logo.png" width="170" style="margin-top: 130px;" />
+		<div data-role="page" id="loading">
+			<div class="tc padt_15">
+				loading........
 			</div>
-			<div style="position: absolute;left: 0;bottom: 0;z-index: 5;width: 100%;" >
-				<div style="height: 112px;line-height: 112px;" class="horizontal">
-					<div style="background-color: red;color:#fff; width: 50px;"  class="tc fb box_flex1  f18 me_tap" me_event="gopage" me_data='home/login' >
-						登录
-					</div>
-					<div style="background-color:#fff;color: red; width: 50px;" class="tc fb box_flex1 f18 me_tap" me_event="gopage" me_data='home/regedit' >
-						注册
-					</div>
-				</div>
-		    </div>
 		</div>
 		<script type="text/javascript" src="js/index.js"></script>
 	</body>

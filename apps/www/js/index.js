@@ -1,14 +1,28 @@
+var www = 'http://192.168.1.251:8000/';
 var index_page = {};
 var is_init_main = false;
+var pre_domin = ''; //强制指定后退回到的页面
+//$.mobile.changePage($.mobile.activePage.jqmData('url'),{reloadPage :true});
+//jQuery( ".selector" ).on( "pagechangefailed", function( event ) { ... } )
 $(document).bind('pageinit',function() {
+	$.mobile.allowCrossDomainPages=true;
 	if(is_init_main){return false;}
 	is_init_main =true;
 	init_main();
 });
 
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+	window.device.overrideBackButton();
+	document.addEventListener("backbutton", function(){
+		if(!confirm('是否退出?')){return false;}
+		window.device.exitApp();
+	}, false);
+}
+
+//全局init
 function init_main(){
-	$('.me_tap').live('tap',function(){
-		$.mobile.showPageLoadingMsg();
+	$('.me_tap').live('fastClick',function(){
 		var obj = $(this);
 		var me_event = obj.attr('me_event');
 		var me_data = obj.attr('me_data');
@@ -17,23 +31,52 @@ function init_main(){
 			me_event(me_data)
 		
 	})
-	$('.header_b').live('tap',function(){
-		$.mobile.back();
+	$('.header_b').live('fastClick',function(){
+		$.mobile.loading('show', {text : 'test', theme : 'a'});
+		if(pre_domin){
+			gopage(pre_domin);
+			pre_domin = '';
+		}else{
+			$.mobile.back();
+		}
 		return false;
 	})
 }
 
-$("#accounts").bind('pageinit', function() {
-	gopage('home/bijia')
+$("#loading").bind('pageshow', function() {
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	pre_domin = 'accounts'
+	gopage('help')
 	// gopage('home/help')
 });
 
 // $(document).bind('pagebeforechange',function(e,data){ 
 	// console.log(e)
 // }); 
+function getPicture(){
+	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+	    destinationType: Camera.DestinationType.DATA_URL
+	});
+}
 
-function gopage(page_id){
-	$.mobile.changePage(page_id+'.html',{transition:'slide'})
+function onSuccess(imageData) {
+    var image = document.getElementById('myImage');
+    image.src = "data:image/jpeg;base64," + imageData;
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
+
+
+function gopage(page_id,changeHash){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	if(page_id.indexOf('home')==-1){
+		page_id = 'home/'+page_id
+	}
+	$.mobile.changePage(www+page_id+'.html?v='+(new Date()).getTime(),{
+			transition:'slide'
+		})
 }
 
 $("#index").live('pageshow', function() {

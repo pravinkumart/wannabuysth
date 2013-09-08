@@ -13,11 +13,11 @@
 	<div data-role="content" >
 		<div class="me_list f0">
 			<div class="horizontal f18" style="height: 80px; overflow:hidden;">
-				<div class="field_msg padl_15 col4 fb" style="line-height: 80px; width: 100px;">
+				<div class="field_msg padl_15 col4 fb me_tap" me_event="getPicture" me_data="" style="line-height: 80px; width: 100px;">
 					头像
 				</div>
 				<div class="box_flex1 bg1 padl_15 tr">
-					<img src="../data/portrait.jpg" class="mart_10  padr_15" width="60" height="60" />
+					<img src="../data/portrait.jpg" id="myImage"  class="mart_10  padr_15" width="60" height="60" />
 				</div>
 				<div style="overflow:hidden;width: 40px;">
 					<div  class="go_grey" style="margin-top: 30px;" ></div>
@@ -59,8 +59,8 @@
 			</div>
 		</div>
 	</div>
-	<div  class="info_list horizontal" style="position:absolute;left: 0;bottom: 0;">
-		<div class="login box_flex3 tc br_5 f18"  style="margin-left: 10px;margin-right: 10px;margin-bottom: 10px;">
+	<div  style="position:absolute;left: 0;bottom: 0; width: 100%;">
+		<div class="login  info_list tc br_5 f18"  style="margin: 15px;">
 			注销登录
 		</div>
 	</div>
