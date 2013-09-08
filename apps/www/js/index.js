@@ -3,12 +3,23 @@ var index_page = {};
 var is_init_main = false;
 var pre_domin = ''; //强制指定后退回到的页面
 //$.mobile.changePage($.mobile.activePage.jqmData('url'),{reloadPage :true});
-//jQuery( ".selector" ).on( "pagechangefailed", function( event ) { ... } )
+$(document).bind('pagechangefailed',function(){
+	$('.header_b').removeClass('on');
+	if(!confirm('网络获取失败，是否使用本地数据?')){return false;}
+	www = '';
+});
 $(document).bind('pageinit',function() {
 	$.mobile.allowCrossDomainPages=true;
 	if(is_init_main){return false;}
 	is_init_main =true;
 	init_main();
+});
+$(document).bind('pageshow',function(e) {
+	var obj = $(e.target);
+	if(obj.id == 'accounts'&&pre_domin=='pre_domin'){
+		pre_domin= ''
+	}
+	
 });
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -33,9 +44,10 @@ function init_main(){
 	})
 	$('.header_b').live('fastClick',function(){
 		$.mobile.loading('show', {text : 'test', theme : 'a'});
+		if($(this).hasClass('on')){return false;}
+		$(this).addClass('on');
 		if(pre_domin){
 			gopage(pre_domin);
-			pre_domin = '';
 		}else{
 			$.mobile.back();
 		}
@@ -46,7 +58,11 @@ function init_main(){
 $("#loading").bind('pageshow', function() {
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	pre_domin = 'accounts'
-	gopage('help')
+	if(www){
+		gopage('help');
+	}else{
+		gopage('home/help');
+	}
 	// gopage('home/help')
 });
 
@@ -71,7 +87,7 @@ function onFail(message) {
 
 function gopage(page_id,changeHash){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	if(page_id.indexOf('home')==-1){
+	if(page_id.indexOf('home')==-1&&www){
 		page_id = 'home/'+page_id
 	}
 	$.mobile.changePage(www+page_id+'.html?v='+(new Date()).getTime(),{
@@ -108,10 +124,7 @@ function get_index_types_data(){
 	
 }
 
-function accounts_init(){
-	$('.vertical').height($(window).height());
-	
-}
+
 
 function login_ok(){
 	alert('....')
