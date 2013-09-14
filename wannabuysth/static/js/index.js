@@ -53,6 +53,8 @@ function init_main(){
 
 $("#loading").live('pageshow', function() {
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	gopage('home/accounts');
+	return 
 	pre_domin = 'accounts'
 	if(www){
 		gopage('help');
@@ -124,13 +126,31 @@ function get_index_types_data(){
 	
 }
 
-
-
 function login_ok(){
-	alert('....')
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	var data = $('#login_form').serializeArray();
+	$.post('/home/login_do',data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('登录成功!')
+			gopage('index');
+		}else{
+			alert(datas.erro)
+		}
+	})
 }
 function regedit_ok(){
-	alert('.....')
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	var data = $('#regedit_form').serializeArray();
+	$.post('/home/regedit_do',data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('注册成功!')
+			gopage('index');
+		}else{
+			alert(datas.erro)
+		}
+	})
 }
 
 

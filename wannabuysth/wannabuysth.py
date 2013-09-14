@@ -1,11 +1,12 @@
-from flask import Flask
+# -*- coding: UTF-8 -*-
+from flask import Flask, session, g
 from flask.ext.script import Manager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-import settings
 from utils import print_debug
-from models import *
 from home.views import index
+from models import Customer
+import settings
 
 app = Flask(__name__)
 manage = Manager(app)
@@ -43,6 +44,16 @@ def test():
     db.flush()
     db.commit()
     print "done"
+
+@app.before_request
+def before_request():
+    """
+    """
+    g.db = Session()
+    #用户登陆信息加载
+    user_id = session.get('user_id', None)
+    g.user = Customer(name=user_id) if user_id else None
+
 
 if __name__ == '__main__':
     manage.run()
