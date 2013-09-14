@@ -6,8 +6,11 @@ from tempfile import NamedTemporaryFile
 from flask import Blueprint, render_template, abort, g, request
 from flask import redirect, url_for, session, flash, send_file
 from flask import jsonify
-from models import Customer
 import time
+from models import Customer
+from models import Catalog
+from models import SubCataog
+from models import Product
 
 
 index = Blueprint('home', __name__, template_folder='templates', url_prefix='/home')
@@ -20,6 +23,7 @@ def help():
 
 @index.route("/accounts")
 def accounts():
+    return redirect(url_for("home.home_index"))
     return render_template("accounts.html", **locals())
 
 @index.route("/regedit")
@@ -90,3 +94,37 @@ def login_do():
 @index.route("/forget")
 def forget():
     return render_template("forget.html", **locals())
+
+
+@index.route("/index")
+def home_index():
+    catalogs = g.db.query(Catalog)
+    total = catalogs.count()
+    catalog_list = [catalogs[i:(i + 7)] for i in range(0, total, 7)]
+    return render_template("index.html", **locals())
+
+
+@index.route("/second_lv/<catalog_id>/")
+def second_lv(catalog_id):
+    sort_type = int(request.args.get("sort_type", '0'))
+    catalog = g.db.query(Catalog).filter(Catalog.id == catalog_id).first()
+    if catalog:
+        datas = g.db.query(SubCataog).filter(SubCataog.catalog == catalog)
+        if sort_type == 1:
+            datas = datas.order_by(SubCataog.name)
+        total = datas.count()
+        catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
+    return render_template("second_lv.html", **locals())
+
+
+@index.route("/item_list/<catalog_id>/")
+def item_list(catalog_id):
+    sort_type = int(request.args.get("sort_type", '0'))
+    catalog = g.db.query(SubCataog).filter(SubCataog.id == catalog_id).first()
+    if catalog:
+        datas = g.db.query(Product).filter(Product.catalog == catalog)
+        if sort_type:
+            datas = datas.order_by(Product.show_fee)
+        else:
+            datas = datas.order_by(Product.show_fee)
+    return render_template("item_list.html", **locals())

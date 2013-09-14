@@ -5,21 +5,34 @@
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>教育</h1>
+				<h1>{{ catalog.name }}</h1>
 			</div>
 			<div class="header_a"></div>
 		</div>
 	</div>
 	<div style="height: 40px;line-height: 40px;" class="horizontal col4 f18 bg1 fb tc">
 		<div style="width: 50%;" class="box_flex1">
-			<span class="show_on" style="width: 130px">
-				价格从高到底<img src="../images/down.png" />
-			</span>
+			{% if sort_type == 0 %}
+				<span class="show_on" style="width: 130px">
+					价格从高到底<img src="../images/down.png" />
+				</span>
+			{% else %}
+				<span class="me_tap " style="width: 130px" me_event="gopage" me_data="item_list/{{ catalog.id }}/">
+					价格从高到底<img src="../images/down.png" />
+				</span>
+			{% endif %}
+			
 		</div>
 		<div style="width: 50%;" class="box_flex1">
-			<span>
-				价格从低到高<img src="../images/up.png" />
-			</span>
+			{% if sort_type == 1 %}
+				<span class="show_on" style="width: 130px">
+					价格从低到高<img src="../images/down.png" />
+				</span>
+			{% else %}
+				<span class="me_tap " style="width: 130px" me_event="gopage" me_data="item_list/{{ catalog.id }}/?sort_type=1">
+					价格从低到高<img src="../images/down.png" />
+				</span>
+			{% endif %}
 		</div>
 	</div>
 	<div id="item_list_wrapper">
@@ -27,7 +40,7 @@
 		<ul class="thelist item_list">
 			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -41,7 +54,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -55,7 +68,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -69,7 +82,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -83,7 +96,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -97,7 +110,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -111,7 +124,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>
@@ -125,7 +138,7 @@
 			</li>
 			<li class="item horizontal">
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="/static/data/item_img.png" />
 				</div>
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">2012岁末考试直通车</div>

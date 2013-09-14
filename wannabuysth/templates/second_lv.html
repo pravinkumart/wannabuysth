@@ -5,7 +5,7 @@
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>教育</h1>
+				<h1>{{ catalog.name }}</h1>
 			</div>
 			<div class="header_a ">
 				<div class="search_icon me_tap" style="margin-left: 30px;margin-top: 15px;"  me_event="gopage" me_data='search_type'></div>
@@ -14,80 +14,46 @@
 	</div>
 	<div style="height: 40px;line-height: 40px;" class="horizontal col4 f18 bg1 fb tc">
 		<div style="width: 50%;" class="box_flex1">
-			<span class="show_on">按人气</span>
+			{% if sort_type == 0 %}
+				<span class="show_on">按人气</span>
+			{% else %}
+				<span class="me_tap"  me_event="gopage" me_data="second_lv/{{ catalog.id }}/" >按人气</span>
+			{% endif %}
 		</div>
 		<div style="width: 50%;" class="box_flex1">
-			<span>按字母</span>
+			{% if sort_type == 1 %}
+				<span class="show_on">按字母</span>
+			{% else %}
+				<span class="me_tap"  me_event="gopage" me_data="second_lv/{{ catalog.id }}/?sort_type=1" >按字母</span>
+			{% endif %}
 		</div>
 	</div>
 		
 	<div id="wrapper_second_lv" class="line_top">
 		  <div class="scroller">
+		    {% if total > 0 %}
 		    <ul class="thelist">
+		    	{% for catalogs in catalog_list %}
 		      <li>
 		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
+		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list/{{ catalogs.0.id }}' >{{ catalogs.0.name }}</div>
+		      		{% if  catalogs.1 %}
+		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list/{{ catalogs.0.id }}' >{{ catalogs.1.name }}</div>
+		      		{% else %}
+					<div class="box_flex1 "  style="background:none;" ></div>
+		      		{% endif %}
+		      		
 		      	</div>
 		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐1</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画</div>
-		      	</div>
-		      </li>
-		      <li>
-		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list' >音乐</div>
-	      			<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list'>画画22</div>
-		      	</div>
-		      </li>
+		      	{% endfor %}
 		    </ul>
-		    <div id="pullUp" >
+		    <div id="pullUp" class="" style="display:none;" >
 				<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
 			</div>
+		    {% else %}
+		    <div class="blank15"></div>
+		    <div class="tc f30">暂时没有分类</div>
+		    {% endif %}
 		  </div>
 		
 	</div>
