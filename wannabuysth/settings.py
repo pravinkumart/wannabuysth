@@ -12,3 +12,6 @@ else:
     DB_URI = "postgresql+psycopg2://apple:@localhost/mobileapp"
 
 SECRET_KEY = "11556654433221changge!"
+
+
+MEDIA_ROOT = "/static"

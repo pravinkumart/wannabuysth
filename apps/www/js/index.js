@@ -1,13 +1,12 @@
-var www = 'http://192.168.1.251:8000/';
 var index_page = {};
 var is_init_main = false;
 var pre_domin = ''; //强制指定后退回到的页面
 //$.mobile.changePage($.mobile.activePage.jqmData('url'),{reloadPage :true});
 $(document).bind('pagechangefailed',function(){
 	$('.header_b').removeClass('on');
-	if(!confirm('网络获取失败，是否使用本地数据?')){return false;}
-	www = '';
-	gopage('home/accounts');
+	//if(!confirm('网络获取失败，是否使用本地数据?')){return false;}
+	//www = '';
+	//gopage('home/accounts');
 	
 });
 $(document).bind('pageinit',function() {
@@ -52,6 +51,8 @@ function init_main(){
 }
 
 $("#loading").live('pageshow', function() {
+	gopage('home/help');
+	return 
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	pre_domin = 'accounts'
 	if(www){
@@ -90,7 +91,7 @@ function gopage(page_id,changeHash){
 	if(page_id.indexOf('home')==-1&&www){
 		page_id = 'home/'+page_id
 	}
-	$.mobile.changePage(www+page_id+'.html?v='+(new Date()).getTime(),{
+	$.mobile.changePage(www+page_id+'?v='+(new Date()).getTime(),{
 			transition:'slide'
 		})
 }

@@ -1,4 +1,3 @@
-var www = 'http://127.0.0.1:5000/';
 var index_page = {};
 var is_init_main = false;
 var pre_domin = ''; //强制指定后退回到的页面
