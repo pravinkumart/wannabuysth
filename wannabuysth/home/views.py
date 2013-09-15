@@ -11,6 +11,7 @@ from models import Customer
 from models import Catalog
 from models import SubCataog
 from models import Product
+from models import Requirment
 
 
 index = Blueprint('home', __name__, template_folder='templates', url_prefix='/home')
@@ -23,7 +24,7 @@ def help():
 
 @index.route("/accounts")
 def accounts():
-    return redirect(url_for("home.home_index"))
+#    return redirect(url_for("home.home_index"))
     return render_template("accounts.html", **locals())
 
 @index.route("/regedit")
@@ -72,6 +73,7 @@ def regedit_do():
 
 @index.route("/login")
 def login():
+    need_login = request.args.get('need_login', '')
     return render_template("login.html", **locals())
 
 @index.route("/login_do", methods=["POST"])
@@ -100,7 +102,7 @@ def forget():
 def home_index():
     catalogs = g.db.query(Catalog)
     total = catalogs.count()
-    catalog_list = [catalogs[i:(i + 7)] for i in range(0, total, 7)]
+    catalog_list = [catalogs[i:(i + 8)] for i in range(0, total, 8)]
     return render_template("index.html", **locals())
 
 
@@ -135,6 +137,138 @@ def item_detail(item_id):
     sort_type = int(request.args.get("sort_type", '0'))
     item = g.db.query(Product).filter(Product.id == item_id).first()
     return render_template("item_detail.html", **locals())
+
+
+
+
+@index.route("/apply_item/<item_id>/")
+def apply_item(item_id):
+    if not g.user:
+        return redirect(url_for("home.login", need_login="apply_item/%s" % item_id))
+    sort_type = int(request.args.get("sort_type", '0'))
+    item = g.db.query(Product).filter(Product.id == item_id).first()
+    return render_template("apply_item.html", **locals())
+
+
+@index.route("/apply_item_do", methods=["POST"])
+def apply_item_do():
+    import datetime
+    user = g.user
+    result = {'succeed':False, 'erro':''}
+
+    item_id = request.form.get("item_id", '')
+    catalog_id = request.form.get("catalog_id", '')
+
+    descrip = request.form.get("descrip", '')
+    end_time = request.form.get("end_time", '')
+    location = request.form.get("location", '')
+    wanna_fee = request.form.get("wanna_fee", '')
+
+    if not wanna_fee :
+        result['erro'] = '单价输入错误!'
+        return jsonify(result)
+
+    try:
+        wanna_fee = float(wanna_fee)
+    except:
+        result['erro'] = '单价输入错误!'
+        return jsonify(result)
+
+    if not end_time :
+        result['erro'] = '结束时间错误!'
+        return jsonify(result)
+
+    try:
+        end_time = datetime.datetime.strptime(end_time, "%Y-%m-%d")
+    except:
+        result['erro'] = '结束时间错误!'
+        return jsonify(result)
+
+    if not descrip :
+        result['erro'] = '描述不能为空!'
+        return jsonify(result)
+
+    req = Requirment(customer_id=user.id, product_id=item_id, subcataog_id=catalog_id,
+                    wanna_fee=wanna_fee, descrip=descrip, end_time=end_time, location=location,
+                    state=0
+                    )
+    g.db.add(req)
+    g.db.commit()
+    g.db.flush()
+    result = {'succeed':True, 'erro':'%s' % req.id }
+    return jsonify(result)
+
+
+@index.route("/my_keeper")
+def my_keeper():
+    return render_template("my_keeper.html", **locals())
+
+
+
+@index.route("/personal")
+def personal():
+    return render_template("personal.html", **locals())
+
+
+@index.route("/choose_item")
+def choose_item():
+    return render_template("choose_item.html", **locals())
+
+
+@index.route("/choose_list")
+def choose_list():
+    return render_template("choose_list.html", **locals())
+
+
+@index.route("/decide_item")
+def decide_item():
+    return render_template("decide_item.html", **locals())
+
+
+@index.route("/decide_list")
+def decide_list():
+    return render_template("decide_list.html", **locals())
+
+
+@index.route("/history_list")
+def history_list():
+    return render_template("history_list.html", **locals())
+
+
+@index.route("/setings")
+def setings():
+    return render_template("setings.html", **locals())
+
+
+
+@index.route("/update_mobile")
+def update_mobile():
+    return render_template("update_mobile.html", **locals())
+
+
+@index.route("/update_name")
+def update_name():
+    return render_template("update_name.html", **locals())
+
+
+@index.route("/update_password")
+def update_password():
+    return render_template("update_password.html", **locals())
+
+
+@index.route("/sell_list")
+def sell_list():
+    return render_template("sell_list.html", **locals())
+
+@index.route("/bijia")
+def bijia():
+    return render_template("bijia.html", **locals())
+
+
+
+
+
+
 
 
 

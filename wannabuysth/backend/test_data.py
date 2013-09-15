@@ -52,7 +52,7 @@ def init_data():
 def init_product():
     from wannabuysth import Session
     session = Session()
-    mc = Merchant(name='test2', password='test1', mobile='15982150123', pre_payed=20,
+    mc = Merchant(name='test1', password='test1', mobile='15982150123', pre_payed=20,
              credit=10, success_count=10, faild_count=10
              )
     session.add(mc)
@@ -65,7 +65,7 @@ def init_product():
                 pr = Product(catalog_id=s.id, catalog=s, merchant_id=mc.id, merchant=mc,
                         descrip='content %s' % j, acept_fee=random.randint(100, 200),
                         show_fee=random.randint(200, 250), icon_smaill='/static/data/item_img.png',
-                        icon_large='/static/data/item_img.png', view_count=0, success_count=0, title='test %s' % j
+                        icon_large='/static/data/item_img.png', view_count=0, success_count=0, title=u'测试标题 %s' % j
                         )
     session.add(pr)
     session.commit()

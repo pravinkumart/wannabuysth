@@ -96,6 +96,13 @@ class Requirment(Base):
     """
     customer_id = Column(Integer, ForeignKey("customer.id"))             #消费者编号
     customer = relationship("Customer", backref=backref("requirments")) #消费者
+
+    product_id = Column(Integer, ForeignKey("product.id"))
+    product = relationship("Product", backref=backref("reqs"))          #商品或者服务
+
+    subcataog_id = Column(Integer, ForeignKey("subcataog.id"))
+    subcataog = relationship("SubCataog", backref=backref("requirments"))
+
     merchant_id = Column(Integer)                                       #中标商家ID
     wanna_fee = Column(Integer)                                         #心理价位 (单位：分)
     descrip = Column(String(500))                                       #需求描述

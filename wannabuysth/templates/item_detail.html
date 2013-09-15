@@ -24,7 +24,7 @@
 				{{ item.success_count }}人成功交易
 			</div>
 			<div class="item_p_a" style="padding: 2px 0 0 0;">
-				<div class="regedit br_5 fb tc me_tap" style="line-height: 40px;"  me_event="gopage" me_data='apply_item'>
+				<div class="regedit br_5 fb tc me_tap" style="line-height: 40px;"  me_event="gopage" me_data='apply_item/{{ item.id }}'>
 					马上报价
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 	</div>
 	<div class="detail" >
 		<div class="f16 fb col4"></div>
-		<div class="pad15">{{ item.show_fee }}</div>
+		<div class="pad15">{{ item.title }}</div>
 		<div class="content col5 f4">
 			{{ item.descrip }}
 		</div>

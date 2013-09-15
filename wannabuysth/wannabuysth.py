@@ -52,7 +52,9 @@ def before_request():
     g.db = Session()
     #用户登陆信息加载
     user_id = session.get('user_id', None)
-    g.user = Customer(name=user_id) if user_id else None
+    if not user_id:
+        g.user = None
+    g.user = g.db.query(Customer).filter(Customer.name == user_id).first()
 
 @app.teardown_request
 def tear_down(exception=None):
@@ -68,6 +70,10 @@ def tear_down(exception=None):
             g.db.commit()
         g.db.close()
     except Exception, e:
+        try:
+            transaction.abort()
+        except:
+            pass
         print e
 
 

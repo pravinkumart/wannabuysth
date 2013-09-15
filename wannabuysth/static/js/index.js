@@ -130,6 +130,9 @@ function get_index_types_data(){
 	
 	
 }
+$("#login").live('pageshow', function() {
+	window.need_login = $('#need_login_el').val();
+});
 
 function login_ok(){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
@@ -138,7 +141,11 @@ function login_ok(){
 		$.mobile.loading('hide');
 		if(datas.succeed){
 			alert('登录成功!')
-			gopage('index');
+			if(window.need_login){
+				gopage(window.need_login);
+			}else{
+				gopage('index');
+			}
 		}else{
 			alert(datas.erro)
 		}
@@ -151,7 +158,11 @@ function regedit_ok(){
 		$.mobile.loading('hide');
 		if(datas.succeed){
 			alert('注册成功!')
-			gopage('index');
+			if(window.need_login){
+				gopage(window.need_login);
+			}else{
+				gopage('index');
+			}
 		}else{
 			alert(datas.erro)
 		}
@@ -377,4 +388,23 @@ function history_list_init(){
 
 function reload_js(){
 	$.getScript('/static/js/index.js')
+}
+
+function apply_item_ok(id){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	var data = $('#apply_item_form').serializeArray();
+	$.post('/home/apply_item_do',data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('申请成功!')
+			gopage('item_list/'+id)
+		}else{
+			alert(datas.erro)
+		}
+	})
+	
+}
+
+function wating(){
+	alert('功能正在开发中。。')
 }
