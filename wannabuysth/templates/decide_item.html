@@ -5,35 +5,81 @@
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>处理交易</h1>
+				<h1>选商家</h1>
 			</div>
 			<div class="header_a"></div>
 		</div>
 	</div>
 	<div>
-		<img src="../data/item.jpg" width="100%" />
+		<img src="{{ requirment.product.icon_smaill }}" width="100%" />
 	</div>
 	<div class="blank0"></div>
 	<div class="pad15 bg1">
 		<div class="item_p horizontal" >
 			<div class="item_p_b">
 				<div class="f14 col5 fb">市场参考价</div>
-				<div class="col2 pt_bom"><span class="f14 fb">￥</span><span class="f18 fb">478</span></div>
+				<div class="col2 pt_bom"><span class="f14 fb">￥</span><span class="f18 fb">{{ requirment.product.show_fee }}</span></div>
 			</div>
 			<div class="item_p_m box_flex1 col3 fb pr" style="height: 45px;">
 					<span  class="pt_bom">
-						420640人成功交易
+						{{ requirment.product.success_count }} 人成功交易
 					</span>
 			</div>
 			<div class="item_p_a pr" style="height: 45px;">
 				<span class="f14 col5 fb">我的报价</span>
-				<div class="col7 pt_bom" ><span class="f14 col7 fb">￥</span><span class="f18 col7 fb">478</span></div>
+				<div class="col7 pt_bom" ><span class="f14 col7 fb">￥</span><span class="f18 col7 fb">{{ requirment.wanna_fee }}</span></div>
 			</div>
 		</div>
 	</div>
 	<div class="line_top"></div>
-	<div class="reply_list">
-		<div class="col4">处理交易</div>
-		
+	<div class="blank10"></div>
+	<div class="" style="padding: 20px 10px 0 10px; ">
+		<div class="col4">我的需求</div>
+		<div class="blank5"></div>
+		<div class="pad10">{{ requirment.descrip }}</div>
 	</div>
+	{% if replys.count() > 0 %}
+		<div class="reply_list">
+		<div class="col4">回应的商家</div>
+		<div class="blank5"></div>
+			{% for reply in replys %}
+			<div class="reply_item horizontal">
+				<div style="width: 68px;" class="tl">
+					<img width="58" class="me_list" src="/static/data/shop_logo.png">
+				</div>	
+				<div class="box_flex1">
+					<div class="col5">
+						<span class="fb marr_10">{{ reply.merchant.name }}</span>
+						<span class="fr col2 ">出价:￥{{ reply.fee }}</span>
+					</div>
+					<div class="blank5"></div>
+					<div  class="col6 f12 pad10">
+						{{ reply.descrip }}
+					</div>
+					<div class="blank5"></div>
+					<div class=" f0">
+						<div style="width: 80px;" class="fl me_tap" me_event="select_reply" me_data="{{ reply.id }}">
+							<img width="14" class="marr1 mart1 fl" src="/static/images/call.png">
+							<span class="f14 fl">选择此店</span>
+						</div>
+						<div class="blank0"></div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="pad10 f30">没有回复的商家</div>
+	{% endif %}
+	<div class="blank15"></div>
+	<div class="blank15"></div>
+	<div class="blank15"></div>
+	<div class="blank15"></div>
 </div>
+
+
+
+
+
+
+

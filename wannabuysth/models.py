@@ -108,7 +108,7 @@ class Requirment(Base):
     descrip = Column(String(500))                                       #需求描述
     end_time = Column(DateTime)                                         #截止时间
     location = Column(String(200))                                      #服务地点
-    state = Column(SmallInteger)                                        #状态
+    state = Column(SmallInteger)                                        #状态   0  用户新发布   1 用户选定商家  2商家确定  3交易失败  4交易完成
     __table_args__ = (
         Index("customer_requirment_idx", "customer_id", "state"),
     )

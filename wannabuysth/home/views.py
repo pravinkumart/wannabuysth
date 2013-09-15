@@ -11,7 +11,7 @@ from models import Customer
 from models import Catalog
 from models import SubCataog
 from models import Product
-from models import Requirment
+from models import Requirment, Reply
 
 
 index = Blueprint('home', __name__, template_folder='templates', url_prefix='/home')
@@ -190,7 +190,7 @@ def apply_item_do():
 
     req = Requirment(customer_id=user.id, product_id=item_id, subcataog_id=catalog_id,
                     wanna_fee=wanna_fee, descrip=descrip, end_time=end_time, location=location,
-                    state=0
+                    state=1
                     )
     g.db.add(req)
     g.db.commit()
@@ -201,6 +201,9 @@ def apply_item_do():
 
 @index.route("/my_keeper")
 def my_keeper():
+    user = g.user
+    if not user:
+        return redirect(url_for("home.login", need_login="my_keeper/"))
     return render_template("my_keeper.html", **locals())
 
 
@@ -217,21 +220,108 @@ def choose_item():
 
 @index.route("/choose_list")
 def choose_list():
+    user = g.user
+    datas = g.db.query(Requirment).filter(Requirment.customer_id == user.id, Requirment.state == 2)
     return render_template("choose_list.html", **locals())
 
 
-@index.route("/decide_item")
-def decide_item():
+@index.route("/decide_item/<requirment_id>")
+def decide_item(requirment_id):
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.customer_id == user.id,
+                                                Requirment.id == requirment_id).first()
+    if requirment:
+        replys = g.db.query(Reply).filter(Reply.requirment_id == requirment.id)
     return render_template("decide_item.html", **locals())
 
 
 @index.route("/decide_list")
 def decide_list():
+    '''
+    @note: 显示状态为  0 1
+    '''
+    user = g.user
+    datas = g.db.query(Requirment).filter(Requirment.customer_id == user.id, Requirment.state.in_([0, 1]))
     return render_template("decide_list.html", **locals())
 
+@index.route("/admin_list")
+def admin_list():
+    '''
+    '''
+    user = g.user
+    datas = g.db.query(Requirment).filter(Requirment.state != -1)
+    return render_template("admin_list.html", **locals())
+
+
+@index.route("/admin_item/<requirment_id>")
+def admin_item(requirment_id):
+    import random
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.customer_id == user.id,
+                                                Requirment.id == requirment_id).first()
+    if requirment:
+        rc = Reply(requirment_id=requirment.id, merchant_id=1, fee=random.randint(100, 200), descrip=u'自动生成')
+        g.db.add(rc)
+        g.db.commit()
+    return redirect(url_for("home.admin_list"))
+
+@index.route("/select_reply/<reply_id>", methods=["POST"])
+def select_reply_do(reply_id):
+    user = g.user
+    reply = g.db.query(Reply).filter(Reply.id == reply_id).first()
+    if reply:
+        merchant = reply.merchant
+        requirment = reply.requirment
+        requirment.merchant_id = merchant.id
+        requirment.state = 2
+        g.db.add(requirment)
+        g.db.commit()
+    result = {'succeed':True, 'erro':user.name}
+    return jsonify(result)
+
+
+
+@index.route("/choose_f/<reply_id>", methods=["POST"])
+def choose_f(reply_id):
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.id == reply_id).first()
+    requirment.state = 3
+    g.db.add(requirment)
+    g.db.commit()
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
+
+
+@index.route("/choose_s/<reply_id>", methods=["POST"])
+def choose_s(reply_id):
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.id == reply_id).first()
+    requirment.state = 4
+    g.db.add(requirment)
+    g.db.commit()
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
+
+
+@index.route("/choose_d/<reply_id>", methods=["POST"])
+def choose_d(reply_id):
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.id == reply_id).first()
+    requirment.state == -1
+    g.db.add(requirment)
+    g.db.commit()
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
 
 @index.route("/history_list")
 def history_list():
+    user = g.user
+    sort_type = int(request.args.get("sort_type", '0'))
+    datas = g.db.query(Requirment).filter(Requirment.customer_id == user.id, Requirment.state.in_([3, 4]))
+    if sort_type == 0:
+        datas = datas.order_by(Requirment.id)
+    else:
+        datas = datas.order_by(Requirment.wanna_fee)
     return render_template("history_list.html", **locals())
 
 

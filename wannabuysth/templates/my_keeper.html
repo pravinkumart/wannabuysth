@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<div class="blank10"></div>
-		<div class="horizontal" style="height: 80px;">
+		<div class="horizontal me_tap" style="height: 80px;" me_event="wating">
 			<div class="box_flex1 me_list horizontal" style="width: 100px;">
 				<div class="box_flex1" style="width: 100px;">
 					<div style="position:absolute;left: 10px;top: 20px;">
@@ -64,7 +64,7 @@
 		<div class="me_list f0">
 			<div class="horizontal f18 me_tap"  style="overflow:hidden;"  me_event="gopage" me_data='choose_list'>
 				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
-					选商家
+					去交易
 				</div>
 				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
 				</div>
@@ -74,20 +74,7 @@
 			</div>
 			<div class="horizontal line_top f18 me_tap"  style="overflow:hidden;" me_event="gopage" me_data='decide_list'>
 				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
-					去交易
-				</div>
-				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
-				</div>
-				<div style="overflow:hidden;width: 45px;">
-					<div  class="go_grey" style="margin-top: 10px;" ></div>
-				</div>
-			</div>
-		</div>
-		<div class="blank10"></div>
-		<div class="me_list f0">
-			<div class="horizontal f18"  style="overflow:hidden;">
-				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
-					看评价
+					选商家
 				</div>
 				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
 				</div>
@@ -109,7 +96,34 @@
 				</div>
 			</div>
 		</div>
-		
+		<div class="blank10"></div>
+		<div class="me_list f0">
+			<div class="horizontal f18 me_tap"  style="overflow:hidden;" me_event="wating">
+				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
+					看评价
+				</div>
+				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
+				</div>
+				<div style="overflow:hidden;width: 45px;">
+					<div  class="go_grey" style="margin-top: 10px;" ></div>
+				</div>
+			</div>
+		</div>
+		{% if user.mobile == '15982150122' %}
+		<div class="blank10"></div>
+		<div class="me_list f0">
+			<div class="horizontal f18 me_tap"  style="overflow:hidden;" me_event="gopage" me_data='admin_list'>
+				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
+					admin
+				</div>
+				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
+				</div>
+				<div style="overflow:hidden;width: 45px;">
+					<div  class="go_grey" style="margin-top: 10px;" ></div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
 	</div>
 	
 

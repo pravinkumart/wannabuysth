@@ -12,91 +12,61 @@
 	</div>
 	<div style="height: 40px;line-height: 40px;" class="horizontal col4 f18 bg1 fb tc">
 		<div style="width: 50%;" class="box_flex1">
+			{% if sort_type == 0 %}
 			<span class="show_on">按时间</span>
+			{% else %}
+			<span class="me_tap" me_event="gopage" me_data="history_list">按时间</span>
+			{% endif %}
 		</div>
 		<div style="width: 50%;" class="box_flex1">
-			<span>按价格</span>
+			{% if sort_type == 1 %}
+			<span class="show_on">按价格</span>
+			{% else %}
+			<span class="me_tap" me_event="gopage" me_data="history_list?sort_type=1" >按价格</span>
+			{% endif %}
 		</div>
 	</div>
 	<div id="history_list_wrapper">
 		<div class="scroller">
+		{% if datas.count() %}
 		<ul class="thelist item_list">
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
+			{% for data in datas %}
+			<li class="item horizontal" >
 				<div class="item_img">
-					<img src="../data/item_img.png" />
+					<img src="{{ data.product.icon_smaill }}" />
 				</div>
 				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
+					<div class="fb padt_10">{{ data.product.title }}</div>
 					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
+						<div class="fl f18 col2 padt_2">￥{{ data.product.show_fee }}</div>
+						<div class="fl f16 col3 t_line padt_5">￥{{ data.product.acept_fee }}</div>
 						<div class="blank0"></div>
 					</div>
 				</div>
-				<div style="width: 100px" class="pr">
-					<div  class="check_del">
-						不可删
-					</div>
+				<div class="" style="width: 110px;padding:10px;">
+					{% if data.state == 3 %}
+						<p class="f18">交易失败</p>
+					{% endif %}
+					{% if data.state == 4 %}
+						<p class="f18">成功交易</p>
+					{% endif %}
+					
+				</div>
+				<div class="" style="width: 110px;padding: 10px;">
+					{% if data.state == 3 %}
+					<div class="tc br_5  regedit  f18 me_tap" style="padding: 5px;" me_event="choose_d" me_data="{{ data.id }}"  >删除</div>
+					{% endif %}
 				</div>
 			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="../data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-				<div style="width: 100px" class="pr">
-					<div  class="check_del on">
-						可删
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img">
-					<img src="../data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-				<div style="width: 100px" class="pr">
-					<div  class="check_del">
-						不可删
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="../data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-				<div style="width: 100px" class="pr">
-					<div  class="check_del on">
-						可删
-					</div>
-				</div>
-			</li>
+			{% endfor %}
 		</ul>
-		<div id="pullUp">
+		<div id="pullUp" style="display:none;">
 			<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
 		</div>
+		{% else %}
+		<div class="f30 tc">没有需要管理的交易</div>
+		{% endif %}
+		
 		</div>
 	</div>
 	<div class="footer" style="overflow:hidden">

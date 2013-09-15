@@ -1,21 +1,21 @@
-<div data-role="page" id="choose_list" class="bg">
+<div data-role="page" id="decide_list" class="bg">
 	<div data-role="header"  data-theme="me">
 		<div class="horizontal">
 			<div class="header_b">
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>交易</h1>
+				<h1>admin</h1>
 			</div>
 			<div class="header_a"></div>
 		</div>
 	</div>
-	<div id="choose_list_wrapper">
+	<div id="decide_list_wrapper">
 		<div class="scroller">
-		{% if datas.count() %}
+		{% if datas %}
 		<ul class="thelist item_list">
 			{% for data in datas %}
-			<li class="item horizontal" >
+			<li class="item horizontal me_tap" me_event="gopage" me_data='admin_item/{{ data.id }}'>
 				<div class="item_img">
 					<img src="{{ data.product.icon_smaill }}" />
 				</div>
@@ -24,22 +24,16 @@
 					<div class="pr padt_5">
 						<div class="fl f18 col2 padt_2">￥{{ data.product.show_fee }}</div>
 						<div class="fl f16 col3 t_line padt_5">￥{{ data.product.acept_fee }}</div>
+						<div class="fr marr_10 col3  padt_5">{{ data.state }}</div>
 						<div class="blank0"></div>
 					</div>
-				</div>
-				<div class="" style="width: 110px;padding:10px;">
-					<div class="tc login  br_5 f18 me_tap" style="padding: 5px;" me_event="choose_s" me_data="{{ data.id }}" >交易成功</div>
-				</div>
-				<div class="" style="width: 110px;padding: 10px;">
-					<div class="tc br_5  regedit  f18 me_tap" style="padding: 5px;" me_event="choose_f" me_data="{{ data.id }}"  >交易失败</div>
 				</div>
 			</li>
 			{% endfor %}
 		</ul>
 		{% else %}
-		<div class="f30 tc">没有需要处理的交易</div>
+		<div class="tc f30">没有需要处理的交易</div>
 		{% endif %}
-		
 		</div>
 	</div>
 </div>

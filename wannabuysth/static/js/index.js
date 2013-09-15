@@ -408,3 +408,47 @@ function apply_item_ok(id){
 function wating(){
 	alert('功能正在开发中。。')
 }
+
+function select_reply(replay_id){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	data = {replay_id:replay_id}
+	$.post('/home/select_reply/'+replay_id,data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('选择商家成功!')
+			gopage('decide_list')
+		}else{
+			alert(datas.erro)
+		}
+	})
+	
+}
+
+function choose_s(id){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	data = {id:id}
+	$.post('/home/choose_s/'+id,data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('执行成功!')
+			gopage('choose_list')
+		}else{
+			alert(datas.erro)
+		}
+	})
+}
+
+function choose_d(id){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	data = {id:id}
+	$.post('/home/choose_d/'+id,data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('执行成功!')
+			gopage('history_list')
+		}else{
+			alert(datas.erro)
+		}
+	})
+}
+	 
