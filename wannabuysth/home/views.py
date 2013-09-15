@@ -128,3 +128,15 @@ def item_list(catalog_id):
         else:
             datas = datas.order_by(Product.show_fee)
     return render_template("item_list.html", **locals())
+
+
+@index.route("/item_detail/<item_id>/")
+def item_detail(item_id):
+    sort_type = int(request.args.get("sort_type", '0'))
+    item = g.db.query(Product).filter(Product.id == item_id).first()
+    return render_template("item_detail.html", **locals())
+
+
+
+
+

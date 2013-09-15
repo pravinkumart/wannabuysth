@@ -167,7 +167,6 @@ $("#second_lv").live('pageshow', function() {
 });
 
 function second_lv_init(){
-	
   var obj = $('#wrapper_second_lv');
   var width = $('#wrapper_second_lv').width();
   if(second_lv_page.myScroll){
@@ -181,6 +180,9 @@ function second_lv_init(){
   	},3000)
 	}
 	pullUpEl = document.getElementById('pullUp');	
+	if(!pullUpEl){
+		return false;
+	}
 	pullUpOffset = pullUpEl.offsetHeight;
   var myScroll = new iScroll('wrapper_second_lv',{
 		useTransition: true,
@@ -220,7 +222,6 @@ $("#item_list").live('pageshow', function() {
 
 
 function item_list_init(){
-  return false;
   if(item_list_page.myScroll){
   		item_list_page.myScroll.destroy();
   	}
@@ -233,6 +234,10 @@ function item_list_init(){
 	}
 	pullUpEl = document.getElementById('pullUp');	
 	pullUpOffset = pullUpEl.offsetHeight;
+	if($('.item_list li').length < 5){
+		$('#pullUp').hide();
+		return false;
+		}
 	
   var myScroll = new iScroll('item_list_wrapper',{
   	
@@ -244,11 +249,11 @@ function item_list_init(){
 			}
 		},
 		onScrollMove: function () {
-			if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+			if (this.y < (this.maxScrollY - 2) && !pullUpEl.className.match('flip')) {
 				pullUpEl.className = 'flip';
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
 				this.maxScrollY = this.maxScrollY;
-			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+			} else if (this.y > (this.maxScrollY + 2) && pullUpEl.className.match('flip')) {
 				pullUpEl.className = '';
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
 				this.maxScrollY = pullUpOffset;

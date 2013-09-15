@@ -5,23 +5,23 @@
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>商品详细111</h1>
+				<h1>商品详细</h1>
 			</div>
 			<div class="header_a"></div>
 		</div>
 	</div>
 	<div>
-		<img src="../data/item.jpg" width="100%" />
+		<img src="/static/data/item.jpg" o_src = "{{ item.icon_large }}" width="100%" />
 	</div>
 	<div class="blank0"></div>
 	<div class="pad15 bg1">
 		<div class="item_p horizontal" >
 			<div class="item_p_b">
 				<div class="f12 col5 fb">市场参考价</div>
-				<div class="col2" style="line-height: 30px;"><span class="f14 fb">￥</span><span class="f18 fb">478</span></div>
+				<div class="col2" style="line-height: 30px;"><span class="f14 fb">￥</span><span class="f18 fb">{{ item.show_fee }}</span></div>
 			</div>
 			<div class="item_p_m box_flex1 col3 fb" style="padding-top: 20px;">
-				420640人成功交易
+				{{ item.success_count }}人成功交易
 			</div>
 			<div class="item_p_a" style="padding: 2px 0 0 0;">
 				<div class="regedit br_5 fb tc me_tap" style="line-height: 40px;"  me_event="gopage" me_data='apply_item'>
@@ -31,12 +31,10 @@
 		</div>
 	</div>
 	<div class="detail" >
-		<div class="f16 fb col4">东海堂 个装油皮月饼组合</div>
-		<div class="pad15"></div>
+		<div class="f16 fb col4"></div>
+		<div class="pad15">{{ item.show_fee }}</div>
 		<div class="content col5 f4">
-			仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，
-			仅售38元价值123的，仅售38元价值123的，仅售38元价值123的，
-			仅售38元价值123的，
+			{{ item.descrip }}
 		</div>
 		<div class="pad15"></div>
 		<div class="pad15"></div>

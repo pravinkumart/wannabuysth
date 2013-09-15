@@ -54,6 +54,22 @@ def before_request():
     user_id = session.get('user_id', None)
     g.user = Customer(name=user_id) if user_id else None
 
+@app.teardown_request
+def tear_down(exception=None):
+    """
+    当请求结束的时候执行
+    """
+    if exception:
+        print exception
+    try:
+        if exception:
+            g.db.rollback()
+        else:
+            g.db.commit()
+        g.db.close()
+    except Exception, e:
+        print e
+
 
 if __name__ == '__main__':
     manage.run()

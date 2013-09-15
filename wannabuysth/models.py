@@ -75,15 +75,18 @@ class Product(Base):
     """
     商家发布的商品或者服务
     """
-    catalog_id = Column(Integer, ForeignKey("catalog.id"))               #父级频道编号
-    catalog = relationship("Catalog", backref=backref("products"))       #父级频道对象
+    catalog_id = Column(Integer, ForeignKey("subcataog.id"))               #父级频道编号
+    catalog = relationship("SubCataog", backref=backref("products"))       #父级频道对象
     merchant_id = Column(Integer, ForeignKey("merchant.id"))            #商家ID
     merchant = relationship("Merchant", backref=backref("replys"))       #商家对象
+    title = Column(String(30))
     descrip = Column(String(500))                                       #商品
     acept_fee = Column(Integer)                                         #最低接收价格
     show_fee = Column(Integer)                                          #显示价格
     icon_smaill = Column(String(200))                                   #小图标
     icon_large = Column(String(200))                                    #大图标
+    view_count = Column(Integer)                                        #浏览次数
+    success_count = Column(Integer)                                     #成功次数
 
 
 

@@ -14,11 +14,11 @@
 		<div style="width: 50%;" class="box_flex1">
 			{% if sort_type == 0 %}
 				<span class="show_on" style="width: 130px">
-					价格从高到底<img src="../images/down.png" />
+					价格从高到底<img src="/static/images/down.png" />
 				</span>
 			{% else %}
 				<span class="me_tap " style="width: 130px" me_event="gopage" me_data="item_list/{{ catalog.id }}/">
-					价格从高到底<img src="../images/down.png" />
+					价格从高到底<img src="/static/images/down.png" />
 				</span>
 			{% endif %}
 			
@@ -26,134 +26,42 @@
 		<div style="width: 50%;" class="box_flex1">
 			{% if sort_type == 1 %}
 				<span class="show_on" style="width: 130px">
-					价格从低到高<img src="../images/down.png" />
+					价格从低到高<img src="/static/images/up.png" />
 				</span>
 			{% else %}
 				<span class="me_tap " style="width: 130px" me_event="gopage" me_data="item_list/{{ catalog.id }}/?sort_type=1">
-					价格从低到高<img src="../images/down.png" />
+					价格从低到高<img src="/static/images/up.png" />
 				</span>
 			{% endif %}
 		</div>
 	</div>
 	<div id="item_list_wrapper">
 		<div class="scroller">
+		{% if datas %}
 		<ul class="thelist item_list">
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
+			{% for item in datas %}
+			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail/{{ item.id }}'>
 				<div class="item_img">
-					<img src="/static/data/item_img.png" />
+					<img src="{{ item.icon_large }}" />
 				</div>
 				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
+					<div class="fb padt_10">{{ item.title }}</div>
 					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
+						<div class="fl f18 col2 padt_2">￥{{ item.acept_fee }}</div>
+						<div class="fl f16 col3 t_line padt_5">￥{{ item.show_fee }}</div>
+						<div class="fr marr_10 col3 t_line padt_5">{{ item.success_count }}人购买</div>
 						<div class="blank0"></div>
 					</div>
 				</div>
 			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
-			<li class="item horizontal">
-				<div class="item_img">
-					<img src="/static/data/item_img.png" />
-				</div>
-				<div class="box_flex1 item_des pr">
-					<div class="fb padt_10">2012岁末考试直通车</div>
-					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥37.8</div>
-						<div class="fl f16 col3 t_line padt_5">￥37.8</div>
-						<div class="fr marr_10 col3 t_line padt_5">64人购买</div>
-						<div class="blank0"></div>
-					</div>
-				</div>
-			</li>
+			{% endfor %}
 		</ul>
 		<div id="pullUp">
 			<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
 		</div>
+		{% else %}
+		<div class="tc f30">暂时没有数据</div>
+		{% endif %}
 		</div>
 	</div>
 	
