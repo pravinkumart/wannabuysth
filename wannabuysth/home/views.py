@@ -356,7 +356,9 @@ def bijia():
 
 
 
-
+@index.route("/location")
+def location():
+    return render_template("location.html", **locals())
 
 
 
