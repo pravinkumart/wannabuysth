@@ -203,7 +203,7 @@ def apply_item_do():
 def my_keeper():
     user = g.user
     if not user:
-        return redirect(url_for("home.login", need_login="my_keeper/"))
+        return redirect(url_for("home.login", need_login="my_keeper"))
     return render_template("my_keeper.html", **locals())
 
 
