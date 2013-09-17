@@ -43,8 +43,8 @@
 			<div class="field_msg tc">
 				<div>交易地</div>
 			</div>
-			<div class="box_flex1 bg1 padl_15">
-				<select name="location">
+			<div class="box_flex1 bg1 padl_15 ">
+				<select name="location"  data-role="none" style="width: 80%;margin-top: 15px;margin-bottom: 15px;" >
 					<option value="锦江区">锦江区</option>
 					<option value="青羊区">青羊区</option>
 					<option value="金牛区">金牛区</option>
@@ -61,9 +61,7 @@
 					<option value="金堂县">金堂县</option>
 				</select>
 			</div>
-			<div style="width: 40px;line-height: 40px; zoom: 1; overflow:hidden;">
-				<div  class="go_grey mart_10" ></div>
-			</div>
+			
 		</div>
 		<input type="hidden" name="item_id" value="{{ item.id }}" />
 		<input type="hidden" name="catalog_id" value="{{ item.catalog_id }}" />
