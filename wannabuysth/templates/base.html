@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<link rel="stylesheet" type="text/css" href="/static/css/index.css" />
-		
+		<script type="text/javascript" src="/static/js/index.js"></script>
 		<script type="text/javascript">
 			var jQ = $;
 			function ajaxsend(url,data,type,success,error,beforeSend){
@@ -42,7 +42,7 @@
 			    })
 			}
 			$('#loading').fastClick(function(){
-				window.location.reload();
+				window.location.href = window.location.href;
 			})
 			$(function(){
 				if(navigator.onLine){
