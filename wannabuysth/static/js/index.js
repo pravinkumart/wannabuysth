@@ -1,4 +1,4 @@
-www = 'http://192.168.1.251:5000/'
+var www="http://192.168.1.120:5000/"
 var index_page = {};
 var is_init_main = false;
 var pre_domin = ''; //强制指定后退回到的页面

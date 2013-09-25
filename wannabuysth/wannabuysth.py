@@ -3,6 +3,7 @@ from flask import Flask, session, g
 from flask.ext.script import Manager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from flask import send_file, render_template
 from utils import print_debug
 from home.views import index
 from models import Customer
@@ -12,11 +13,12 @@ app = Flask(__name__)
 manage = Manager(app)
 app.config.from_object(settings)
 
-DB = create_engine(settings.DB_URI, encoding="utf-8", pool_recycle=settings.TIMEOUT, echo=False)
-Session = scoped_session(sessionmaker(bind=DB))
+DB = create_engine(settings.DB_URI, encoding="utf-8", echo=False)
+
+Session = sessionmaker(bind=DB)
 
 app.register_blueprint(index)
-from flask import send_file, render_template
+
 
 @app.route('/')
 def hello_world():
@@ -70,10 +72,6 @@ def tear_down(exception=None):
             g.db.commit()
         g.db.close()
     except Exception, e:
-        try:
-            transaction.abort()
-        except:
-            pass
         print e
 
 
