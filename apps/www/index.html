@@ -16,11 +16,11 @@
 	</head>
 	<body class="body">
 		<div data-role="page" id="loading">
-			<div class="tc padt_15">
+			<div class="tc padt_15" style="text-align:center;margin-top: 20px;">
 				loading........
 			</div>
 		</div>
-		<link rel="stylesheet" type="text/css" href="http://125.65.46.33:8000/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="http://125.65.46.33:8000/static/css/index.css" />
 		<script type="text/javascript" src="http://125.65.46.33:8000/static/js/index.js"></script>
 		<script type="text/javascript">
 			var jQ = $;
@@ -31,33 +31,28 @@
 			        datatype:"json",
 			        type:'post',
 			        success:function (e) {
-			        	aler(0)
 						if(success){success(e)}
 					},
 			        error: function(e){
-			        	aler(0)
 			        	if(error){error(e)}
 			        },
 			        beforeSend: function(){
-			        	aler(0)
 			        	if(beforeSend){beforeSend(e)}
 			        }
 			    })
 			}
-			$('#loading').click(function(){
+			$('#loading').fastClick(function(){
 				window.location.reload();
 			})
-			$(function(){
-				if(navigator.onLine){
-					var url="http://125.65.46.33:8000/static/js/test.json";
-					ajaxsend(url,{},function(){},function(){
-						$('#loading .padt_15').html('点击屏幕，重新加载');
-					})
-				}else{
-					alert('连接失败，请检查网络');
-					window.location.reload();
-				}
-			})
+			if(navigator.onLine){
+				var url="http://125.65.46.33:8000/static/test.json";
+				ajaxsend(url,{},function(){},function(){
+					$('#loading .padt_15').html('点击屏幕，重新加载');
+				})
+			}else{
+				alert('连接失败，请检查网络');
+				window.location.reload();
+			}
 		</script>
 	</body>
 </html>

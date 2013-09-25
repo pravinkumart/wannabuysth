@@ -21,36 +21,33 @@
 			</div>
 		</div>
 		<link rel="stylesheet" type="text/css" href="/static/css/index.css" />
-		<script type="text/javascript" src="/static/js/index.js"></script>
+		
 		<script type="text/javascript">
 			var jQ = $;
-			function ajaxsend(url,data,success,error,beforeSend){
+			function ajaxsend(url,data,type,success,error,beforeSend){
 				$.ajax({
 			        url:url,
 			        data:data,
 			        datatype:"json",
-			        type:'post',
+			        type:type||'post',
 			        success:function (e) {
-			        	aler(0)
 						if(success){success(e)}
 					},
 			        error: function(e){
-			        	aler(0)
 			        	if(error){error(e)}
 			        },
 			        beforeSend: function(){
-			        	aler(0)
 			        	if(beforeSend){beforeSend(e)}
 			        }
 			    })
 			}
-			$('#loading').click(function(){
+			$('#loading').fastClick(function(){
 				window.location.reload();
 			})
 			$(function(){
 				if(navigator.onLine){
 					var url="/static/js/test.json";
-					ajaxsend(url,{},function(){},function(){
+					ajaxsend(url,{},'get',function(){},function(){
 						$('#loading .padt_15').html('点击屏幕，重新加载');
 					})
 				}else{
