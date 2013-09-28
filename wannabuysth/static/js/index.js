@@ -1,5 +1,7 @@
-var current_page = ''
+var current_page = '';
+var user_is_first = true;
 var is_init_main = false;
+var my_navigator = [];
 var pre_domin = ''; //强制指定后退回到的页面
 //$.mobile.changePage($.mobile.activePage.jqmData('url'),{reloadPage :true});
 $(document).bind('pagechangefailed',function(){
@@ -8,16 +10,36 @@ $(document).bind('pagechangefailed',function(){
 	current_page = '';
 });
 
-$(document).bind('pageshow',function(){
+$(document).bind('pageshow',function(e){
+	if(!current_page){return false;}
+	my_navigator.push(current_page);
 	current_page = '';
 });
+
+function get_data(key){
+	return	window.localStorage.getItem(key);
+}
+
+function set_data(key,data){
+	window.localStorage.setItem(key, data);
+}
+
+function del_data(key){
+	return	window.localStorage.removeItem(key);
+}
+
 //初始化数据
 (function() {
 	$.mobile.allowCrossDomainPages=true;
 	if(is_init_main){return false;}
 	 is_init_main =true;
 	 init_main();
-	 gopage('home/accounts')
+	 if(get_data('user_is_first')){
+	 	 gopage('home/accounts')
+	 }else{
+		 gopage('home/help');
+	 	 set_data('user_is_first','true')
+	 }
 })();
 
 
@@ -48,7 +70,7 @@ function init_main(){
 		if(pre_domin){
 			gopage(pre_domin);
 		}else{
-			$.mobile.back();
+			go_back()
 		}
 		return false;
 	})
@@ -77,20 +99,27 @@ function onFail(message) {
     alert('Failed because: ' + message);
 }
 
+function go_back(){
+	if(my_navigator.length==1&&my_navigator[0]=="home/help"){
+		my_navigator.pop()
+		gopage('home/accounts');
+	}
+}
 
-function gopage(page_id,changeHash){
+function gopage(page_id){
 	if(current_page){return false;}
-	current_page = page_id
+	
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	if(page_id.indexOf('home')==-1&&www){
 		page_id = 'home/'+page_id
 	}
-	
+	current_page = page_id
 	$.mobile.changePage(www+page_id,{
 			transition:'slide',
 			data:{v:(new Date()).getTime()},
 			showLoadMsg:false
-		})
+	});
+	
 }
 
 $("#index").live('pageshow', function() {

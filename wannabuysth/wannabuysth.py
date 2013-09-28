@@ -30,6 +30,13 @@ def down_file(file_name):
     file_path = os.path.join(os.path.abspath('./static'), file_name)
     return send_file(file_path, mimetype="applcation/stream", as_attachment=True, attachment_filename=file_name)
 
+@app.route('/state')
+def state():
+    from flask import jsonify
+    result = {'succeed':True}
+    return jsonify(result)
+
+
 @manage.command
 def init():
     try:
