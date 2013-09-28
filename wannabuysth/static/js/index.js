@@ -103,12 +103,19 @@ function go_back(){
 	if(my_navigator.length==1&&my_navigator[0]=="home/help"){
 		my_navigator.pop()
 		gopage('home/accounts');
+		return 
 	}
+	if(my_navigator.length <= 1){
+		return 
+	}
+	var current = my_navigator.pop();
+	gopage(my_navigator.pop(),true);
+	 
 }
 
-function gopage(page_id){
+function gopage(page_id,reverse){
 	if(current_page){return false;}
-	
+	var reverse = reverse?true:false;
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	if(page_id.indexOf('home')==-1&&www){
 		page_id = 'home/'+page_id
@@ -117,7 +124,8 @@ function gopage(page_id){
 	$.mobile.changePage(www+page_id,{
 			transition:'slide',
 			data:{v:(new Date()).getTime()},
-			showLoadMsg:false
+			showLoadMsg:false,
+			reverse:reverse
 	});
 	
 }
