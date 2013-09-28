@@ -8,8 +8,8 @@ from sqlalchemy.orm import relationship, backref
 
 class DeclaredBase(object):
     @declared_attr
-    def __tablename__(cls):
-        return cls.__name__.lower()
+    def __tablename__(self):
+        return self.__name__.lower()
     id = Column(Integer, primary_key=True, autoincrement=True)
     create_time = Column(DateTime, default=datetime.datetime.now, index=True)
     last_modify = Column(DateTime, default=datetime.datetime.now, index=True)

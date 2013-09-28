@@ -15,46 +15,11 @@
 		<script type="text/javascript" src="/static/common/cordova.js"></script>
 	</head>
 	<body class="body">
-		<div data-role="page" id="loading">
-			<div class="tc padt_15">
+		<div data-role="page" id="loading" style="position:relative;">
+			<div class="tc" style="position:absolute;left: 0;bottom: 20%;width: 100%;text-align:center;">
 				loading........
 			</div>
 		</div>
-		<link rel="stylesheet" type="text/css" href="/static/css/index.css" />
-		<script type="text/javascript" src="/static/js/index.js"></script>
-		<script type="text/javascript">
-			var jQ = $;
-			function ajaxsend(url,data,type,success,error,beforeSend){
-				$.ajax({
-			        url:url,
-			        data:data,
-			        datatype:"json",
-			        type:type||'post',
-			        success:function (e) {
-						if(success){success(e)}
-					},
-			        error: function(e){
-			        	if(error){error(e)}
-			        },
-			        beforeSend: function(){
-			        	if(beforeSend){beforeSend(e)}
-			        }
-			    })
-			}
-			$('#loading').fastClick(function(){
-				window.location.href = window.location.href;
-			})
-			$(function(){
-				if(navigator.onLine){
-					var url="/static/js/test.json";
-					ajaxsend(url,{},'get',function(){},function(){
-						$('#loading .padt_15').html('点击屏幕，重新加载');
-					})
-				}else{
-					alert('连接失败，请检查网络');
-					window.location.reload();
-				}
-			})
-		</script>
 	</body>
+	<script type="text/javascript" src="/static/js/base.js"></script>
 </html>

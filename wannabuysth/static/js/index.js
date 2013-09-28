@@ -1,21 +1,24 @@
-var www="http://192.168.1.120:5000/"
-var index_page = {};
+var current_page = ''
 var is_init_main = false;
 var pre_domin = ''; //强制指定后退回到的页面
 //$.mobile.changePage($.mobile.activePage.jqmData('url'),{reloadPage :true});
 $(document).bind('pagechangefailed',function(){
 	$('.header_b').removeClass('on');
-	//if(!confirm('网络获取失败，是否使用本地数据?')){return false;}
-	//www = '';
-	//gopage('home/accounts');
-	
+	alert('获取数据失败，请检查网络');
+	current_page = '';
 });
-$(document).bind('pageinit',function() {
+
+$(document).bind('pageshow',function(){
+	current_page = '';
+});
+//初始化数据
+(function() {
 	$.mobile.allowCrossDomainPages=true;
 	if(is_init_main){return false;}
-	is_init_main =true;
-	init_main();
-});
+	 is_init_main =true;
+	 init_main();
+	 gopage('home/accounts')
+})();
 
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -51,20 +54,8 @@ function init_main(){
 	})
 }
 
-$("#loading").live('pageshow', function() {
-	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	gopage('home/accounts');
-	return 
-	pre_domin = 'accounts'
-	if(www){
-		gopage('help');
-	}else{
-		gopage('home/help');
-	}
-});
 
 $('#accounts').live('pageshow',function() {
-	
 	if(pre_domin== 'accounts'){
 		pre_domin = '';
 	}
@@ -88,25 +79,26 @@ function onFail(message) {
 
 
 function gopage(page_id,changeHash){
+	if(current_page){return false;}
+	current_page = page_id
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	if(page_id.indexOf('home')==-1&&www){
 		page_id = 'home/'+page_id
 	}
-	if(page_id.indexOf('?')==-1){
-		page_id = page_id+ '?v='+(new Date()).getTime()	
-	}else{
-		page_id = page_id+ '&v='+(new Date()).getTime()	
-	}
+	
 	$.mobile.changePage(www+page_id,{
-			transition:'slide'
+			transition:'slide',
+			data:{v:(new Date()).getTime()},
+			showLoadMsg:false
 		})
 }
 
 $("#index").live('pageshow', function() {
 	index_init()
 });
+
+var index_page = {};
 function index_init(){
-  get_index_types_data()
   var obj = $('#wrapper_index');
   var width = 230;
   var count = obj.find('.thelist li').length;
@@ -124,12 +116,7 @@ function index_init(){
   index_page.myScroll.refresh()
 }
 
-//首页类型数据填充
-function get_index_types_data(){
-	var html = ''
-	
-	
-}
+
 $("#login").live('pageshow', function() {
 	window.need_login = $('#need_login_el').val();
 });
@@ -451,4 +438,10 @@ function choose_d(id){
 		}
 	})
 }
-	 
+
+$( window ).hashchange(function() {
+	var hash = location.hash;
+	
+	
+});
+

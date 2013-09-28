@@ -52,7 +52,7 @@ def init_data():
 def init_product():
     from wannabuysth import Session
     session = Session()
-    mc = Merchant(name='test1', password='test1', mobile='15982150123', pre_payed=20,
+    mc = Merchant(name='test2', password='test1', mobile='15982150123', pre_payed=20,
              credit=10, success_count=10, faild_count=10
              )
     session.add(mc)
