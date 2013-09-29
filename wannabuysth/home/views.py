@@ -2,7 +2,6 @@
 __author__ = 'alex'
 
 import logging
-from tempfile import NamedTemporaryFile
 from flask import Blueprint, render_template, abort, g, request
 from flask import redirect, url_for, session, flash, send_file
 from flask import jsonify
@@ -12,7 +11,7 @@ from models import Catalog
 from models import SubCataog
 from models import Product
 from models import Requirment, Reply
-
+from home import server
 
 index = Blueprint('home', __name__, template_folder='templates', url_prefix='/home')
 
@@ -24,13 +23,32 @@ def help():
 
 @index.route("/accounts")
 def accounts():
-#    return redirect(url_for("home.home_index"))
     return render_template("accounts.html", **locals())
 
 @index.route("/regedit")
 def regedit():
     return render_template("regedit.html", **locals())
 
+@index.route('/forget')
+def forget():
+    return render_template("forget.html", **locals())
+@index.route("/forget_do", methods=["POST"])
+def forget_do():
+    username = request.form.get("username", "")
+    code = request.form.get("code", "")
+    result = {'succeed':False, 'erro':''}
+    if len(username) != 11:
+        result['erro'] = '请输入正确的手机号!'
+        return jsonify(result)
+    if len(code) != 4:
+        result['erro'] = '验证码错误!'
+        return jsonify(result)
+    password = '123456'
+    if server.change_password(username, password):
+        result = {'succeed':True, 'erro':u'你的新密码是%s' % password}
+    else:
+        result = {'succeed':False, 'erro':u'帐号错误'}
+    return jsonify(result)
 
 
 @index.route("/regedit_do", methods=["POST"])
@@ -58,16 +76,19 @@ def regedit_do():
     fee = 0
     current_fee = 0
     used_fee = 0
-
-    user = Customer(name=name, password=password, mobile=mobile, publish_count=publish_count,
-                    success_count=success_count, total_payed=total_payed, fee=fee, current_fee=current_fee,
-                    used_fee=used_fee
-                    )
-    g.db.add(user)
-    g.db.commit()
-    g.db.flush()
-    session["user_id"] = name
-    result = {'succeed':True, 'erro':user.name}
+    try:
+        user = Customer(name=name, password=password, mobile=mobile, publish_count=publish_count,
+                        success_count=success_count, total_payed=total_payed, fee=fee,
+                        current_fee=current_fee,
+                        used_fee=used_fee
+                        )
+        g.db.add(user)
+        g.db.commit()
+        g.db.flush()
+        session["user_id"] = user.id
+        result = {'succeed':True, 'erro':user.name}
+    except Exception, e:
+        result = {'succeed':False, 'erro':u'帐号已存在'}
     return jsonify(result)
 
 
@@ -87,15 +108,12 @@ def login_do():
 
     users = g.db.query(Customer).filter(Customer.mobile == username, Customer.password == password)
     if users.count() > 0:
-        session["user_id"] = users[0].name
+        session["user_id"] = users[0].id
         result = {'succeed':True, 'erro':users[0].name}
     else:
         result = {'succeed':False, 'erro':'登录失败！请检查帐号和密码'}
     return jsonify(result)
 
-@index.route("/forget")
-def forget():
-    return render_template("forget.html", **locals())
 
 
 @index.route("/index")
@@ -210,8 +228,19 @@ def my_keeper():
 
 @index.route("/personal")
 def personal():
+    user = g.user
+    if not user:
+        return redirect(url_for("home.login", need_login="my_keeper"))
     return render_template("personal.html", **locals())
 
+
+@index.route("/update_user_portrait", methods=["POST"])
+def update_user_portrait():
+    image = request.form.get("image", "")
+    user = g.user
+    server.update_user_portrait(user.mobile, image)
+    result = {'succeed':False, 'erro':u'帐号错误'}
+    return jsonify(result)
 
 @index.route("/choose_item")
 def choose_item():
@@ -333,12 +362,22 @@ def setings():
 
 @index.route("/update_mobile")
 def update_mobile():
+    user = g.user
     return render_template("update_mobile.html", **locals())
 
 
 @index.route("/update_name")
 def update_name():
+    user = g.user
     return render_template("update_name.html", **locals())
+
+@index.route("/update_user_name", methods=["POST"])
+def update_user_name():
+    username = request.form.get("username", "")
+    user = g.user
+    succeed, erro = server.update_user_name(user.mobile, username)
+    result = {'succeed':succeed, 'erro':erro}
+    return jsonify(result)
 
 
 @index.route("/update_password")

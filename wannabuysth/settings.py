@@ -11,7 +11,7 @@ if LOCAL:
 else:
     DB_URI = "postgresql+psycopg2://miaomi:1314520z@125.65.46.33/mobileapp"
 
-SECRET_KEY = "11556654433221changge!"
+SECRET_KEY = "011556654433221changge!"
 
 
 MEDIA_ROOT = "/static"

@@ -13,21 +13,27 @@
 	<div data-role="content">
 		<div class="me_list horizontal me_tap" style="padding: 10px 0;"  me_event="gopage" me_data='personal'>
 			<div class="tc" style="width: 80px;">
-				<img src="/static/data/my_portrait.png"  style="width: 60px;height: 60px;" />
+				<img src="{{ user.get_portrait() }}"  style="width: 60px;height: 60px;" />
 			</div>
 			<div class=" box_flex1">
-				<div class="f18 col4 fb">木子夭夭</div>
+				<div class="f18 col4 fb">{{  user.get_name() }}</div>
 				<div>
 				   <span class="f16 col6 marr_10">等级:</span>
+				   {% for star in user.get_user_level() %}
+				   {% if star %}
 				   <img src="/static/images/star1.png" width="15" />
-				   <img src="/static/images/star1.png" width="15" />
-				   <img src="/static/images/star1.png" width="15" />
+				   {% else %}
 				   <img src="/static/images/star0.png" width="15" />
-				   <img src="/static/images/star0.png" width="15" />
+				   {% endif %}
+				   {% endfor %}
 				</div>
 				<div>
 					<span class="f16 col6 marr_10">类型:</span>
+					{% if  user.get_vip() %}
 					<span class="col2">付费用户</span>
+					{% else %}
+					<span class="col2">免费用户</span>
+					{% endif %}
 				</div>
 			</div>
 			<div style="overflow:hidden;width: 40px;">
@@ -38,10 +44,17 @@
 		<div class="horizontal me_tap" style="height: 80px;" me_event="wating">
 			<div class="box_flex1 me_list horizontal" style="width: 100px;">
 				<div class="box_flex1" style="width: 100px;">
+					{% if  user.get_vip() %}
 					<div style="position:absolute;left: 10px;top: 20px;">
 						<div class="f18 col4 fb">有效期<span class="col2">33</span>天</div>
 						<div class="col5 f18 fb">续费</div>
 					</div>
+					{% else %}
+					<div style="position:absolute;left: 10px;top: 20px;">
+						<div class="f18 col4 fb">升级付费用户</div>
+						<div class="f14 col5 mart_5  fb">付费用户特权</div>
+					</div>
+					{% endif %}
 				</div>
 				<div style="overflow:hidden;width: 40px;">
 					<div  class="go_grey" style="margin-top: 30px;" ></div>
@@ -55,7 +68,7 @@
 				<div class="box_flex1">
 					<div style="position:absolute;left: 70px;top: 20px;">
 						<div class="f18 col4 fb">信用基金</div>
-						<div class="col5 f18 fb">55</div>
+						<div class="col5 f18 fb">{{ user.current_fee }}</div>
 					</div>
 				</div>
 			</div>

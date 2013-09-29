@@ -16,16 +16,17 @@
 				<div>名字</div>
 			</div>
 			<div class="box_flex1 bg1 padl_15">
-				<input class="username" type="text" data-role="none" placeholder="" autocomplete="on" maxlength="128" tabindex="1" name="username" value="木子夭夭">
+				<input class="username" type="text" data-role="none" placeholder="" id="username"
+				 autocomplete="on" maxlength="128" tabindex="1" name="username" value="{% if  user.get_name() != '新用户'%}{{ user.get_name() }}{% endif %}">
 			</div>
-			<div style="width: 40px;line-height: 50px;overflow:hidden;">
+			<div style="width: 40px;line-height: 50px;overflow:hidden;display:none;">
 				<div class="clear_but"></div>
 			</div>
 		</div>
 		<div style="height: 20px;"></div>
 		<div class="info_list">
-			<div class="regedit box_flex1 tc br_5 f18 "  style="width: 100px;margin: 0 auto;">
-					保存
+			<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="update_user_name" me_data="this"   style="width: 100px;margin: 0 auto;">
+					修改名字
 			</div>
 		</div>
 	</div>

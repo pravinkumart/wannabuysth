@@ -85,6 +85,7 @@ $('#accounts').live('pageshow',function() {
 });
 
 function getPicture(){
+	if(!confirm('是否修改头像？')){return  false;}
 	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
 	    destinationType: Camera.DestinationType.DATA_URL
 	});
@@ -93,10 +94,34 @@ function getPicture(){
 function onSuccess(imageData) {
     var image = document.getElementById('myImage');
     image.src = "data:image/jpeg;base64," + imageData;
+    update_user_portrait(imageData);
+}
+
+function update_user_portrait(imageData){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	$.post(www+'home/update_user_portrait',{'image':imageData},function(datas){
+		$.mobile.loading('hide');
+		alert('头像保存成功')
+	})
 }
 
 function onFail(message) {
-    alert('Failed because: ' + message);
+    console.log('Failed because: ' + message);
+}
+
+function update_user_name(){
+	var username = $('#username').val();
+	if(!username){
+		alert('昵称不能为空');
+		return false;
+	}
+	$.post(www+'home/update_user_name',{'username':username},function(data){
+		$.mobile.loading('hide');
+		alert(data.erro)
+		if(data.succeed){
+			go_back();
+		}
+	})
 }
 
 function go_back(){
@@ -161,7 +186,7 @@ $("#login").live('pageshow', function() {
 function login_ok(){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	var data = $('#login_form').serializeArray();
-	$.post('/home/login_do',data,function(datas){
+	$.post(www+'home/login_do',data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
 			alert('登录成功!')
@@ -178,7 +203,7 @@ function login_ok(){
 function regedit_ok(){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	var data = $('#regedit_form').serializeArray();
-	$.post('/home/regedit_do',data,function(datas){
+	$.post(www+'home/regedit_do',data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
 			alert('注册成功!')
@@ -193,6 +218,14 @@ function regedit_ok(){
 	})
 }
 
+function forget_ok(){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	var data = $('#forget_form').serializeArray();
+	$.post(www+'home/forget_do',data,function(datas){
+		$.mobile.loading('hide');
+		alert(datas.erro);
+	})
+}
 
 /*  二级分类 */
 var second_lv_page = {}
@@ -481,4 +514,5 @@ $( window ).hashchange(function() {
 	
 	
 });
+
 

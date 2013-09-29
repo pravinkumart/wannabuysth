@@ -1,7 +1,8 @@
 #-*- coding:utf-8 -*-
 __author__ = 'Alexander'
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, UniqueConstraint, ForeignKey, SmallInteger, Index
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Text, UniqueConstraint, ForeignKey, SmallInteger, Index
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy.orm import relationship, backref
 
@@ -45,17 +46,51 @@ class SubCataog(Base):
 
 class Customer(Base):
     """
-    消费者
+    @note: 用户
     """
     name = Column(String(20), unique=True)       #消费者名
     password = Column(String(48))                #密码
-    mobile = Column(String(11))                  #手机号
+    mobile = Column(String(11), unique=True)     #手机号
     publish_count = Column(Integer)              #发布需求总数
     success_count = Column(Integer)              #成功需求总数
     total_payed = Column(Integer)                #总金额
+    used_fee = Column(Integer)                   #使用金额
     fee = Column(Integer)                        #消费基金总数(单位：分)
     current_fee = Column(Integer)                #消费基金余额(单位：分)
-    used_fee = Column(Integer)                   #使用金额
+    user_level = Column(Integer, default=0)      #用户等级
+    vip_end_time = Column(DateTime)              #会员到期时间
+    portrait = Column(Text)                      #头像
+    state = Column(Boolean, default=True)
+
+    def get_name(self):
+        try:
+            int(self.name)
+            return u'新用户'
+        except:
+            return self.name
+
+    def get_user_level(self):
+        x = [0 for i in  range(5)]
+        for i in range(self.user_level):
+            if i > 4:
+                break
+            x[i] = 1
+        return x
+
+    def get_vip(self):
+        if self.vip_end_time:
+            return 1
+        else:
+            return 0
+
+    def get_portrait(self):
+        if self.portrait:
+            return 'data:image/jpeg;base64,%s' % self.portrait
+        else:
+            return '/static/data/my_portrait.png'
+
+
+
 
 
 class Merchant(Base):
