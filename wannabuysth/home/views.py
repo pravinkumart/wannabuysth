@@ -109,7 +109,7 @@ def login_do():
     users = g.db.query(Customer).filter(Customer.mobile == username, Customer.password == password)
     if users.count() > 0:
         session["user_id"] = users[0].id
-        result = {'succeed':True, 'erro':users[0].name}
+        result = {'succeed':True, 'erro':users[0].id}
     else:
         result = {'succeed':False, 'erro':'登录失败！请检查帐号和密码'}
     return jsonify(result)
@@ -151,6 +151,14 @@ def item_list(catalog_id):
         else:
             datas = datas.order_by(Product.show_fee)
     return render_template("item_list.html", **locals())
+
+@index.route("/release/<catalog_id>/")
+def release_item(catalog_id):
+    if not g.user:
+        return redirect(url_for("home.login", need_login="release/%s" % catalog_id))
+    sort_type = int(request.args.get("sort_type", '0'))
+    catalog = g.db.query(SubCataog).filter(Product.id == catalog_id).first()
+    return render_template("apply_item.html", **locals())
 
 
 @index.route("/item_detail/<item_id>/")
@@ -209,10 +217,12 @@ def apply_item_do():
         result['erro'] = '描述不能为空!'
         return jsonify(result)
 
-    req = Requirment(customer_id=user.id, product_id=item_id, subcataog_id=catalog_id,
+    req = Requirment(customer_id=user.id, subcataog_id=catalog_id,
                     wanna_fee=wanna_fee, descrip=descrip, end_time=end_time, location=location,
                     state=1
                     )
+    if item_id:
+        req.product_id = item_id
     g.db.add(req)
     g.db.commit()
     g.db.flush()

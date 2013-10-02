@@ -340,6 +340,7 @@ textarea::-moz-placeholder{
 	font-size:14px;
 	color:#888;
 	margin-top: 5px;
+	display:none;
 }
 #pullUp .pullUpIcon  {
 	display:block; float:left;
@@ -607,6 +608,13 @@ textarea::-webkit-input-placeholder {
 	background-size: 32px;
 }
 
+.release_icon {
+	width: 32px;
+	height: 32px;
+	background: url("../images/release.png") no-repeat 0 5px;
+	background-size: 32px;
+}
+
 .check_del{
 	text-align: center;
     background-color: #797979;
@@ -628,7 +636,7 @@ textarea::-webkit-input-placeholder {
 }
 
 
-
+.none{display:none;}
 
 
 

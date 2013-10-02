@@ -1,18 +1,23 @@
-var current_page = '';
-var user_is_first = true;
+var current_user = ''
+var current_page = '';  //正在处理的页面
 var is_init_main = false;
 var my_navigator = [];
 var pre_domin = ''; //强制指定后退回到的页面
-//$.mobile.changePage($.mobile.activePage.jqmData('url'),{reloadPage :true});
+$.mobile.ajaxEnabled = false;
 $(document).bind('pagechangefailed',function(){
 	$('.header_b').removeClass('on');
+	$.mobile.loading('hide');
 	alert('获取数据失败，请检查网络');
 	current_page = '';
 });
 
 $(document).bind('pageshow',function(e){
 	if(!current_page){return false;}
-	my_navigator.push(current_page);
+	if(my_navigator.indexOf(current_page)>-1){
+		my_navigator = my_navigator.slice(0,my_navigator.indexOf(current_page)+1);
+	}else{
+		my_navigator.push(current_page);
+	}
 	current_page = '';
 });
 
@@ -38,7 +43,7 @@ function del_data(key){
 	 	 gopage('home/accounts')
 	 }else{
 		 gopage('home/help');
-	 	 set_data('user_is_first','true')
+	 	 set_data('user_is_first','false')
 	 }
 })();
 
@@ -47,6 +52,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.device.overrideBackButton();
 	document.addEventListener("backbutton", function(){
+		if(current_page){return false;}
 		if(go_back()){return false;}
 		if(!confirm('是否退出?')){return false;}
 		window.device.exitApp();
@@ -135,7 +141,10 @@ function go_back(){
 		return false
 	}
 	var current = my_navigator.pop();
-	if(current=="home/index"){return false}
+	if(current=="home/index"){
+		my_navigator.push(current);
+		return false;
+	}
 	gopage(my_navigator.pop(),true);
 	return true
 }
@@ -182,6 +191,10 @@ function index_init(){
 
 
 $("#login").live('pageshow', function() {
+	var username = get_data('username');
+		if(username){
+			$('.username').val(username);
+		}
 	window.need_login = $('#need_login_el').val();
 });
 
@@ -191,6 +204,9 @@ function login_ok(){
 	$.post(www+'home/login_do',data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
+			var username = $('.username').val();
+			set_data('username',username)			
+			current_user = data.erro;
 			alert('登录成功!')
 			if(window.need_login){
 				gopage(window.need_login);
@@ -449,14 +465,22 @@ function reload_js(){
 	$.getScript('/static/js/index.js')
 }
 
-function apply_item_ok(id){
+function apply_item_ok(type_data){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	var data = $('#apply_item_form').serializeArray();
+	var id = type_data.split(' ')[0];
+	var type = type_data.split(' ')[1];
 	$.post('/home/apply_item_do',data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
-			alert('申请成功!')
-			gopage('item_list/'+id)
+			if(type==0){
+				alert('申请成功!')
+				gopage('item_list/'+id)
+			}else{
+				alert('发布成功!')
+				gopage('item_list/'+id)
+			}
+			
 		}else{
 			alert(datas.erro)
 		}

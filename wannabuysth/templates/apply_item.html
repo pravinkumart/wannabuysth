@@ -6,7 +6,11 @@
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>{{ item.title }}</h1>
+				{% if item %}
+					<h1>{{ item.title }}</h1>
+				{% else %}
+					<h1>{{ catalog.name }}</h1>
+				{% endif %}
 			</div>
 			<div class="header_a"></div>
 		</div>
@@ -66,12 +70,20 @@
 			</div>
 			
 		</div>
+		{% if item %}
 		<input type="hidden" name="item_id" value="{{ item.id }}" />
 		<input type="hidden" name="catalog_id" value="{{ item.catalog_id }}" />
+		{% else %}
+		<input type="hidden" name="catalog_id" value="{{ catalog.id }}" />
+		{% endif %}
 		</form>
 		<div style="height: 40px;"></div>
 		<div class="info_list">
-			<div class="regedit box_flex1 tc br_5 f18 me_tap"  me_event="apply_item_ok" me_data="{{ item.catalog_id }}" >
+			{% if item %}
+			<div class="regedit box_flex1 tc br_5 f18 me_tap"  me_event="apply_item_ok" me_data="{{ item.catalog_id }} 0" >
+			{% else %}
+			<div class="regedit box_flex1 tc br_5 f18 me_tap"  me_event="apply_item_ok" me_data="{{ catalog.id }} 1" >
+			{% endif %}
 					提交报价
 			</div>
 		</div>
