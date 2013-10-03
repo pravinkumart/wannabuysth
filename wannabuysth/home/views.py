@@ -114,7 +114,11 @@ def login_do():
         result = {'succeed':False, 'erro':'登录失败！请检查帐号和密码'}
     return jsonify(result)
 
-
+@index.route("/login_out/", methods=['GET', "POST"])
+def login_out():
+    session["user_id"] = ''
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
 
 @index.route("/index")
 def home_index():
@@ -379,6 +383,31 @@ def update_mobile():
     return render_template("update_mobile.html", **locals())
 
 
+@index.route("/update_user_mobile", methods=["POST"])
+def update_user_mobile():
+    mobile = request.form.get("mobile", "").strip()
+    password = request.form.get("password", "")
+    succeed, erro = False, u'密码错误'
+    user = g.user
+    if user.password == password:
+        if mobile == user.mobile:
+            return jsonify({'succeed':True, 'erro':'保存成功'})
+        succeed, erro = server.update_user_mobile(user.id, mobile)
+    result = {'succeed':succeed, 'erro':erro}
+    return jsonify(result)
+
+
+@index.route("/update_user_password", methods=["POST"])
+def update_user_password():
+    new_password = request.form.get("new_password", "").strip()
+    password = request.form.get("password", "")
+    succeed, erro = False, u'旧密码错误'
+    user = g.user
+    if user.password == password:
+        succeed, erro = server.update_user_password(user.id, new_password)
+    result = {'succeed':succeed, 'erro':erro}
+    return jsonify(result)
+
 @index.route("/update_name")
 def update_name():
     user = g.user
@@ -386,8 +415,10 @@ def update_name():
 
 @index.route("/update_user_name", methods=["POST"])
 def update_user_name():
-    username = request.form.get("username", "")
+    username = request.form.get("username", "").strip()
     user = g.user
+    if username == user.name:
+        return jsonify({'succeed':True, 'erro':'保存成功'})
     succeed, erro = server.update_user_name(user.mobile, username)
     result = {'succeed':succeed, 'erro':erro}
     return jsonify(result)

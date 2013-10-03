@@ -63,7 +63,8 @@ def before_request():
     user_id = session.get('user_id', None)
     if not user_id:
         g.user = None
-    g.user = g.db.query(Customer).filter(Customer.id == user_id).first()
+    else:
+        g.user = g.db.query(Customer).filter(Customer.id == user_id).first()
 
 @app.teardown_request
 def tear_down(exception=None):

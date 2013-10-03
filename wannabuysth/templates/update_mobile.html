@@ -10,23 +10,37 @@
 			<div class="header_a"></div>
 		</div>
 	</div>
+	<form action="" id="update_mobile_form">
 	<div data-role="content">
 		<div class="horizontal me_field">
 			<div class="field_msg tc">
 				<div>手机号</div>
 			</div>
 			<div class="box_flex1 bg1 padl_15">
-				<input class="username" type="text" data-role="none" placeholder="" autocomplete="on" maxlength="128" tabindex="1" name="username" value="0123456789">
+				<input class="username" name="mobile" type="text" data-role="none" placeholder="" autocomplete="on" maxlength="128" tabindex="1"  value="{{ user.mobile }}">
 			</div>
 			<div style="width: 40px;line-height: 50px;overflow:hidden;">
-				<div class="clear_but"></div>
+				<div class="clear_but none"></div>
+			</div>
+		</div>
+		<div class="blank10"></div>
+		<div class="horizontal me_field">
+			<div class="field_msg tc">
+				<div>登录密码</div>
+			</div>
+			<div class="box_flex1 bg1 padl_15">
+				<input class="username" name="password" type="password" data-role="none" placeholder="" autocomplete="on" maxlength="128" tabindex="1" value="">
+			</div>
+			<div style="width: 40px;line-height: 50px;overflow:hidden;">
+				<div class="clear_but none"></div>
 			</div>
 		</div>
 		<div style="height: 20px;"></div>
 		<div class="info_list">
-			<div class="regedit box_flex1 tc br_5 f18 "  style="width: 100px;margin: 0 auto;">
-					保存
+			<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="update_user_mobile" >
+					修改手机
 			</div>
 		</div>
 	</div>
+	</form>
 </div>

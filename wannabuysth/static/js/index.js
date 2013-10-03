@@ -131,6 +131,28 @@ function update_user_name(){
 	})
 }
 
+function update_user_mobile(){
+	var data = $('#update_mobile_form').serializeArray();
+	$.post(www+'home/update_user_mobile',data,function(data){
+		$.mobile.loading('hide');
+		alert(data.erro)
+		if(data.succeed){
+			go_back();
+		}
+	})
+}
+
+function update_user_password(){
+	var data = $('#update_password_form').serializeArray();
+	$.post(www+'home/update_user_password',data,function(data){
+		$.mobile.loading('hide');
+		alert(data.erro)
+		if(data.succeed){
+			go_back();
+		}
+	})
+}
+
 function go_back(){
 	if(my_navigator.length==1&&my_navigator[0]=="home/help"){
 		my_navigator.pop()
@@ -545,4 +567,17 @@ $("#apply_item").live('pageshow', function() {
 });
 
 
-
+function login_out(){
+	if(!confirm('确定要退出登录吗？')){return false;}
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	$.get('/home/login_out/',{},function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('注销成功')
+			my_navigator = [];
+			gopage('home/accounts');
+		}else{
+			alert(datas.erro)
+		}
+	})
+}
