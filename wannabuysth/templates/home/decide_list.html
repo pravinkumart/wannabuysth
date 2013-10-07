@@ -23,7 +23,7 @@
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">{{ data.product.title }}</div>
 					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">￥{{ data.product.show_fee }}</div>
+						<div class="fl f18 col2 padt_2">￥{{ data.product.get_show_fee() }}</div>
 						<div class="fl f16 col3 t_line padt_5">￥{{ data.product.acept_fee }}</div>
 						{% if  data.replys %}
 							<div class="fr marr_10 col3  padt_5">{{  data.replys|length  }}个商户回复</div>
