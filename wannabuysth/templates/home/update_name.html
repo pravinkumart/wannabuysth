@@ -1,0 +1,33 @@
+<div data-role="page" id="update_name" class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>修改名字</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div data-role="content">
+		<div class="horizontal me_field">
+			<div class="field_msg tc">
+				<div>名字</div>
+			</div>
+			<div class="box_flex1 bg1 padl_15">
+				<input class="username" type="text" data-role="none" placeholder="" id="username"
+				 autocomplete="on" maxlength="128" tabindex="1" name="username" value="{% if  user.get_name() != '新用户'%}{{ user.get_name() }}{% endif %}">
+			</div>
+			<div style="width: 40px;line-height: 50px;overflow:hidden;display:none;">
+				<div class="clear_but"></div>
+			</div>
+		</div>
+		<div style="height: 20px;"></div>
+		<div class="info_list">
+			<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="update_user_name" me_data="this" >
+					修改名字
+			</div>
+		</div>
+	</div>
+</div>

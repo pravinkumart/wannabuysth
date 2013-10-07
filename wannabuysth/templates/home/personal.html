@@ -1,0 +1,67 @@
+<div data-role="page" id="personal"  class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>个人资料</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div data-role="content" >
+		<div class="me_list f0">
+			<div class="horizontal f18" style="height: 80px; overflow:hidden;">
+				<div class="field_msg padl_15 col4 fb "  style="line-height: 80px; width: 100px;">
+					头像
+				</div>
+				<div class="box_flex1 bg1 padl_15 tr">
+					<img src="{{ user.get_portrait() }}" id="myImage"  class="mart_10  padr_15" width="60" height="60" />
+				</div>
+				<div style="overflow:hidden;width: 40px;" class="me_tap" me_event="getPicture" me_data="">
+					<div  class="go_grey" style="margin-top: 30px;" ></div>
+				</div>
+			</div>
+			<div class="horizontal line_top f18 me_tap" me_event="gopage" me_data="update_name"  style="overflow:hidden;">
+				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
+					名字
+				</div>
+				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
+					{{ user.get_name() }}
+				</div>
+				<div style="overflow:hidden;width: 45px;">
+					<div  class="go_grey" style="margin-top: 10px;" ></div>
+				</div>
+			</div>
+			<div class="horizontal line_top f18 me_tap"  style="overflow:hidden;" me_event="gopage" me_data="update_mobile">
+				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
+					我的手机号
+				</div>
+				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
+				</div>
+				<div style="overflow:hidden;width: 45px;">
+					<div  class="go_grey" style="margin-top: 10px;" ></div>
+				</div>
+			</div>
+		</div>
+		<div class="blank15"></div>
+		<div class="me_list f0">
+			<div class="horizontal f18 me_tap"  style="overflow:hidden;" me_event="gopage" me_data="update_password" >
+				<div class="field_msg padl_15 col4 fb" style="line-height: 45px;">
+					修改密码
+				</div>
+				<div class="box_flex1 bg1 padl_15 tr fb" style="line-height: 45px;">
+				</div>
+				<div style="overflow:hidden;width: 45px;">
+					<div  class="go_grey" style="margin-top: 10px;" ></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div  style="position:absolute;left: 0;bottom: 0; width: 100%;">
+		<div class="login  info_list tc br_5 f18 me_tap" me_event="login_out"   style="margin: 15px;">
+			注销登录
+		</div>
+	</div>
+</div>

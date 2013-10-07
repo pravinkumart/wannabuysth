@@ -1,0 +1,101 @@
+<div data-role="page" id="choose_item" class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>完成交易</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div>
+		{% if requirment.product %}
+		<img src="{{ requirment.product.icon_smaill }}" width="100%" />
+		{% else %}
+		<img src="{{ requirment.subcataog.icon_smaill }}" width="100%" />
+		{% endif %}
+	</div>
+	<div class="blank0"></div>
+	<div class="pad15 bg1">
+		<div class="item_p horizontal" >
+			{% if requirment.product %}
+			<div class="item_p_b">
+				<div class="f14 col5 fb">市场参考价</div>
+				<div class="col2 pt_bom"><span class="f14 fb">￥</span><span class="f18 fb">{{ requirment.product.show_fee }}</span></div>
+			</div>
+			<div class="item_p_m box_flex1 col3 fb pr" style="height: 45px;">
+					<span  class="pt_bom">
+						{{ requirment.product.success_count }} 人成功交易
+					</span>
+			</div>
+			{% endif %}
+			<div class="item_p_a pr" style="height: 45px;">
+				<span class="f14 col5 fb">我的报价</span>
+				<div class="col7 pt_bom" ><span class="f14 col7 fb">￥</span><span class="f18 col7 fb">{{ requirment.get_wanna_fee() }}</span></div>
+			</div>
+		</div>
+	</div>
+	<div class="line_top"></div>
+	<div class="blank10"></div>
+	<div class="none" style="padding: 20px 10px 0 10px; ">
+		<div class="col4">我的需求</div>
+		<div class="blank5"></div>
+		<div class="pad10">{{ requirment.descrip }}</div>
+	</div>
+	<div class="" style="padding: 20px 10px 0 10px; ">
+		<div class="col4">中标商家</div>
+		<div class="blank5"></div>
+		<div class="pad10 fl">{{ requirment.merchant.name }}</div>
+		<div class="pad10 fr">{{ requirment.merchant.mobile }}</div>
+	</div>
+	<div class="blank0"></div>
+	<div data-role="content">
+	<form action="" id="choose_item_form">
+	<div class="horizontal me_field">
+		<div class="field_msg tc">
+			<div style="margin-top: 23px;">交易结果</div>
+		</div>
+		<div class="box_flex1 bg1 padl_15" style="padding: 5px 0 5px 10px;">
+			<select name="state">
+				<option value="3">完成交易</option>
+				<option value="4">协定取消</option>
+			</select>
+		</div>
+		<div style="width: 40px;line-height: 50px;overflow:hidden;">
+			<div class="clear_but none"></div>
+		</div>
+	</div> 
+	<div style="height:10px;"></div>
+	<div class="horizontal me_field">
+		<div class="field_msg tc">
+			<div>交易码</div>
+		</div>
+		<div class="box_flex1 bg1 padl_15">
+			<input class="username" name="code" type="text" data-role="none" placeholder="" autocomplete="on" maxlength="4" tabindex="1"  value="">
+		</div>
+		<div style="width: 40px;line-height: 50px;overflow:hidden;">
+			<div class="clear_but none"></div>
+		</div>
+	</div>
+	<div style="height: 20px;"></div>
+	<div class="info_list">
+		<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="update_choose_item" me_data='{{ requirment.id }}' >
+				提交交易
+		</div>
+	</div>
+	</form>
+	</div>
+	<div class="blank15"></div>
+	<div class="blank15"></div>
+	<div class="blank15"></div>
+	<div class="blank15"></div>
+</div>
+
+
+
+
+
+
+

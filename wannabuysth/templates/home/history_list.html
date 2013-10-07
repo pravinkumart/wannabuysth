@@ -1,0 +1,89 @@
+<div data-role="page" id="history_list" class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>管一管</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div style="height: 40px;line-height: 40px;" class="horizontal col4 f18 bg1 fb tc">
+		<div style="width: 50%;" class="box_flex1">
+			{% if sort_type == 0 %}
+			<span class="show_on">按时间</span>
+			{% else %}
+			<span class="me_tap" me_event="gopage" me_data="history_list">按时间</span>
+			{% endif %}
+		</div>
+		<div style="width: 50%;" class="box_flex1">
+			{% if sort_type == 1 %}
+			<span class="show_on">按价格</span>
+			{% else %}
+			<span class="me_tap" me_event="gopage" me_data="history_list?sort_type=1" >按价格</span>
+			{% endif %}
+		</div>
+	</div>
+	<div id="history_list_wrapper">
+		<div class="scroller">
+		{% if datas.count() %}
+		<ul class="thelist item_list">
+			{% for data in datas %}
+			<li class="item horizontal" >
+				{%  if data.product %}
+				<div class="item_img">
+					<img src="{{ data.product.icon_smaill }}" />
+				</div>
+				
+				<div class="box_flex1 item_des pr">
+					<div class="fb padt_10">{{ data.product.title }}</div>
+					<div class="pr padt_5">
+						<div class="fl f18 col2 padt_2">￥{{ data.product.show_fee }}</div>
+						<div class="fl f16 col3 t_line padt_5">￥{{ data.product.acept_fee }}</div>
+						<div class="blank0"></div>
+					</div>
+				</div>
+				{% else %}
+				<div class="item_img">
+					<img src="{{ data.subcataog.icon_large }}" />
+				</div>
+				<div class="box_flex1 item_des pr">
+					<div class="fb padt_10">{{ data.subcataog.name }}</div>
+					<div class="pr padt_5">
+						<div class="blank0"></div>
+					</div>
+				</div>
+				{% endif %}
+				<div class="" style="width: 110px;padding: 10px;">
+					<p class="f18 tc">{{ data.get_state() }}</p>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+		<div id="pullUp" style="display:none;">
+			<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+		</div>
+		{% else %}
+		<div class="f30 tc">没有需要管理的交易</div>
+		{% endif %}
+		
+		</div>
+	</div>
+	<div class="footer" style="overflow:hidden">
+		<div style="padding: 10px;" class="horizontal">
+			<div class="col1 pr" style="width: 75px;height: 30px;">
+				<div class="p_bottom">
+					信用基金
+				</div>
+			</div>
+			<div class="box_flex1 col2 f30" style="width: 75px;">{{ user.current_fee }}</div>
+			<div class=" me_tap" me_event="gopage" me_data='help'  style="width: 110px;">
+				<div class="button_01">
+					怎么获取
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

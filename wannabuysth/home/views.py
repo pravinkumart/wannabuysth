@@ -18,20 +18,20 @@ index = Blueprint('home', __name__, template_folder='templates', url_prefix='/ho
 
 @index.route("/help")
 def help():
-    return render_template("help.html", **locals())
+    return render_template("home/help.html", **locals())
 
 
 @index.route("/accounts")
 def accounts():
-    return render_template("accounts.html", **locals())
+    return render_template("home/accounts.html", **locals())
 
 @index.route("/regedit")
 def regedit():
-    return render_template("regedit.html", **locals())
+    return render_template("home/regedit.html", **locals())
 
 @index.route('/forget')
 def forget():
-    return render_template("forget.html", **locals())
+    return render_template("home/forget.html", **locals())
 @index.route("/forget_do", methods=["POST"])
 def forget_do():
     username = request.form.get("username", "")
@@ -95,7 +95,7 @@ def regedit_do():
 @index.route("/login")
 def login():
     need_login = request.args.get('need_login', '')
-    return render_template("login.html", **locals())
+    return render_template("home/login.html", **locals())
 
 @index.route("/login_do", methods=["POST"])
 def login_do():
@@ -128,7 +128,7 @@ def home_index():
     user = g.user
     if user:
         notification = server.get_notification(user.id)
-    return render_template("index.html", **locals())
+    return render_template("home/index.html", **locals())
 
 
 @index.route("/second_lv/<catalog_id>/")
@@ -141,7 +141,7 @@ def second_lv(catalog_id):
             datas = datas.order_by(SubCataog.name)
         total = datas.count()
         catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
-    return render_template("second_lv.html", **locals())
+    return render_template("home/second_lv.html", **locals())
 
 
 @index.route("/item_list/<catalog_id>/")
@@ -154,7 +154,7 @@ def item_list(catalog_id):
             datas = datas.order_by(Product.show_fee)
         else:
             datas = datas.order_by(Product.show_fee)
-    return render_template("item_list.html", **locals())
+    return render_template("home/item_list.html", **locals())
 
 @index.route("/release/<catalog_id>/")
 def release_item(catalog_id):
@@ -162,14 +162,14 @@ def release_item(catalog_id):
         return redirect(url_for("home.login", need_login="release/%s" % catalog_id))
     sort_type = int(request.args.get("sort_type", '0'))
     catalog = g.db.query(SubCataog).filter(Product.id == catalog_id).first()
-    return render_template("apply_item.html", **locals())
+    return render_template("home/apply_item.html", **locals())
 
 
 @index.route("/item_detail/<item_id>/")
 def item_detail(item_id):
     sort_type = int(request.args.get("sort_type", '0'))
     item = g.db.query(Product).filter(Product.id == item_id).first()
-    return render_template("item_detail.html", **locals())
+    return render_template("home/item_detail.html", **locals())
 
 
 
@@ -180,12 +180,13 @@ def apply_item(item_id):
         return redirect(url_for("home.login", need_login="apply_item/%s" % item_id))
     sort_type = int(request.args.get("sort_type", '0'))
     item = g.db.query(Product).filter(Product.id == item_id).first()
-    return render_template("apply_item.html", **locals())
+    return render_template("home/apply_item.html", **locals())
 
 
 @index.route("/apply_item_do", methods=["POST"])
 def apply_item_do():
     import datetime
+    import random
     user = g.user
     result = {'succeed':False, 'erro':''}
 
@@ -220,10 +221,10 @@ def apply_item_do():
     if not descrip :
         result['erro'] = '描述不能为空!'
         return jsonify(result)
-
+    code = random.randint(1000, 9999)
     req = Requirment(customer_id=user.id, subcataog_id=catalog_id,
-                    wanna_fee=wanna_fee, descrip=descrip, end_time=end_time, location=location,
-                    state=1
+                    wanna_fee=wanna_fee * 100, descrip=descrip, end_time=end_time, location=location,
+                    state=1, code=code
                     )
     if item_id:
         req.product_id = item_id
@@ -239,7 +240,7 @@ def my_keeper():
     user = g.user
     if not user:
         return redirect(url_for("home.login", need_login="my_keeper"))
-    return render_template("my_keeper.html", **locals())
+    return render_template("home/my_keeper.html", **locals())
 
 
 
@@ -248,7 +249,7 @@ def personal():
     user = g.user
     if not user:
         return redirect(url_for("home.login", need_login="my_keeper"))
-    return render_template("personal.html", **locals())
+    return render_template("home/personal.html", **locals())
 
 
 @index.route("/update_user_portrait", methods=["POST"])
@@ -259,16 +260,19 @@ def update_user_portrait():
     result = {'succeed':False, 'erro':u'帐号错误'}
     return jsonify(result)
 
-@index.route("/choose_item")
-def choose_item():
-    return render_template("choose_item.html", **locals())
+@index.route("/choose_item/<requirment_id>")
+def choose_item(requirment_id):
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.customer_id == user.id,
+                                                Requirment.id == requirment_id).first()
+    return render_template("home/choose_item.html", **locals())
 
 
 @index.route("/choose_list")
 def choose_list():
     user = g.user
     datas = g.db.query(Requirment).filter(Requirment.customer_id == user.id, Requirment.state == 2)
-    return render_template("choose_list.html", **locals())
+    return render_template("home/choose_list.html", **locals())
 
 
 @index.route("/decide_item/<requirment_id>")
@@ -278,7 +282,7 @@ def decide_item(requirment_id):
                                                 Requirment.id == requirment_id).first()
     if requirment:
         replys = g.db.query(Reply).filter(Reply.requirment_id == requirment.id)
-    return render_template("decide_item.html", **locals())
+    return render_template("home/decide_item.html", **locals())
 
 
 @index.route("/decide_list")
@@ -288,7 +292,7 @@ def decide_list():
     '''
     user = g.user
     datas = g.db.query(Requirment).filter(Requirment.customer_id == user.id, Requirment.state.in_([0, 1]))
-    return render_template("decide_list.html", **locals())
+    return render_template("home/decide_list.html", **locals())
 
 @index.route("/admin_list")
 def admin_list():
@@ -296,7 +300,7 @@ def admin_list():
     '''
     user = g.user
     datas = g.db.query(Requirment).filter(Requirment.state != -1)
-    return render_template("admin_list.html", **locals())
+    return render_template("home/admin_list.html", **locals())
 
 
 @index.route("/admin_item/<requirment_id>")
@@ -325,7 +329,24 @@ def select_reply_do(reply_id):
     result = {'succeed':True, 'erro':user.name}
     return jsonify(result)
 
-
+@index.route("/update_choose_item/<requirment_id>", methods=["POST"])
+def update_choose_item(requirment_id):
+    code = request.form.get("code", '')
+    state = request.form.get("state", '')
+    requirment = g.db.query(Requirment).filter(Requirment.id == requirment_id).first()
+    if requirment and requirment.code == code and state:
+        state = int(state)
+        requirment.state = state
+        if state == 4 and requirment.product:
+            product = requirment.product
+            product.success_count = product.success_count + 1
+            g.db.add(product)
+        g.db.add(requirment)
+        g.db.commit()
+        result = {'succeed':True, 'erro':u''}
+    else:
+        result = {'succeed':False, 'erro':u'交易码错误'}
+    return jsonify(result)
 
 @index.route("/choose_f/<reply_id>", methods=["POST"])
 def choose_f(reply_id):
@@ -336,6 +357,7 @@ def choose_f(reply_id):
     g.db.commit()
     result = {'succeed':True, 'erro':''}
     return jsonify(result)
+
 
 
 @index.route("/choose_s/<reply_id>", methods=["POST"])
@@ -368,19 +390,19 @@ def history_list():
         datas = datas.order_by(Requirment.id)
     else:
         datas = datas.order_by(Requirment.wanna_fee)
-    return render_template("history_list.html", **locals())
+    return render_template("home/history_list.html", **locals())
 
 
 @index.route("/setings")
 def setings():
-    return render_template("setings.html", **locals())
+    return render_template("home/setings.html", **locals())
 
 
 
 @index.route("/update_mobile")
 def update_mobile():
     user = g.user
-    return render_template("update_mobile.html", **locals())
+    return render_template("home/update_mobile.html", **locals())
 
 
 @index.route("/update_user_mobile", methods=["POST"])
@@ -411,7 +433,7 @@ def update_user_password():
 @index.route("/update_name")
 def update_name():
     user = g.user
-    return render_template("update_name.html", **locals())
+    return render_template("home/update_name.html", **locals())
 
 @index.route("/update_user_name", methods=["POST"])
 def update_user_name():
@@ -426,22 +448,22 @@ def update_user_name():
 
 @index.route("/update_password")
 def update_password():
-    return render_template("update_password.html", **locals())
+    return render_template("home/update_password.html", **locals())
 
 
 @index.route("/sell_list")
 def sell_list():
-    return render_template("sell_list.html", **locals())
+    return render_template("home/sell_list.html", **locals())
 
 @index.route("/bijia")
 def bijia():
-    return render_template("bijia.html", **locals())
+    return render_template("home/bijia.html", **locals())
 
 
 
 @index.route("/location")
 def location():
-    return render_template("location.html", **locals())
+    return render_template("home/location.html", **locals())
 
 
 

@@ -1,0 +1,53 @@
+<div data-role="page" id="login">
+	<div data-role="header"  data-theme="me">
+				<div class="horizontal">
+					<div class="header_b">
+						<a class="back" href="javascript:void(0)" ></a>
+					</div>
+					<div class="tc header_m box_flex1">
+						<h1>登录</h1>
+					</div>
+					<div class="header_a"></div>
+				</div>
+			</div>
+	<div data-role="content">
+		<form action="" id="login_form">
+		<div class="horizontal" style="border:1px solid #E2E2E2;border-radius: 5px 5px 0 0;">
+			<div class="username_icon"></div>
+			<div class="box_flex1 bg1 padl_15">
+				<input class="username" type="text" data-role="none" placeholder="手机号" autocomplete="on" maxlength="128" tabindex="1" name="username" value="">
+			</div>
+		</div>
+		<div class="horizontal" style="border:1px solid #E2E2E2;border-radius:0 0 5px 5px;">
+			<div class="password_icon"></div>
+			<div class="box_flex1 bg1 padl_15">
+				<input type="password" class="password" data-role="none" placeholder="密码" maxlength="24" tabindex="2"  name="password"  value="">
+			</div>
+		</div>
+		<div  class="info_list"  style="margin:0;">
+			<div class="tr ">
+				<a href="#"  class="col1 me_tap" me_event="gopage" me_data='forget'>忘记密码？</a>
+			</div>
+		</div>
+		</form>
+		<div  class="info_list horizontal">
+			<div class="login box_flex3 tc br_5 f18 me_tap" me_event="login_ok" me_data="this" style="">
+				登录
+			</div>
+			<div style="width: 10px;"></div>
+			<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="gopage" me_data='regedit'>
+				注册
+			</div>
+		</div>
+
+		<div  class="info_list horizontal open_list br_5 me_tap" me_event="wating" style="margin-top: 45px;">
+			<div class="box_flex1 qq_show f18" style="padding-left: 40px; color: #666;line-height: 40px;">
+				使用QQ帐号登录
+			</div>
+			<div style="width: 24px;">
+				<img src="/static/images/go.png" style="width: 14px;margin-top: 13px;" />
+			</div>
+		</div>
+	</div>
+	<input id="need_login_el" type="hidden" value="{{need_login}}" />
+</div>

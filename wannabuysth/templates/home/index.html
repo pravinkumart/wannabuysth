@@ -1,0 +1,64 @@
+<div data-role="page" id="index">
+	<div data-role="content">
+		<div class="horizontal">
+			<div style="width: 230px;overflow:hidden;">
+				<img src="../static/data/recommend.jpg" id="myImage" class="me_tap"  me_event="gopage" me_data='item_detail/1'  style="width:230px;" />
+				<div class="tc bg2 f18 col1" style="height: 40px;line-height: 40px; width: 230px;">今日推荐</div>
+				<div id="wrapper_index" style="height: 360px;overflow:hidden;">
+					  <div class="scroller">
+					    <ul class="thelist">
+					    	{% for catalogs in catalog_list %}
+					      <li>
+					      	{% for catalog in catalogs %}
+					      	<img src="{{ catalog.icon_smaill }}" class="me_tap" me_event="gopage" me_data="second_lv/{{ catalog.id }}/" />
+					      	{% endfor %}
+					      </li>
+					      {% endfor %}
+					    </ul>
+					    <div class="blank0"></div>
+					  </div>
+				</div>
+			</div>
+			<div class="box_flex1"></div>
+		</div>
+	</div>
+	<div style="width: 50px;position:absolute;right: 10px;top: 10px;" class="tc">
+			<div class="portrait tr me_tap" me_event="gopage" me_data="my_keeper" >
+				{% if user %}
+					<img src="{{ user.get_portrait() }}"   />
+				{% else %}
+					<img src="../static/data/portrait.jpg"   />
+				{% endif %}
+			</div>
+			{% if user %}
+			<div style="position: relative;margin-top: 25px;" class="tc me_tap" me_event="wating">
+				<div class="inform_num">{{ notification }}</div>
+				<img src="../static/images/inform.png"  width="22" />
+			</div>
+			{% endif %}
+	</div>
+	<div style="position:absolute;bottom: 30px;right: 15px;" class="tc">
+		<div class="me_tap" me_event="gopage" me_data="sell_list">
+			<img src="../static/images/buy.png"  width="22"/>
+			<div class="col1 f16">购买</div>
+		</div>
+		<div style="margin-top: 25px" class="me_tap" me_event="gopage" me_data="setings">
+			<img src="../static/images/setting.png" width="22"  />
+			<div class="col1 f16">设置</div>
+		</div>
+		<div style="margin-top: 25px" class="me_tap" me_event="gopage" me_data="bijia">
+			<img src="../static/images/bb.png" width="22" />
+			<div class="col1 f16">比价</div>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+	alert(0)
+</script>
+
+
+
+
+
+

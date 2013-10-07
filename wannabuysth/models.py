@@ -138,15 +138,25 @@ class Requirment(Base):
     subcataog_id = Column(Integer, ForeignKey("subcataog.id"))
     subcataog = relationship("SubCataog", backref=backref("requirments"))
 
-    merchant_id = Column(Integer)                                       #中标商家ID
+    merchant_id = Column(Integer, ForeignKey("merchant.id"))            #中标商家ID
+    merchant = relationship("Merchant", backref=backref("requirments"))
+
     wanna_fee = Column(Integer)                                         #心理价位 (单位：分)
     descrip = Column(String(500))                                       #需求描述
     end_time = Column(DateTime)                                         #截止时间
     location = Column(String(200))                                      #服务地点
-    state = Column(SmallInteger)                                        #状态   0  用户新发布   1 用户选定商家  2商家确定  3交易失败  4交易完成
+    code = Column(String(6))                                             #交易码
+    state = Column(SmallInteger)                                        #状态   0  用户新发布   1 用户选定商家  2商家确定  3交易完成 4交易失败 
     __table_args__ = (
         Index("customer_requirment_idx", "customer_id", "state"),
     )
+
+    def get_wanna_fee(self):
+        return self.wanna_fee / 100.0
+
+    def get_state(self):
+        return {0:u'用户新发布 ', 1:u'用户选定商家 ', 2:u'商家确定 ', 3:u'交易完成', 4:u'交易失败'}.get(self.state, self.state)
+
 
 class Reply(Base):
     """
@@ -154,6 +164,7 @@ class Reply(Base):
     """
     requirment_id = Column(Integer, ForeignKey("requirment.id"))         #需求编号
     requirment = relationship("Requirment", backref=backref("replys"))   #需求对象
+
     merchant_id = Column(Integer, ForeignKey("merchant.id"))            #回复商家ID
     merchant = relationship("Merchant")       #回复商家对象
     fee = Column(Integer)                                               #服务价格 (单位：分)

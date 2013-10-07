@@ -1,0 +1,14 @@
+{% with messages = get_flashed_messages(with_categories=Trur,category_filter=["success"]) %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }} <a class="close" data-dismiss="alert" href="javascript:void(0)">&times;</a></div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% with messages = get_flashed_messages(with_categories=Trur,category_filter=["error"]) %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert">{{ message }} <a class="close" data-dismiss="alert" href="javascript:void(0)">&times;</a></div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

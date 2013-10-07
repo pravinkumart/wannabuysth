@@ -1,0 +1,92 @@
+<div data-role="page" id="apply_item" class="bg">
+	
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				{% if item %}
+					<h1>{{ item.title }}</h1>
+				{% else %}
+					<h1>{{ catalog.name }}</h1>
+				{% endif %}
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div data-role="content" class="apply_item">
+		<form action="" method="post" id="apply_item_form" >
+		<div class="horizontal me_field">
+			<div class="field_msg tc">
+				<div>价格</div>
+			</div>
+			<div class="box_flex1 bg1 padl_15">
+				<input class="username" type="text" data-role="none" placeholder="商品单价" autocomplete="on" maxlength="128" tabindex="1" name="wanna_fee" value="">
+			</div>
+			<div style="width: 40px;line-height: 50px;">
+				元
+			</div>
+		</div>
+		<div class="horizontal mart_10 me_field">
+			<div class="field_msg tc">
+				<div style="margin-top: 20px;">有效期</div>
+			</div>
+			<div class="box_flex1 bg1 " style="padding: 3px 10px;">
+				<input name="end_time" class="" type="date" id="test_default" />
+			</div>
+		</div>
+		
+					
+		<div class="horizontal mart_10 me_field">
+			<div class="field_msg tc">
+				<div style="margin-top: 30px;">备注</div>
+			</div>
+			<div class="box_flex1 bg1 padl_15">
+				<textarea style="height: 80px" data-role="none"  class="username" placeholder="" name="descrip"></textarea>
+			</div>
+		</div>
+		<div class="horizontal mart_10 me_field">
+			<div class="field_msg tc">
+				<div style="margin-top: 20px;">交易地</div>
+			</div>
+			<div class="box_flex1 bg1 " style="padding: 3px 10px;">
+				<select name="location"  style="width: 80%;margin-top: 15px;margin-bottom: 15px;" >
+					<option value="锦江区">锦江区</option>
+					<option value="青羊区">青羊区</option>
+					<option value="金牛区">金牛区</option>
+					<option value="武侯区">武侯区</option>
+					<option value="成华区">成华区</option>
+					<option value="龙泉驿区">龙泉驿区</option>
+					<option value="青白江区">青白江区</option>
+					<option value="新都区">新都区</option>
+					<option value="温江区">温江区</option>
+					<option value="都江堰市">都江堰市</option>
+					<option value="彭州市">彭州市</option>
+					<option value="邛崃市">邛崃市</option>
+					<option value="崇州市">崇州市</option>
+					<option value="金堂县">金堂县</option>
+				</select>
+			</div>
+			
+		</div>
+		{% if item %}
+		<input type="hidden" name="item_id" value="{{ item.id }}" />
+		<input type="hidden" name="catalog_id" value="{{ item.catalog_id }}" />
+		{% else %}
+		<input type="hidden" name="catalog_id" value="{{ catalog.id }}" />
+		{% endif %}
+		</form>
+		<div style="height: 40px;"></div>
+		<div class="info_list">
+			{% if item %}
+			<div class="regedit box_flex1 tc br_5 f18 me_tap"  me_event="apply_item_ok" me_data="{{ item.catalog_id }} 0" >
+			{% else %}
+			<div class="regedit box_flex1 tc br_5 f18 me_tap"  me_event="apply_item_ok" me_data="{{ catalog.id }} 1" >
+			{% endif %}
+					提交报价
+			</div>
+		</div>
+	</div>
+	
+</div>

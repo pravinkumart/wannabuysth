@@ -6,8 +6,10 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from flask import send_file, render_template
 from utils import print_debug
 from home.views import index
-from models import Customer
+from merchant.views import mc
+from models import Customer, Merchant
 import settings
+from flask import redirect
 
 app = Flask(__name__)
 manage = Manager(app)
@@ -18,11 +20,13 @@ DB = create_engine(settings.DB_URI, encoding="utf-8", echo=False)
 Session = sessionmaker(bind=DB)
 
 app.register_blueprint(index)
+app.register_blueprint(mc)
 
 
 @app.route('/')
 def hello_world():
-    return render_template("base.html", **locals())
+    return redirect('/mc')
+#    return render_template("base.html", **locals())
 
 @index.route("static/<file_name>")
 def down_file(file_name):
@@ -65,6 +69,13 @@ def before_request():
         g.user = None
     else:
         g.user = g.db.query(Customer).filter(Customer.id == user_id).first()
+    #mc 用户登录
+    mc_user_id = session.get('mc_user_id', None)
+    if not mc_user_id:
+        g.mc_user = None
+    else:
+        g.mc_user = g.db.query(Merchant).filter(Merchant.id == mc_user_id).first()
+
 
 @app.teardown_request
 def tear_down(exception=None):

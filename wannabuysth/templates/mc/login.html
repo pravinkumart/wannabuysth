@@ -1,0 +1,16 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="login" {% endblock %} 
+
+{% block container %} 
+    <div class="container">
+      <form class="form-signin"  action="" method="post">
+        <h2 class="form-signin-heading">登录</h2>
+	  	{% block info %}{% include "mc/_info.html" %} {% endblock %}  	
+        <input type="text" class="input-block-level" name="username" placeholder="帐号">
+        <input type="password" class="input-block-level" placeholder="密码" name="password">
+       
+        <button class="btn btn-large btn-primary" type="submit">登录</button>
+      </form>
+    </div> <!-- /container -->
+{% endblock %} 

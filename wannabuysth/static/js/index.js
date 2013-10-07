@@ -581,3 +581,19 @@ function login_out(){
 		}
 	})
 }
+
+
+
+function update_choose_item(id){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	var data = $('#choose_item_form').serializeArray();
+	$.post('/home/update_choose_item/'+id,data,function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('请求成功!')
+			gopage('choose_list')
+		}else{
+			alert(datas.erro)
+		}
+	})
+}

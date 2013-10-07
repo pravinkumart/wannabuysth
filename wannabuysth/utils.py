@@ -1,7 +1,7 @@
 #coding=utf8
 __author__ = 'Alexander.Li'
 from celery import Celery
-
+from flask import g, jsonify, request, flash, url_for
 
 def tob(s, enc='utf8'):
     return s.encode(enc) if isinstance(s, unicode) else bytes(s)
@@ -55,3 +55,12 @@ def make_celery(app):
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
+
+def add_error(message, keep=True):
+    flash(message, category="error")
+    if keep:
+        for name, value in request.form.iteritems():
+            flash(dict(name=name, value=value), category="backinfo")
+
+def add_success(message):
+    flash(message, category="success")
