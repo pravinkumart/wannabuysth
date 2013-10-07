@@ -123,6 +123,9 @@ class Product(Base):
     view_count = Column(Integer)                                        #浏览次数
     success_count = Column(Integer)                                     #成功次数
 
+    def get_show_fee(self):
+        return self.show_fee
+
 
 
 class Requirment(Base):
