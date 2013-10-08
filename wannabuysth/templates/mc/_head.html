@@ -26,7 +26,7 @@
                     <ul class="nav">
                         <li class="dropdown {% if 'requirment' in  request.url %}active{% endif %}">
                             <a href="/"  data-toggle="dropdown" class="dropdown-toggle">客户处理<b class="caret"></b></a>
-                            <ul class="dropdown-menu" id="menu1">
+                            <ul class="dropdown-menu" >
                                 <li>
                                     <a href="/mc/requirment/0">处理申请</a>
                                 </li>
@@ -39,8 +39,17 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="{% if 'product' in  request.url %}active{% endif %}">
-                            <a href="/mc/product/list">服务管理</a>
+                        <li class="dropdown {% if 'product' in  request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">服务管理<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="menu2">
+                                <li>
+                                    <a href="/mc/product/product">商品管理</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="/mc/product/catalog">服务设置</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

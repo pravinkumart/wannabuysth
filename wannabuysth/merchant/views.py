@@ -23,14 +23,14 @@ def mc_login():
         username = request.form.get("username", "")
         password = request.form.get("password", "")
         if not username or not password:
-            add_error(u'帐号或密码不能为空')
+            add_error(u'手机号或密码不能为空')
         else:
             users = g.db.query(Merchant).filter(Merchant.mobile == username, Merchant.password == password)
             if users.count() > 0:
                 session["mc_user_id"] = users[0].id
                 return redirect('/mc/index')
             else:
-                add_error(u'帐号或密码错误')
+                add_error(u'手机号或密码错误')
     return render_template("mc/login.html", **locals())
 
 
@@ -47,6 +47,8 @@ def mc_index():
     if not g.mc_user:
         return redirect('/mc/login')
     else:
+        return redirect('/mc/product/catalog')
+
         return redirect('/mc/requirment/0')
 
 @mc.route("/requirment/<requirment_id>", methods=["GET", "POST"])
@@ -99,4 +101,63 @@ def product_list():
 
     mc_user = g.mc_user
     return render_template("mc/product_list.html" , **locals())
+
+@mc.route("/regedit", methods=["GET", "POST"])
+def mc_regedit():
+    if request.method == 'POST':
+        name = request.form.get("name", "").strip()
+        mobile = request.form.get("mobile", "").strip()
+        password = request.form.get("password", "")
+        re_password = request.form.get("re_password", "")
+
+        if not mobile or not password:
+            add_error(u'手机号或密码不能为空')
+        elif not mobile or len(mobile) != 11:
+            add_error(u'请输入11位手机号')
+        elif password != re_password:
+            add_error(u'2次输入的密码不一致')
+        elif g.db.query(Merchant).filter(Merchant.mobile == mobile).first():
+            add_error(u'手机号已使用')
+        elif g.db.query(Merchant).filter(Merchant.name == name).first():
+            add_error(u'商家名称已使用')
+        else:
+            rec = Merchant(name=name, mobile=mobile, password=password, pre_payed=0,
+                           success_count=0, faild_count=0, catalog_count=1, subcatalog_count=3
+                           )
+            g.db.add(rec)
+            g.db.commit()
+            session["mc_user_id"] = rec.id
+            return redirect('/mc/index')
+    return render_template("mc/regedit.html", **locals())
+
+
+@mc.route("/product/catalog", methods=["GET", "POST"])
+def mc_catalog():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    catalog_type = request.args.get("type", "").strip()
+    if catalog_type:
+        catalog = g.db.query(Catalog).filter(Catalog.id == catalog_type, Catalog.status == True).first()
+        if catalog:
+            subcatalogs = g.db.query(SubCataog).filter(SubCataog.catalog_id == catalog.id, SubCataog.status == True)
+
+    else:
+        catalogs = g.db.query(Catalog).filter(Catalog.status == True)
+
+    return render_template("mc/catalog.html", **locals())
+
+
+@mc.route("/product/product", methods=["GET", "POST"])
+def mc_product():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    catalogs = g.db.query(Catalog).filter(Catalog.status == True)
+    mc_user = g.mc_user
+    return render_template("mc/product.html", **locals())
+
+
+
+
+
 

@@ -90,6 +90,15 @@ class Customer(Base):
             return '/static/data/my_portrait.png'
 
 
+class CustomerCataog(Base):
+    """
+    @note: 用户选择的类别
+    """
+    catalog_id = Column(Integer, ForeignKey("subcataog.id"))
+    catalog = relationship("SubCataog", backref=backref("customers"))
+
+    customer_id = Column(Integer, ForeignKey("customer.id"))            #父级频道编号
+    customer = relationship("Customer", backref=backref("customers")) #父级频道对象
 
 
 
@@ -97,13 +106,15 @@ class Merchant(Base):
     """
     商家
     """
-    name = Column(String(20), unique=True)       #商家名
-    password = Column(String(48))                #密码
-    mobile = Column(String(11))                  #手机号
-    pre_payed = Column(Integer)                  #预付款总额 (单位：分)
-    credit = Column(Integer)                     #信誉度
-    success_count = Column(Integer)              #成功次数
-    faild_count = Column(Integer)                #失败次数
+    name = Column(String(20), unique=True)        #商家名
+    password = Column(String(48))                 #密码
+    mobile = Column(String(11))                   #手机号
+    pre_payed = Column(Integer)                   #预付款总额 (单位：分)
+    credit = Column(Integer)                      #信誉度
+    success_count = Column(Integer)               #成功次数
+    faild_count = Column(Integer)                 #失败次数
+    catalog_count = Column(Integer, default=1)    #限制服务大类 数量
+    subcatalog_count = Column(Integer, default=3) #限制服务小类 数量 
 
 
 class Product(Base):

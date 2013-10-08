@@ -3,14 +3,26 @@
 {% block body_id %}id="login" {% endblock %} 
 
 {% block container %} 
-    <div class="container">
-      <form class="form-signin"  action="" method="post">
-        <h2 class="form-signin-heading">登录</h2>
+    <div class="container form-signin">
+      <form class="form-horizontal"  action="" method="post">
+        <legend>登录</legend>
 	  	{% block info %}{% include "mc/_info.html" %} {% endblock %}  	
-        <input type="text" class="input-block-level" name="username" placeholder="帐号">
-        <input type="password" class="input-block-level" placeholder="密码" name="password">
-       
-        <button class="btn btn-large btn-primary" type="submit">登录</button>
+	  	  <fieldset>
+          <label class="control-label" for="focusedInput">手机号</label>
+          <div class="controls">
+            <input class="input-xlarge focused"  type="text" name="username" value="">
+          </div>
+          <label class="control-label" for="focusedInput">密码</label>
+          <div class="controls">
+            <input class="input-xlarge focused"  type="text" name="password" value="">
+          </div>
+          <label class="control-label" for="focusedInput"> </label>
+          <div class="controls">
+          		<button class="btn btn-large btn-primary fl" type="submit" style="width: 140px;">登录</button>
+		        <a class="fl" href="/mc/regedit" style="margin-top: 20px; margin-left: 20px;" >注册新账号</a>
+		        <div class="blank0"> </div>
+          </div>
+          </fieldset>
       </form>
     </div> <!-- /container -->
 {% endblock %} 

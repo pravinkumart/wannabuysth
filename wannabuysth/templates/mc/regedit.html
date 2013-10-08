@@ -1,0 +1,36 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="login" {% endblock %} 
+
+{% block container %} 
+    <div class="container form-signin">
+      <form class="form-horizontal" action="" method="post">
+          <fieldset>
+            <legend>注册新帐号</legend>
+            {% block info %}{% include "mc/_info.html" %} {% endblock %}  
+              <label class="control-label" for="focusedInput">手机号</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="text" name="mobile" maxlength="11" value="{{ mobile }}">
+              </div>
+              <label class="control-label" for="focusedInput">商家名称</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="text" name="name" value="{{ name }}">
+              </div>
+              <label class="control-label" for="focusedInput">密码</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="password" name="password" value="">
+              </div>
+              <label class="control-label" for="focusedInput">确认密码</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="password" name="re_password" value="">
+              </div>
+              <label class="control-label" for="focusedInput"> </label>
+              <div class="controls">
+                 <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;"> 注     册 </button>
+	              <a class="fl" href="/mc/login" style="margin-top: 15px; margin-left: 20px;" >已有帐号</a>
+	        	  <div class="blank0"> </div>
+              </div>
+          </fieldset>
+        </form>
+    </div> <!-- /container -->
+{% endblock %} 

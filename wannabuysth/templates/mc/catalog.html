@@ -1,0 +1,49 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "mc/_head.html" %} 
+<div class="row-fluid">
+	<div class="alert alert-info">
+		<strong>注意!</strong> 免费用户只能选择一个服务大类，大类下面最多选择3个子类
+	</div>
+	<ul class="breadcrumb">
+    	{% if catalog_type %}
+    	<li><a href="/mc/product/catalog">选择服务类型</a> <span class="divider">/</span></li>
+    	<li class="active"><a href="#">{{ catalog.name }}</a></li>
+    	{% else %}
+    	<li class="active"><a href="#">选择服务类型</a> <span class="divider">/</span></li>
+    	{% endif %}
+    </ul>
+	<div class="row-fluid" style="padding: 10px;">
+        <ul class="thumbnails">
+         {% for catalog in catalogs %}
+          <li class="" style="width: 100px;">
+            <div class="thumbnail">
+            	<a href="/mc/product/catalog?type={{ catalog.id }}">
+              		<img src="{{ catalog.icon_smaill }}" alt="{{ catalog.name }}">
+              	</a>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <form action="" method="post">
+        <ul class="thumbnails">
+         {% for catalog in subcatalogs %}
+          <li class="" style="width: 100px;">
+            <div class="thumbnail">
+              	<img src="{{ catalog.icon_smaill }}" alt="{{ catalog.name }}">
+            </div>
+            <div class="caption" style="margin-top: 5px;">
+            	<label><input type="checkbox" value="{{ catalog.id }}" style="margin-right: 5px;"  /> {{ catalog.name }}</label>
+	        </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="blank0"></div>
+        <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;"> 保存</button>
+        </form>
+      </div>
+</div>
+
+{% endblock %} 
