@@ -7,12 +7,29 @@
 	<div class="alert alert-info">
 		<strong>注意!</strong> 免费用户只能选择一个服务大类，大类下面最多选择3个子类
 	</div>
-	<ul class="breadcrumb">
+	
+	<ul class="breadcrumb" style="padding: 0 30px;">
+    	<li><a href="/mc/product/catalog">我已选择的服务</a> <span class="divider">/</span></li>
+    </ul>
+     <ul class="thumbnails" style="padding: 10px 30px;">
+     {% for catalog in my_subcatalogs %}
+      <li class="" style="width: 100px;">
+        <div class="thumbnail">
+          	<img src="{{ catalog.icon_smaill }}" alt="{{ catalog.name }}">
+        </div>
+        <div class="caption" style="margin-top: 5px;">
+        	<label>{{ catalog.name }}</label>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    
+	<ul class="breadcrumb" style="padding: 0 30px;">
     	{% if catalog_type %}
-    	<li><a href="/mc/product/catalog">选择服务类型</a> <span class="divider">/</span></li>
+    	<li><a href="/mc/product/catalog">重新选择服务类型</a> <span class="divider">/</span></li>
     	<li class="active"><a href="#">{{ catalog.name }}</a></li>
     	{% else %}
-    	<li class="active"><a href="#">选择服务类型</a> <span class="divider">/</span></li>
+    	<li class="active"><a href="#">重新选择服务类型</a> <span class="divider">/</span></li>
     	{% endif %}
     </ul>
 	<div class="row-fluid" style="padding: 10px;">
@@ -35,15 +52,34 @@
               	<img src="{{ catalog.icon_smaill }}" alt="{{ catalog.name }}">
             </div>
             <div class="caption" style="margin-top: 5px;">
-            	<label><input type="checkbox" value="{{ catalog.id }}" style="margin-right: 5px;"  /> {{ catalog.name }}</label>
+            	<label><input type="checkbox" name="subcatalog" onclick="check_catalog(this)" value="{{ catalog.id }}" style="margin-right: 5px;"  /> {{ catalog.name }}</label>
 	        </div>
           </li>
           {% endfor %}
         </ul>
-        <div class="blank0"></div>
-        <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;"> 保存</button>
+        <div class="blank0"> </div>
+        {% if subcatalogs %}
+        	<button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;"> 保存</button>
+        {% endif %}
         </form>
       </div>
 </div>
 
+<script type="text/javascript">
+	var catalog_limit = 3;
+	function check_catalog(el){
+		
+	}
+</script>
+
+
 {% endblock %} 
+
+
+
+
+
+
+
+
+

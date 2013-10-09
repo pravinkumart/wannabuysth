@@ -11,7 +11,7 @@ from models import Catalog
 from models import SubCataog
 from models import Product
 from models import Requirment, Reply
-from models import Merchant
+from models import Merchant, CustomerCataog
 from utils import add_error, add_success
 
 mc = Blueprint('mc', __name__, template_folder='templates', url_prefix='/mc')
@@ -60,7 +60,9 @@ def requirment_show(requirment_id):
     replys = g.db.query(Reply).filter(Reply.merchant_id == mc_user.id)
     requirment_ids = [reply.requirment_id for reply in replys]
     if requirment_id == 0:
-        datas = g.db.query(Requirment).filter(Requirment.state.in_([0, 1]))
+        my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id)
+        mu_subcataog_ids = [rec.catalog_id  for rec in my_subcatalogs]
+        datas = g.db.query(Requirment).filter(Requirment.state.in_([0, 1]), Requirment.subcataog_id.in_(mu_subcataog_ids))
     if requirment_id == 2:
         datas = g.db.query(Requirment).filter(Requirment.merchant_id == mc_user.id, Requirment.state == 2)
     if requirment_id == 3:
@@ -145,6 +147,19 @@ def mc_catalog():
     else:
         catalogs = g.db.query(Catalog).filter(Catalog.status == True)
 
+    my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id)
+    my_subcatalogs = [rec.catalog for rec in my_subcatalogs]
+    if request.method == 'POST':
+        has_data = g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id)
+        has_data.delete()
+        subcatalogs = request.form.getlist('subcatalog')
+        for i, catalog_id in enumerate(subcatalogs):
+            if i > 2:
+                continue
+            add_sub = CustomerCataog(catalog_id=catalog_id, customer_id=mc_user.id)
+            g.db.add(add_sub)
+        g.db.commit()
+        return redirect('/mc/product/catalog')
     return render_template("mc/catalog.html", **locals())
 
 
