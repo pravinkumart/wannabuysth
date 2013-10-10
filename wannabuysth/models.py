@@ -137,6 +137,19 @@ class Product(Base):
     def get_show_fee(self):
         return self.show_fee
 
+class ProductAds(Base):
+    '''
+    @note: 产品广告
+    '''
+    product_id = Column(Integer, ForeignKey("product.id"))
+    product = relationship("Product", backref=backref("ads"))  # 商品或者服务
+    start_time = Column(DateTime)  # 开始时间
+    end_time = Column(DateTime)  # 结束时间
+    img = Column(String(200))  # 广告图片
+    type = Column(Integer)  # 广告类型 0 首页广告，1 广告列表中的第一张   2 广告列表里面的小广告
+    sort_num = Column(Integer)  # 排序 字段 越大越靠钱
+
+
 
 
 class Requirment(Base):
@@ -155,12 +168,15 @@ class Requirment(Base):
     merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 中标商家ID
     merchant = relationship("Merchant", backref=backref("requirments"))
 
+    reply_id = Column(Integer)  # 中标回复
+
+
     wanna_fee = Column(Integer)  # 心理价位 (单位：分)
     descrip = Column(String(500))  # 需求描述
     end_time = Column(DateTime)  # 截止时间
     location = Column(String(200))  # 服务地点
     code = Column(String(6))  # 交易码
-    state = Column(SmallInteger)  # 状态   0  用户新发布   1 用户选定商家  2商家确定  3交易完成 4交易失败
+    state = Column(SmallInteger)
     __table_args__ = (
         Index("customer_requirment_idx", "customer_id", "state"),
     )
@@ -170,6 +186,8 @@ class Requirment(Base):
 
     def get_state(self):
         return {0:u'用户新发布 ', 1:u'用户选定商家 ', 2:u'商家确定 ', 3:u'交易完成', 4:u'交易失败'}.get(self.state, self.state)
+
+
 
 
 class Reply(Base):
@@ -187,6 +205,8 @@ class Reply(Base):
         Index("merchant_reply_idx", "requirment_id", "merchant_id"),
     )
 
+    def get_fee(self):
+        return self.fee / 100.0
 
 class SuccessRequirment(Base):
     """
@@ -194,13 +214,24 @@ class SuccessRequirment(Base):
     """
     customer_id = Column(Integer, ForeignKey("customer.id"))  # 消费者编号
     customer = relationship("Customer", backref=backref("success_requirments"))  # 消费者
-    merchant_id = Column(Integer)  # 中标商家ID
-    wanna_fee = Column(Integer)  # 心理价位 (单位：分)
+
+    product_id = Column(Integer, ForeignKey("product.id"))
+    product = relationship("Product", backref=backref("success_reqs"))  # 商品或者服务
+
+    subcataog_id = Column(Integer, ForeignKey("subcataog.id"))
+    subcataog = relationship("SubCataog", backref=backref("success_requirments"))
+
+    merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 中标商家ID
+    merchant = relationship("Merchant", backref=backref("success_requirments"))
+
+    wanna_fee = Column(Integer)  # 成交价格
     descrip = Column(String(500))  # 需求描述
     end_time = Column(DateTime)  # 截止时间
     location = Column(String(200))  # 服务地点
     succes_fee = Column(Integer)  # 成交价位 (单位：分)
     state = Column(SmallInteger)
+    reply_id = Column(Integer, ForeignKey("reply.id"))  # 中标回复
+    reply = relationship("Reply", backref=backref("successrequirment"))
 
 
 class ShowCase(Base):
@@ -212,6 +243,10 @@ class ShowCase(Base):
     requirment = relationship("SuccessRequirment", backref=backref("showcase", uselist=False))  # 需求对象
     customer_id = Column(Integer, ForeignKey("customer.id"))  # 消费者编号
     customer = relationship("Customer")  # 消费者
+    wanna_fee = Column(Integer)  # 成交价格
+
+    def get_wanna_fee(self):
+        return self.wanna_fee / 100.0
 
 class ShowCaseReplay(Base):
     """
@@ -223,3 +258,18 @@ class ShowCaseReplay(Base):
     requirment = relationship("SuccessRequirment")  # 需求对象
     customer_id = Column(Integer, ForeignKey("customer.id"))  # 消费者编号
     customer = relationship("Customer")  # 消费者
+    wanna_fee = Column(Integer)  # 成交价格
+
+    def get_wanna_fee(self):
+        return self.wanna_fee / 100.0
+
+
+
+
+
+
+
+
+
+
+

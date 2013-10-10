@@ -47,9 +47,11 @@ def mc_index():
     if not g.mc_user:
         return redirect('/mc/login')
     else:
-        return redirect('/mc/product/catalog')
-
-        return redirect('/mc/requirment/0')
+        mc_user = g.mc_user
+        if not g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id).first():
+            return redirect('/mc/product/catalog')
+        else:
+            return redirect('/mc/requirment/0')
 
 @mc.route("/requirment/<requirment_id>", methods=["GET", "POST"])
 def requirment_show(requirment_id):
@@ -76,7 +78,8 @@ def requirment_reply(requirment_id):
         return redirect('/mc/login')
     mc_user = g.mc_user
     requirment_id = int(requirment_id)
-    rec = Reply(requirment_id=requirment_id, merchant_id=mc_user.id, fee=0, descrip='')
+    my_fee = int(float(request.args.get("my_fee", "0").strip()) * 100)
+    rec = Reply(requirment_id=requirment_id, merchant_id=mc_user.id, fee=my_fee, descrip='')
     g.db.add(rec)
     g.db.commit()
     return redirect('/mc/requirment/0')

@@ -5,79 +5,38 @@
 				<a class="back" href="javascript:void(0)" ></a>
 			</div>
 			<div class="tc header_m box_flex1">
-				<h1>购买(开发中)</h1>
+				<h1>推荐服务</h1>
 			</div>
 			<div class="header_a"></div>
 		</div>
 	</div>
+	{% if ad_index %}
 	<div data-role="content" class="tc f0">
-		<img src="/static/data/sell_top.png" width="290" height="100px" class="me_list" />
+		<img src="{{ ad_index.img }}" width="290" height="100px" class="me_list" />
 	</div>
+	{% endif %}
 	<div id="sell_list_wrapper">
 		<div class="scroller">
 		<ul class="thelist">
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
+			{% for ad in ads  %}
+			<li class="item horizontals" >
 				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
+					<img src="{{ ad.0.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.product_id }}' style="height: 100px;width: 135px" />
 				</div>
 				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
+				{% if ad.1 %}
+					<img src="{{ ad.1.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.product_id }}' style="height: 100px;width: 135px" />
+				{% endif %}
 				</div>
 			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-			</li>
-			<li class="item horizontal me_tap" me_event="gopage" me_data='item_detail'>
-				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="/static/data/sell_2.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-				<div class="item_img tl box_flex1" style="padding-left: 8px;">
-					<img src="/static/data/sell_1.png" class="me_list" style="height: 100px;width: 135px" />
-				</div>
-			</li>
+			{% endfor %}
 		</ul>
 		<div id="pullUp">
 			<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
 		</div>
 		</div>
 	</div>
+	{% if user %}
 	<div class="footer" style="overflow:hidden">
 		<div style="padding: 10px;" class="horizontal">
 			<div class="col1 pr" style="width: 75px;height: 30px;">
@@ -85,7 +44,7 @@
 					信用基金
 				</div>
 			</div>
-			<div class="box_flex1 col2 f30" style="width: 75px;">35，686</div>
+			<div class="box_flex1 col2 f30" style="width: 75px;">{{ user.current_fee }}</div>
 			<div class=" me_tap" me_event="gopage" me_data='help'  style="width: 110px;">
 				<div class="button_01">
 					怎么获取
@@ -93,4 +52,5 @@
 			</div>
 		</div>
 	</div>
+	{% endif %}
 </div>

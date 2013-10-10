@@ -42,7 +42,7 @@
 				<div class="box_flex1 item_des pr">
 					<div class="fb padt_10">{{ data.subcataog.name }}</div>
 					<div class="pr padt_5">
-						<div class="fl f18 col2 padt_2">我的报价￥{{ data.wanna_fee }}</div>
+						<div class="fl f18 col2 padt_2">我的报价￥{{ data.get_wanna_fee() }}</div>
 						{% if  data.replys %}
 							<div class="fr marr_10 col3  padt_5">{{  data.replys|length  }}个商户回复</div>
 						{% else %}

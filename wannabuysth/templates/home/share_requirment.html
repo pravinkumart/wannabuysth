@@ -1,0 +1,45 @@
+<div data-role="page" id="share_requirment"  class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>发布</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div id="share_requirment_wrapper">
+		<div class="scroller">
+		<ul class="thelist item_list">
+			{% for requirment in requirments%}
+			<li class="item horizontal me_tap" me_event="share_requirment" me_data='{{ requirment.id }}'  >
+				<div style="width: 80px;" class="pad10">
+					{%  if requirment.product %}
+					<img src="{{ requirment.product.icon_smaill }}" width="70" height="70"/>
+					{% else %}
+						<img src="{{ requirment.subcataog.icon_large }}" width="70" height="70"/>
+					{% endif %}
+				</div>
+				<div class="box_flex1 pad10">
+					<div class="fb">{{ requirment.descrip }}</div>
+					<div class="blank10"></div>
+					<p class="col6">商家:{{ requirment.merchant.name }}</p>
+					<div  class="blank10"></div>
+					<p class="col6">交易价格:<span class="fb">{{ requirment.reply.get_fee() }}</spa>元</p>
+					<div  class="blank10"></div>
+					<p class="col6" id="requirment_{{ requirment.id }}">状态:
+						{% if requirment.id in showcases_ids %}
+						<span class="fb">已发布</spa>
+						{% else %}
+						<span class="fb">未发布</spa>
+						{% endif %}
+					</p>
+				</div>
+			</li>
+			{% endfor %}
+			
+		</div>
+	</div>
+</div>

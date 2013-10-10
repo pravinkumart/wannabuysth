@@ -496,17 +496,17 @@ function apply_item_ok(type_data){
 		$.mobile.loading('hide');
 		if(datas.succeed){
 			if(type==0){
-				alert('申请成功!')
-				gopage('item_list/'+id)
+				alert('申请成功!');
+				gopage('item_list/'+id);
 			}else{
-				alert('发布成功!')
-				gopage('item_list/'+id)
+				alert('发布成功!');
+				gopage('item_list/'+id);
 			}
 			
 		}else{
-			alert(datas.erro)
+			alert(datas.erro);
 		}
-	})
+	});
 	
 }
 
@@ -516,7 +516,7 @@ function wating(){
 
 function select_reply(replay_id){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	data = {replay_id:replay_id}
+	data = {replay_id:replay_id};
 	$.post('/home/select_reply/'+replay_id,data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
@@ -525,36 +525,36 @@ function select_reply(replay_id){
 		}else{
 			alert(datas.erro)
 		}
-	})
+	});
 	
 }
 
 function choose_s(id){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	data = {id:id}
+	data = {id:id};
 	$.post('/home/choose_s/'+id,data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
-			alert('执行成功!')
-			gopage('choose_list')
+			alert('执行成功!');
+			gopage('choose_list');
 		}else{
-			alert(datas.erro)
+			alert(datas.erro);
 		}
-	})
+	});
 }
 
 function choose_d(id){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	data = {id:id}
+	data = {id:id};
 	$.post('/home/choose_d/'+id,data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
-			alert('执行成功!')
-			gopage('history_list')
+			alert('执行成功!');
+			gopage('history_list');
 		}else{
-			alert(datas.erro)
+			alert(datas.erro);
 		}
-	})
+	});
 }
 
 $( window ).hashchange(function() {
@@ -562,7 +562,7 @@ $( window ).hashchange(function() {
 });
 
 $("#apply_item").live('pageshow', function() {
-	var a = {display:"modal",lang:"zh",mode:"scroller",preset:"date",theme:"default"}
+	var a = {display:"modal",lang:"zh",mode:"scroller",preset:"date",theme:"default"};
     $('#test_default').val('').scroller('destroy').scroller(a);
 });
 
@@ -573,13 +573,13 @@ function login_out(){
 	$.get('/home/login_out/',{},function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
-			alert('注销成功')
+			alert('注销成功');
 			my_navigator = [];
 			gopage('home/accounts');
 		}else{
-			alert(datas.erro)
+			alert(datas.erro);
 		}
-	})
+	});
 }
 
 
@@ -590,10 +590,73 @@ function update_choose_item(id){
 	$.post('/home/update_choose_item/'+id,data,function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
-			alert('请求成功!')
-			gopage('choose_list')
+			alert('请求成功!');
+			gopage('choose_list');
 		}else{
-			alert(datas.erro)
+			alert(datas.erro);
 		}
-	})
+	});
 }
+
+
+/* 分享 */
+var share_requirment_page = {};
+$("#share_requirment").live('pageshow', function() {
+	share_requirment_init();
+});
+
+
+function share_requirment_init(){
+  if(share_requirment_page.myScroll){
+  		share_requirment_page.myScroll.destroy();
+  	}
+	
+  var myScroll = new iScroll('share_requirment_wrapper',{});
+  share_requirment_page.myScroll = myScroll;
+}
+
+
+var bijia_list_page = {};
+$("#bijia_list").live('pageshow', function() {
+	bijia_list_init();
+});
+
+
+function bijia_list_init(){
+  if(bijia_list_page.myScroll){
+  		bijia_list_page.myScroll.destroy();
+  	}
+	
+  var myScroll = new iScroll('bijia_list_wrapper',{});
+  bijia_list_page.myScroll = myScroll;
+}
+
+function share_requirment(id){
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	var data = $('#choose_item_form').serializeArray();
+	$.post('/home/share_requirment/'+id,{},function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('发布成功!');
+			$('#requirment_'+id).html('状态:<span class="fb">已发布</spa>');
+		}else{
+			alert(datas.erro);
+		}
+	});
+}
+
+var bijia_detail_page = {};
+$("#bijia_detail").live('pageshow', function() {
+	bijia_detail_init();
+});
+
+
+function bijia_detail_init(){
+  if(bijia_detail_page.myScroll){
+  		bijia_detail_page.myScroll.destroy();
+  	}
+	
+  var myScroll = new iScroll('bijia_detail_wrapper',{});
+  bijia_detail_page.myScroll = myScroll;
+}
+

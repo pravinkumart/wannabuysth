@@ -32,7 +32,7 @@
     	<li class="active"><a href="#">重新选择服务类型</a> <span class="divider">/</span></li>
     	{% endif %}
     </ul>
-	<div class="row-fluid" style="padding: 10px;">
+	<div class="row-fluid" style="">
         <ul class="thumbnails">
          {% for catalog in catalogs %}
           <li class="" style="width: 100px;">
@@ -59,7 +59,9 @@
         </ul>
         <div class="blank0"> </div>
         {% if subcatalogs %}
-        	<button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;"> 保存</button>
+        <div style="text-align: center;" class="thumbnails">
+        	<button type="submit" class="btn btn-large btn-primary" style="width: 200px; "> 保存</button>
+        </div>
         {% endif %}
         </form>
       </div>

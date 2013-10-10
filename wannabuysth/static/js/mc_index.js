@@ -9,10 +9,15 @@ function login_out(){
 
 
 
-function reply(){
-	if(!confirm('确定投标？')){
+function reply(el,fee){
+	if(!confirm('投标价格不能高于'+fee+'，是否继续投标?')){
 		return false;
 	}
+	var my_fee = window.prompt('请输入投标金额');
+		my_fee = parseFloat(my_fee);
+		if(!my_fee||my_fee>fee){alert('金额错误');return false;}
+	var url = $(el).attr('href')+'?my_fee='+my_fee;
+	$(el).attr('href',url);
 	return true;
 }
 

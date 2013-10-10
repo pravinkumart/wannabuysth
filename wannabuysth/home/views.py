@@ -9,9 +9,12 @@ import time
 from models import Customer
 from models import Catalog
 from models import SubCataog
-from models import Product
+from models import Product, SuccessRequirment
 from models import Requirment, Reply
+from models import ProductAds
+from models import ShowCase, ShowCaseReplay
 from home import server
+from datetime import datetime
 
 index = Blueprint('home', __name__, template_folder='templates', url_prefix='/home')
 
@@ -122,6 +125,11 @@ def login_out():
 
 @index.route("/index")
 def home_index():
+    now = datetime.now()
+    # 今日推荐
+    ad = g.db.query(ProductAds).filter(ProductAds.type == 0, ProductAds.start_time <= now,
+                                             ProductAds.end_time >= now).order_by(ProductAds.sort_num).first()
+
     catalogs = g.db.query(Catalog)
     total = catalogs.count()
     catalog_list = [catalogs[i:(i + 8)] for i in range(0, total, 8)]
@@ -185,7 +193,6 @@ def apply_item(item_id):
 
 @index.route("/apply_item_do", methods=["POST"])
 def apply_item_do():
-    import datetime
     import random
     user = g.user
     result = {'succeed':False, 'erro':''}
@@ -213,7 +220,7 @@ def apply_item_do():
         return jsonify(result)
 
     try:
-        end_time = datetime.datetime.strptime(end_time, "%Y-%m-%d")
+        end_time = datetime.strptime(end_time, "%Y-%m-%d")
     except:
         result['erro'] = '结束时间错误!'
         return jsonify(result)
@@ -323,6 +330,7 @@ def select_reply_do(reply_id):
         merchant = reply.merchant
         requirment = reply.requirment
         requirment.merchant_id = merchant.id
+        requirment.reply_id = reply.id
         requirment.state = 2
         g.db.add(requirment)
         g.db.commit()
@@ -333,14 +341,25 @@ def select_reply_do(reply_id):
 def update_choose_item(requirment_id):
     code = request.form.get("code", '')
     state = request.form.get("state", '')
+    state = int(state)
     requirment = g.db.query(Requirment).filter(Requirment.id == requirment_id).first()
     if requirment and requirment.code == code and state:
         state = int(state)
         requirment.state = state
-        if state == 4 and requirment.product:
+        if state == 3 and requirment.product:
             product = requirment.product
             product.success_count = product.success_count + 1
             g.db.add(product)
+
+
+            reply = g.db.query(Reply).filter(Reply.id == requirment.reply_id).first()
+
+            re = SuccessRequirment(customer_id=requirment.customer_id, merchant_id=requirment.merchant_id, wanna_fee=requirment.wanna_fee,
+                              descrip=requirment.descrip, end_time=requirment.end_time, location=requirment.location,
+                              succes_fee=reply.fee, reply_id=requirment.reply_id, product_id=requirment.product_id,
+                              subcataog_id=requirment.subcataog_id,
+                              )
+            g.db.add(re)
         g.db.add(requirment)
         g.db.commit()
         result = {'succeed':True, 'erro':u''}
@@ -453,11 +472,24 @@ def update_password():
 
 @index.route("/sell_list")
 def sell_list():
+    user = g.user
+    now = datetime.now()
+    ad_index = g.db.query(ProductAds).filter(ProductAds.type == 1, ProductAds.start_time <= now,
+                                             ProductAds.end_time >= now).order_by(ProductAds.sort_num).first()
+    ads = g.db.query(ProductAds).filter(ProductAds.type == 2, ProductAds.start_time <= now,
+                                             ProductAds.end_time >= now).order_by(ProductAds.sort_num)
+    ads = [ads[i:(i + 2)] for i in range(0, ads.count(), 2)]
     return render_template("home/sell_list.html", **locals())
 
 @index.route("/bijia")
 def bijia():
-    return render_template("home/bijia.html", **locals())
+    sort_type = int(request.args.get("sort_type", '0'))
+    from models import ShowCase
+    if sort_type:
+        showcases = g.db.query(ShowCase).order_by(ShowCase.wanna_fee.desc())
+    else:
+        showcases = g.db.query(ShowCase).order_by(ShowCase.wanna_fee.asc())
+    return render_template("home/bijia_list.html", **locals())
 
 
 
@@ -465,9 +497,53 @@ def bijia():
 def location():
     return render_template("home/location.html", **locals())
 
+@index.route("/share_requirment")
+def share_requirment():
+    from models import ShowCase
+    user = g.user
+    if not user:
+        return redirect(url_for("home.login", need_login="share_requirment"))
+
+    showcases = g.db.query(ShowCase).filter(ShowCase.customer_id == user.id).\
+    order_by(ShowCase.id)
+
+    showcases_ids = [showcase.requirment_id  for showcase in showcases]
+
+    requirments = g.db.query(SuccessRequirment).filter(SuccessRequirment.customer_id == user.id).\
+    order_by(SuccessRequirment.id)
+
+    return render_template("home/share_requirment.html", **locals())
 
 
 
 
+@index.route("/share_requirment/<requirment_id>", methods=["POST"])
+def share_requirment_id(requirment_id):
+    user = g.user
+    requirment = g.db.query(SuccessRequirment).filter(SuccessRequirment.id == requirment_id).first()
+    if not requirment:
+        result = {'succeed':False, 'erro':'找不到id'}
+        return jsonify(result)
+
+    if  g.db.query(ShowCase).filter(ShowCase.requirment_id == requirment_id).first():
+        result = {'succeed':False, 'erro':'已经发布过了'}
+        return jsonify(result)
+
+    rec = ShowCase(requirment_id=requirment_id, customer_id=user.id, wanna_fee=requirment.wanna_fee)
+    g.db.add(rec)
+    g.db.commit()
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
 
 
+
+@index.route("/bijia_detail/<showcase_id>")
+def bijia_detail(showcase_id):
+    showcase = g.db.query(ShowCase).filter(ShowCase.id == showcase_id).first()
+    sort_type = int(request.args.get("sort_type", '0'))
+    if sort_type:
+        showcases = g.db.query(ShowCaseReplay).order_by(ShowCaseReplay.wanna_fee.desc())
+    else:
+        showcases = g.db.query(ShowCaseReplay).order_by(ShowCaseReplay.wanna_fee.asc())
+
+    return render_template("home/bijia_detail.html", **locals())

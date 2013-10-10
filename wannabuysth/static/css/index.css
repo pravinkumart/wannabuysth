@@ -455,7 +455,7 @@ textarea::-moz-placeholder{
 }
 
 .item_list{border-top: 1px solid #dedede;}
-.item_list .item{ height:60px;padding:10px 0 10px  10px; border-bottom: 1px solid #dedede;}
+.item_list .item{ min-height:60px;padding:10px 0 10px  10px; border-bottom: 1px solid #dedede;}
 .item_list .item_img {padding-right:10px}
 .item_list .item_img img{width: 100px;height:60px;border: 1px solid #d4d4d4;}
 
@@ -599,6 +599,87 @@ textarea::-webkit-input-placeholder {
 	width:100%;
 	text-align:left;
 }
+
+
+
+#bijia_detail_wrapper {
+	position: absolute;
+	top: 82px;
+	left: 0;
+	width: 100%;
+	bottom: 50px;
+	overflow:hidden;
+}
+
+#bijia_detail_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#bijia_detail_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+/* 比价 */
+
+#bijia_list_wrapper {
+	position: absolute;
+	top: 82px;
+	left: 0;
+	width: 100%;
+	bottom: 50px;
+	overflow:hidden;
+}
+
+#bijia_list_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#bijia_list_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
+/* 分享  */
+
+#share_requirment_wrapper {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 0px;
+	overflow:hidden;
+}
+
+#share_requirment_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#share_requirment_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
 
 
 .search_icon {

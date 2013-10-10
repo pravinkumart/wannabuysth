@@ -33,7 +33,7 @@
 			{% endif %}
 			<div class="item_p_a pr" style="height: 45px;">
 				<span class="f14 col5 fb">我的报价</span>
-				<div class="col7 pt_bom" ><span class="f14 col7 fb">￥</span><span class="f18 col7 fb">{{ requirment.wanna_fee }}</span></div>
+				<div class="col7 pt_bom" ><span class="f14 col7 fb">￥</span><span class="f18 col7 fb">{{ requirment.get_wanna_fee() }}</span></div>
 			</div>
 		</div>
 	</div>
@@ -56,8 +56,7 @@
 				<div class="box_flex1">
 					<div class="col5">
 						<span class="fb marr_10">{{ reply.merchant.name }}</span>
-						<span class="fr col2 none">出价:￥{{ reply.fee }}</span>
-						<span class="fr col2">{{ reply.merchant.mobile }}</span>
+						<span class="fr col2 ">出价:￥{{ reply.get_fee() }}</span>
 					</div>
 					<div class="blank5"></div>
 					<div  class="col6 f12 pad10">
@@ -69,6 +68,7 @@
 							<img width="14" class="marr1 mart1 fl" src="/static/images/call.png">
 							<span class="f14 fl">选择此店</span>
 						</div>
+						<span class="fr col2">联系电话：{{ reply.merchant.mobile }}</span>
 						<div class="blank0"></div>
 					</div>
 				</div>
