@@ -263,6 +263,20 @@ class ShowCaseReplay(Base):
     def get_wanna_fee(self):
         return self.wanna_fee / 100.0
 
+class Comments(Base):
+    '''
+    @note: 评论
+    '''
+    showcase_id = Column(Integer, ForeignKey("showcase.id"))
+    showcase = relationship("ShowCase")
+
+    customer_id = Column(Integer, ForeignKey("customer.id"))  # 消费者编号
+    customer = relationship("Customer")  # 消费者
+
+    content = Column(Text)  # 评论内容
+
+    def get_wanna_fee(self):
+        return self.wanna_fee / 100.0
 
 
 

@@ -30,7 +30,7 @@
 	<div id="bijia_detail_wrapper">
 		<div class="scroller">
 		<ul class="thelist item_list">
-			<li class="item horizontal me_tap" me_event="gopage" me_data='bijia_detail/{{ showcase.id }}'  >
+			<li class="item horizontal"  me_data='bijia_detail/{{ showcase.id }}'  >
 				<div style="width: 80px;" class="pad10">
 					{%  if showcase.requirment.product %}
 					<img src="{{ showcase.requirment.product.icon_smaill }}" width="70" height="70"/>
@@ -48,25 +48,59 @@
 				</div>
 			</li>
 			
-			{% for showcase in showcases%}
-			<li class="item horizontal me_tap" me_event="gopage" me_data='bijia_detail/{{ showcase.id }}'  >
+			{% for re in showcases%}
+			<li class="item horizontal"  >
 				<div style="width: 80px;" class="pad10">
-					{%  if showcase.requirment.product %}
-					<img src="{{ showcase.requirment.product.icon_smaill }}" width="70" height="70"/>
+					{%  if re.requirment.product %}
+					<img src="{{ re.requirment.product.icon_smaill }}" width="70" height="70"/>
 					{% else %}
-						<img src="{{ showcase.requirment.subcataog.icon_large }}" width="70" height="70"/>
+						<img src="{{ re.requirment.subcataog.icon_large }}" width="70" height="70"/>
 					{% endif %}
 				</div>
 				<div class="box_flex1 pad10">
-					<div class="fb">{{ showcase.requirment.descrip }}</div>
+					<div class="fb">{{ re.customer.get_name() }}</div>
 					<div class="blank10"></div>
-					<p class="col6">商家:{{ showcase.requirment.merchant.name }}</p>
-					<div  class="blank10"></div>
-					<p class="col6">交易价格:<span class="fb">{{ showcase.get_wanna_fee() }}</spa>元</p>
-					<div  class="blank10"></div>
+					<p class="col7 fb">成交价:{{ re.get_wanna_fee() }}元</p>
+					<div  class="blank5"></div>
+					<p class="col7 fb">暂时未被比下去</p>
 				</div>
+				<div style="width: 80px;position:relative">
+					<img  style="position:absolute;top: -30px;left: 0" src="../images/sb.png" width="29" height="76"/>
+				</div>
+			
 			</li>
 			{%  endfor %}
+			<div style="height: 20px;"></div>
+			<div class="f24">评价</div>
+			<div class="line_top2"></div>
+			{% for comment in comments %}
+			<li class="item horizontal "   >
+				<div style="width: 80px;" class="pad10">
+					{%  if re.requirment.product %}
+					<img src="{{ re.requirment.product.icon_smaill }}" width="70" height="70"/>
+					{% else %}
+						<img src="{{ re.requirment.subcataog.icon_large }}" width="70" height="70"/>
+					{% endif %}
+				</div>
+				<div class="box_flex1 pad10">
+					<div class="fb">{{ re.customer.get_name() }}</div>
+					<div class="blank10"></div>
+					<p class="col7 fb">成交价:{{ re.get_wanna_fee() }}元</p>
+					<div  class="blank5"></div>
+					<p class="col7 fb">暂时未被比下去</p>
+				</div>
+				<div style="width: 80px;position:relative">
+					<img  style="position:absolute;top: -30px;left: 0" src="../images/sb.png" width="29" height="76"/>
+				</div>
+			
+			</li>
+			{%  endfor %}
+			<div style="height: 20px;"></div>
+			<textarea style="width: 80%;height: 100px;margin: 0 auto;"> </textarea>
+			<div style="height: 10px;"></div>
+			<div  class="info_list" style="width: 80%;margin: 0 auto;">
+				<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="regedit_ok">发表评价</div>
+			</div>
 		</div>
 	</div>
 	<div class="footer" style="overflow:hidden;background-color:#FFFFFF;text-align:center;">

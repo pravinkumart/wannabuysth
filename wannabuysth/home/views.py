@@ -11,7 +11,7 @@ from models import Catalog
 from models import SubCataog
 from models import Product, SuccessRequirment
 from models import Requirment, Reply
-from models import ProductAds
+from models import ProductAds, Comments
 from models import ShowCase, ShowCaseReplay
 from home import server
 from datetime import datetime
@@ -545,5 +545,8 @@ def bijia_detail(showcase_id):
         showcases = g.db.query(ShowCaseReplay).order_by(ShowCaseReplay.wanna_fee.desc())
     else:
         showcases = g.db.query(ShowCaseReplay).order_by(ShowCaseReplay.wanna_fee.asc())
+
+
+    comments = g.db.query(Comments).filter(Comments.showcase_id == showcase_id).order_by(Comments.id.asc())
 
     return render_template("home/bijia_detail.html", **locals())
