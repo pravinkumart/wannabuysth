@@ -60,14 +60,24 @@
 				<div class="box_flex1 pad10">
 					<div class="fb">{{ re.customer.get_name() }}</div>
 					<div class="blank10"></div>
+					<p class="col6">商家:{{ showcase.requirment.merchant.name }}</p>
+					<div class="blank10"></div>
 					<p class="col7 fb">成交价:{{ re.get_wanna_fee() }}元</p>
 					<div  class="blank5"></div>
-					<p class="col7 fb">暂时未被比下去</p>
+					<p class="col7 fb"></p>
 				</div>
+				{% if loop.first %}
 				<div style="width: 80px;position:relative">
-					<img  style="position:absolute;top: -30px;left: 0" src="../images/sb.png" width="29" height="76"/>
+					{% if sort_type == 1 %}
+					<img  style="position:absolute;top: -30px;left: 0" src="/static/images/sb.png" width="29" height="76"/>
+					{% endif %}
+					
+					{% if sort_type == 0 %}
+					<img  style="position:absolute;top: -30px;left: 0" src="/static/images/mj.png" width="29" height="76"/>
+					{% endif %}
+					
 				</div>
-			
+				{% endif %}
 			</li>
 			{%  endfor %}
 			<div style="height: 20px;"></div>
@@ -76,36 +86,25 @@
 			{% for comment in comments %}
 			<li class="item horizontal "   >
 				<div style="width: 80px;" class="pad10">
-					{%  if re.requirment.product %}
-					<img src="{{ re.requirment.product.icon_smaill }}" width="70" height="70"/>
-					{% else %}
-						<img src="{{ re.requirment.subcataog.icon_large }}" width="70" height="70"/>
-					{% endif %}
+					<img src="{{ comment.customer.get_portrait() }}" width="70" height="70"/>
+					<div style="text-align:center;margin-top: 5px">{{ comment.customer.get_name() }}</div>
 				</div>
 				<div class="box_flex1 pad10">
-					<div class="fb">{{ re.customer.get_name() }}</div>
-					<div class="blank10"></div>
-					<p class="col7 fb">成交价:{{ re.get_wanna_fee() }}元</p>
-					<div  class="blank5"></div>
-					<p class="col7 fb">暂时未被比下去</p>
+					{{ comment.content }}
 				</div>
-				<div style="width: 80px;position:relative">
-					<img  style="position:absolute;top: -30px;left: 0" src="../images/sb.png" width="29" height="76"/>
-				</div>
-			
 			</li>
 			{%  endfor %}
 			<div style="height: 20px;"></div>
-			<textarea style="width: 80%;height: 100px;margin: 0 auto;"> </textarea>
+			<textarea style="width: 80%;height: 100px;margin: 0 auto;" id="comment_content"> </textarea>
 			<div style="height: 10px;"></div>
 			<div  class="info_list" style="width: 80%;margin: 0 auto;">
-				<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="regedit_ok">发表评价</div>
+				<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="comment_ok" me_data="{{ showcase.id }}">发表评价</div>
 			</div>
 		</div>
 	</div>
 	<div class="footer" style="overflow:hidden;background-color:#FFFFFF;text-align:center;">
-		<div class="me_tap" me_event="gopage" me_data='share_requirment'  style="line-height: 50px;width: 150px;margin: 0 auto;">
-			<img src="/static/images/share.png" class="fl" /><span class="fl f24">比一比</span>
+		<div class="me_tap" me_event="gopage" me_data='show_casereplay/{{ showcase.id }}'  style="line-height: 50px;width: 150px;margin: 0 auto;">
+			<img src="/static/images/share.png" class="fl" /><span class="fl f24">我要比</span>
 			<div class="blank0"></div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-#coding=utf8
+# coding=utf8
 __author__ = 'Alexander.Li'
 
 DEBUG = True
@@ -15,3 +15,4 @@ SECRET_KEY = "011556654433221changge!"
 
 
 MEDIA_ROOT = "/static"
+

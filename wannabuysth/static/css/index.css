@@ -84,7 +84,7 @@ body.body {
 	font-size: 20px;
 }
 
-#help .help_des:last-child{
+.help_des:last-child{
 	border: 1px solid #d4d4d4;
 }
 
@@ -680,6 +680,32 @@ textarea::-webkit-input-placeholder {
 	text-align:left;
 }
 
+/* 分享  */
+
+#bijia_casereplay_wrapper {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 0px;
+	overflow:hidden;
+}
+
+#bijia_casereplay_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#bijia_casereplay_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
 
 
 .search_icon {
@@ -719,5 +745,7 @@ textarea::-webkit-input-placeholder {
 
 .none{display:none;}
 
-
+#qq_login{
+	
+}
 

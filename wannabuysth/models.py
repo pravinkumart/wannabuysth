@@ -281,7 +281,18 @@ class Comments(Base):
 
 
 
+class UserExternalBind(Base):
+    '''
+    @站外绑定表
+    '''
+    access_token = Column(String(100))
+    refresh_token = Column(String(100))
+    external_user_id = Column(String(100))
+    source = Column(String(100))
+    catalog = Column(String(100))
 
+    customer_id = Column(Integer, ForeignKey("customer.id"))
+    customer = relationship("Customer")
 
 
 

@@ -86,4 +86,39 @@ def get_notification(user_id):
     '''
     return 0
 
+import requests
+import urllib
+class QQOAuth2Mixin(object):
+
+    _OAUTH_CONSUMER_KEY = 'de13f4ab272d4d5e889240af46466c87'
+    _OAUTH_CONSUMER_SECRET = 'c7cd1f3cd440764e5de3730e330c5e34'
+
+    _OAUTH_AUTHORIZE_URL = 'https://open.t.qq.com/cgi-bin/oauth2/authorize?'
+    _OAUTH_ACCESS_TOKEN_URL = 'https://open.t.qq.com/cgi-bin/oauth2/access_token?'
+    _OAUTH_API_URL = 'https://open.t.qq.com/api/%s'
+    _OAUTH_VERSION = '2.a'
+    redirect_uri = 'http://192.168.1.120:5000/home/oauth/qq'
+
+
+
+    def get_authorize_redirect(self):
+        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s" % (self._OAUTH_AUTHORIZE_URL, self._OAUTH_CONSUMER_KEY, self.redirect_uri)
+        return url
+
+    def get_authenticated_user(self, code):
+        args = {
+          "grant_type":'authorization_code',
+          "code": code,
+          "client_id": self._OAUTH_CONSUMER_KEY,
+          "client_secret": self._OAUTH_CONSUMER_SECRET,
+          "redirect_uri":self.redirect_uri
+        }
+        request_url = self._OAUTH_ACCESS_TOKEN_URL + urllib.urlencode(args)
+        response = requests.get(request_url)
+        content = response.content
+        content = content.split('&')
+        content = dict([[s.split('=')[0], s.split('=')[1]] for s in content if len(s.split('=')) == 2])
+        return content
+
+
 

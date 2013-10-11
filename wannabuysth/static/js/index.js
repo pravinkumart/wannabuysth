@@ -59,6 +59,21 @@ function onDeviceReady() {
 	}, false);
 }
 
+var onmessage = function(e) {
+       var data = e.data.split(':');
+       if(data[0]=='next'){
+       		gopage(data[1]);
+       }
+       
+};
+
+//监听postMessage消息事件
+if (typeof window.addEventListener != 'undefined') {
+  window.addEventListener('message', onmessage, false);
+} else if (typeof window.attachEvent != 'undefined') {
+  window.attachEvent('onmessage', onmessage);
+}
+        
 //全局init
 function init_main(){
 	$('.me_tap').live('fastClick',function(){
@@ -656,7 +671,66 @@ function bijia_detail_init(){
   		bijia_detail_page.myScroll.destroy();
   	}
 	
-  var myScroll = new iScroll('bijia_detail_wrapper',{});
+  var myScroll = new iScroll('bijia_detail_wrapper',{
+  	onBeforeScrollStart : function(e){
+	　　var nodeType = e.explicitOriginalTarget ? e.explicitOriginalTarget.nodeName.toLowerCase() : (e.target ? e.target.nodeName.toLowerCase() : '');
+	　　if(nodeType != 'select' && nodeType != 'option' && nodeType != 'input' && nodeType != 'textarea'){
+	　　 　　e.preventDefault();
+	　　}
+	}
+  });
   bijia_detail_page.myScroll = myScroll;
 }
 
+function comment_ok(showcase_id){
+	var comment_content = $('#comment_content').val();
+		comment_content = $.trim(comment_content);
+	if(!comment_content){alert('内容不能为空');return false;}
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	$.post('/home/comment/'+showcase_id,{content:comment_content},function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('发布成功!');
+			gopage(my_navigator[my_navigator.length-1])
+		}else{
+			alert(datas.erro);
+		}
+	});
+	
+}
+
+
+var bijia_casereplay_page = {};
+$("#bijia_casereplay").live('pageshow', function() {
+	
+	if(bijia_casereplay_page.myScroll){
+  		bijia_casereplay_page.myScroll.destroy();
+  	}
+	
+	  var myScroll = new iScroll('bijia_casereplay_wrapper',{});
+	  bijia_casereplay_page.myScroll = myScroll;
+
+});
+
+function bijia_casereplay_ok(data){
+	var showcase_id = data.split(',')[0];
+	var showcase_re_id  = data.split(',')[1];
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
+	$.post('/home/re_showcase/'+showcase_id+'/'+showcase_re_id,{},function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('比价成功!');
+			go_back();
+		}else{
+			alert(datas.erro);
+		}
+	});
+}
+
+function clear_data(){
+	alert('清除成功');
+}
+
+function check_update(){
+	alert('已经是最新版本了')
+}

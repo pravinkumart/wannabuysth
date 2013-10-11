@@ -12,7 +12,7 @@ from models import SubCataog
 from models import Product, SuccessRequirment
 from models import Requirment, Reply
 from models import ProductAds, Comments
-from models import ShowCase, ShowCaseReplay
+from models import ShowCase, ShowCaseReplay, UserExternalBind
 from home import server
 from datetime import datetime
 
@@ -20,9 +20,13 @@ index = Blueprint('home', __name__, template_folder='templates', url_prefix='/ho
 
 
 @index.route("/help")
-def help():
+def help_me():
     return render_template("home/help.html", **locals())
 
+
+@index.route("/about")
+def about():
+    return render_template("home/about.html", **locals())
 
 @index.route("/accounts")
 def accounts():
@@ -31,6 +35,60 @@ def accounts():
 @index.route("/regedit")
 def regedit():
     return render_template("home/regedit.html", **locals())
+
+
+@index.route("/proxy")
+def proxy():
+    next = request.args.get("next", "")
+    return render_template("home/proxy.html", **locals())
+
+@index.route("/oauth")
+def oauth():
+    from home.server import QQOAuth2Mixin
+    qq = QQOAuth2Mixin()
+    request_url = qq.get_authorize_redirect()
+    return render_template("home/oauth.html", **locals())
+
+@index.route("/oauth/qq")
+def oauth_qq():
+    import random
+    from home.server import QQOAuth2Mixin
+    qq = QQOAuth2Mixin()
+    code = request.args.get("code", "")
+    if code:
+        content = qq.get_authenticated_user(code)
+        if content.has_key('openid'):
+            openid = content['openid']
+            name = content['name']
+
+            access_token = content['access_token']
+            refresh_token = content['refresh_token']
+            userbind = g.db.query(UserExternalBind).filter(UserExternalBind.external_user_id == openid,
+                                                         UserExternalBind.source == 'qq').first()
+            if userbind:
+                session["user_id"] = userbind.customer.id
+            else:
+                if g.db.query(Customer).filter(Customer.name == name).first():
+                    name = '%s' % int(time.time() * 1000)
+                mobile = 'q%s%s' % (random.randint(10000, 99999), random.randint(10000, 99999))
+                user = Customer(name=name, password=mobile, mobile=mobile, publish_count=0,
+                   success_count=0, total_payed=0, fee=0,
+                   current_fee=0,
+                   used_fee=0
+                   )
+                g.db.add(user)
+                g.db.commit()
+
+                userbind = UserExternalBind(access_token=access_token, refresh_token=refresh_token,
+                                            external_user_id=openid, source='qq', customer_id=user.id
+                                            )
+                g.db.add(userbind)
+                g.db.commit()
+                session["user_id"] = userbind.customer.id
+
+        return redirect('/home/proxy?next=index')
+    return redirect('/home/proxy?next=login')
+
 
 @index.route('/forget')
 def forget():
@@ -550,3 +608,37 @@ def bijia_detail(showcase_id):
     comments = g.db.query(Comments).filter(Comments.showcase_id == showcase_id).order_by(Comments.id.asc())
 
     return render_template("home/bijia_detail.html", **locals())
+
+
+
+@index.route("/comment/<showcase_id>", methods=["POST"])
+def comment_showcase(showcase_id):
+    content = request.form.get("content", "").strip()
+    user = g.user
+    rec = Comments(showcase_id=showcase_id, customer_id=user.id, content=content)
+    g.db.add(rec)
+    g.db.commit()
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
+
+@index.route("/show_casereplay/<showcase_id>")
+def show_casereplay(showcase_id):
+    showcase = g.db.query(ShowCase).filter(ShowCase.id == showcase_id).first()
+    product = showcase.requirment.product
+    showcases = g.db.query(ShowCase).filter(Comments.showcase_id == showcase_id)
+    showcases = [showcase for showcase in showcases if showcase.requirment.product.id == product.id]
+
+    return render_template("home/bijia_casereplay.html", **locals())
+
+
+@index.route("/re_showcase/<showcase_id>/<showcase_re_id>", methods=["POST"])
+def re_showcase(showcase_id, showcase_re_id):
+    showcase_re = g.db.query(ShowCase).filter(ShowCase.id == showcase_re_id).first()
+
+
+    rec = ShowCaseReplay(showcase_id=showcase_id , requirment_id=showcase_re.requirment_id,
+                   customer_id=showcase_re.customer_id, wanna_fee=showcase_re.wanna_fee)
+    g.db.add(rec)
+    g.db.commit()
+    result = {'succeed':True, 'erro':''}
+    return jsonify(result)
