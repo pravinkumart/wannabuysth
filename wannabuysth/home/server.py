@@ -90,14 +90,14 @@ import requests
 import urllib
 class QQOAuth2Mixin(object):
 
-    _OAUTH_CONSUMER_KEY = 'de13f4ab272d4d5e889240af46466c87'
-    _OAUTH_CONSUMER_SECRET = 'c7cd1f3cd440764e5de3730e330c5e34'
+    _OAUTH_CONSUMER_KEY = '100538015'
+    _OAUTH_CONSUMER_SECRET = 'a7886775fc0564f27ef3b0fa642e6d93'
 
     _OAUTH_AUTHORIZE_URL = 'https://open.t.qq.com/cgi-bin/oauth2/authorize?'
     _OAUTH_ACCESS_TOKEN_URL = 'https://open.t.qq.com/cgi-bin/oauth2/access_token?'
     _OAUTH_API_URL = 'https://open.t.qq.com/api/%s'
     _OAUTH_VERSION = '2.a'
-    redirect_uri = 'http://192.168.1.120:5000/home/oauth/qq'
+    redirect_uri = 'http://www.qp197.com:8000/home/oauth/qq'
 
 
 
