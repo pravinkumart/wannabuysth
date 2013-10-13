@@ -82,6 +82,7 @@ def oauth_qq():
     code = request.args.get("code", "")
     if code:
         content = qq.get_authenticated_user(code)
+        logging.error(str(content))
         if content.has_key('openid'):
             openid = content['openid']
             access_token = content['access_token']
@@ -89,11 +90,11 @@ def oauth_qq():
             userbind = g.db.query(UserExternalBind).filter(UserExternalBind.external_user_id == openid,
                                                          UserExternalBind.source == 'qq').first()
             if userbind:
-                session["user_id"] = userbind.customer.id
                 userbind.access_token = access_token
                 userbind.refresh_token = refresh_token
                 g.db.add(userbind)
                 g.db.commit()
+                session["user_id"] = userbind.customer_id
                 return redirect('/home/proxy?next=index')
             else:
                 user_info = qq.get_user_info(access_token, openid)
@@ -114,7 +115,7 @@ def oauth_qq():
                                             )
                 g.db.add(userbind)
                 g.db.commit()
-                session["user_id"] = userbind.customer.id
+                session["user_id"] = user.id
                 return redirect('/home/proxy?next=index')
     return redirect('/home/proxy?next=login')
 
