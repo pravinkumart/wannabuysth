@@ -84,8 +84,8 @@ def requirment_reply(requirment_id):
     g.db.add(rec)
     g.db.commit()
     # 通知用户
-    url = 'item_detail'
-    content = '商家%s回应了你的发布' % rec.merchant.name
+    url = 'decide_item/%s' % requirment_id
+    content = u'商家%s回应了你的发布' % rec.merchant.name
     rec = Notification(customer_id=rec.requirment.customer_id, content=content, type=1, url=url)
     g.db.add(rec)
     g.db.commit()

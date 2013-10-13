@@ -37,7 +37,7 @@ class SubCataog(Base):
     catalog_id = Column(Integer, ForeignKey("catalog.id"))  # 父级频道编号
     catalog = relationship("Catalog", backref=backref("subcatalogs"))  # 父级频道对象
     name = Column(String(100), unique=True)  # 分类名
-    pingying = Column(String(100), unique=True)  # 分类名
+    pingying = Column(String(100))  # 分类名
     descp = Column(String(500))  # 分类介绍
     icon_smaill = Column(String(200))  # 小图标
     icon_large = Column(String(200))  # 大图标

@@ -63,13 +63,13 @@ def before_request():
     """
     """
     g.db = Session()
-    #用户登陆信息加载
+    # 用户登陆信息加载
     user_id = session.get('user_id', None)
     if not user_id:
         g.user = None
     else:
         g.user = g.db.query(Customer).filter(Customer.id == user_id).first()
-    #mc 用户登录
+    # mc 用户登录
     mc_user_id = session.get('mc_user_id', None)
     if not mc_user_id:
         g.mc_user = None
