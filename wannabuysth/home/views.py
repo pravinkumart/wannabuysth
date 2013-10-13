@@ -455,7 +455,7 @@ def update_choose_item(requirment_id):
                               )
             g.db.add(re)
             g.db.commit()
-            user.fee += reply.fee
+            user.current_fee += reply.fee
             user.user_level += 2
             g.db.add(user)
             g.db.commit()
