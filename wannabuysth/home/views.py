@@ -184,6 +184,13 @@ def login_out():
 @index.route("/index")
 def home_index():
     now = datetime.now()
+
+    user = g.user
+    if user:
+        if user.mobile[0] == 'q':
+            return redirect('/home/bind_mobile')
+        notification = server.get_notification(user.id)
+
     # 今日推荐
     ad = g.db.query(ProductAds).filter(ProductAds.type == 0, ProductAds.start_time <= now,
                                              ProductAds.end_time >= now).order_by(ProductAds.sort_num).first()
@@ -191,9 +198,6 @@ def home_index():
     catalogs = g.db.query(Catalog)
     total = catalogs.count()
     catalog_list = [catalogs[i:(i + 8)] for i in range(0, total, 8)]
-    user = g.user
-    if user:
-        notification = server.get_notification(user.id)
     return render_template("home/index.html", **locals())
 
 
@@ -494,6 +498,12 @@ def update_user_mobile():
         succeed, erro = server.update_user_mobile(user.id, mobile)
     result = {'succeed':succeed, 'erro':erro}
     return jsonify(result)
+
+
+@index.route("/bind_mobile")
+def bind_mobile():
+    user = g.user
+    return render_template("home/bind_mobile.html", **locals())
 
 
 @index.route("/update_user_password", methods=["POST"])

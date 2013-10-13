@@ -146,13 +146,18 @@ function update_user_name(){
 	})
 }
 
-function update_user_mobile(){
+function update_user_mobile(me_data){
 	var data = $('#update_mobile_form').serializeArray();
 	$.post(www+'home/update_user_mobile',data,function(data){
 		$.mobile.loading('hide');
 		alert(data.erro)
 		if(data.succeed){
-			go_back();
+			if(me_data=='bind'){
+				my_navigator = [];
+				gopage('index')
+			}else{
+				go_back();
+			}
 		}
 	})
 }
