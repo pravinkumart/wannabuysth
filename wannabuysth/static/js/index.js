@@ -400,8 +400,8 @@ function item_list_init(){
 
 
 $("#notification").live('pageshow', function() {
-	$.post(www+'home/notification/read',{},function(datas){
-	})
+	$.post(www+'home/notification/read',{},function(datas){});
+	bijia_list_init();
 });
 
 /* 购买列表 */
