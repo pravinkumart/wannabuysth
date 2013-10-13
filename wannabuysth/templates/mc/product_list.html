@@ -3,4 +3,43 @@
 {% block body_id %}id="main_index" {% endblock %} 
 {% block container %} 
     {% include "mc/_head.html" %} 
+    
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div class="muted pull-left">获取你商品条件的客户需求申请</div>
+        </div>
+        <div class="block-content collapse in">
+            <div class="span12">
+				<table class="table">
+	              <thead>
+	                <tr>
+	                  <th>#</th>
+	                  <th>服务类别</th>
+	                  <th>需求介绍</th>
+	                  <th>客户出价</th>
+	                  <th>已回应的商家</th>
+	                  <th>操作</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	              	{% for data in datas %}
+	                <tr class="{{ loop.cycle('success', 'error','info') }}">
+	                  <td width="30">{{ loop.index }}</td>
+	                  <td width="100">{{ data.subcataog.name }}</td>
+	                  <td>{{ data.descrip}}</td>
+	                  <td width="60">￥{{ data.get_wanna_fee() }}</td>
+	                  <td width="160">{{  data.replys|length  }}</td>
+	                  {% if data.id in requirment_ids %}
+	                  	<td width="160">已投标</td>
+	                  {% else %}
+	                  	<td width="160"> <a class="btn btn-info" onclick="return reply(this,'{{ data.get_wanna_fee() }}')" href="/mc/requirment/reply/{{ data.id }}">投标</></td>
+	                  {% endif %}
+	                </tr>
+	                {% endfor %}
+	              </tbody>
+	            </table>
+            </div>
+        </div>
+    </div>
+    
 {% endblock %} 

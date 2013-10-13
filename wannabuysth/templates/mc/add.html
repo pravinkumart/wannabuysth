@@ -1,0 +1,53 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="login" {% endblock %} 
+
+{% block container %} 
+	{% include "mc/_head.html" %} 
+    <div class="container form-signin">
+      <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+          <fieldset>
+            <legend>添加新商品</legend>
+            {% block info %}{% include "mc/_info.html" %} {% endblock %}  
+              <label class="control-label" for="focusedInput">服务类型</label>
+              <div class="controls">
+                <select name="catalog_id" style="margin:10px 0px;">
+                	{% for my_subcatalog in my_subcatalogs %}
+                	<option value="{{ my_subcatalog.catalog.id }}">{{ my_subcatalog.catalog.name }}</option>
+                	{% endfor %}
+                </select>
+              </div>
+              <label class="control-label" for="focusedInput">商品名称</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="text" name="title" maxlength="11" value="{{ mobile }}">
+              </div>
+              <label class="control-label" for="focusedInput">商品介绍</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="text" name="descrip" value="{{ name }}">
+              </div>
+              <label class="control-label" for="focusedInput">显示价格</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="text" name="show_fee" value="">
+              </div>
+              <label class="control-label" for="focusedInput">最低卖价</label>
+              <div class="controls">
+                <input class="input-xlarge focused"  type="text" name="acept_fee" value="">
+              </div>
+              <label class="control-label" for="focusedInput">小图标</label>
+              <div class="controls">
+                <input class="input-xlarge focused" style=" margin: 5px;"  type="file" name="icon_smaill" value="">
+              </div>
+              <label class="control-label" for="focusedInput">大图标</label>
+              <div class="controls">
+                <input class="input-xlarge focused" style=" margin: 5px;" type="file" name="icon_large" value="">
+              </div>
+              <div style="padding: 10px;width: 100px;"></div>
+              <label class="control-label" for="focusedInput"> </label>
+              <div class="controls">
+                 <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;">发布</button>
+	        	 <div class="blank0"> </div>
+              </div>
+          </fieldset>
+        </form>
+    </div> <!-- /container -->
+{% endblock %} 

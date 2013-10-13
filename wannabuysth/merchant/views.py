@@ -108,14 +108,6 @@ def requirment_reset_code(requirment_id):
     return redirect('/mc/requirment/2')
 
 
-@mc.route("/product/list", methods=["GET", "POST"])
-def product_list():
-    if not g.mc_user:
-        return redirect('/mc/login')
-
-    mc_user = g.mc_user
-    return render_template("mc/product_list.html" , **locals())
-
 @mc.route("/regedit", methods=["GET", "POST"])
 def mc_regedit():
     if request.method == 'POST':
@@ -179,12 +171,19 @@ def mc_catalog():
 def mc_product():
     if not g.mc_user:
         return redirect('/mc/login')
+    mc_user = g.mc_user
+    return render_template("mc/product_list.html", **locals())
+
+
+@mc.route("/product/add", methods=["GET", "POST"])
+def mc_add_product():
+    if not g.mc_user:
+        return redirect('/mc/login')
     catalogs = g.db.query(Catalog).filter(Catalog.status == True)
     mc_user = g.mc_user
-    return render_template("mc/product.html", **locals())
-
-
-
-
+    my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
+    if request.method == 'POST':
+        pass
+    return render_template("mc/add.html", **locals())
 
 

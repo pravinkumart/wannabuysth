@@ -454,6 +454,11 @@ def update_choose_item(requirment_id):
                               subcataog_id=requirment.subcataog_id,
                               )
             g.db.add(re)
+            g.db.commit()
+            user.fee += reply.fee
+            user.user_level += 2
+            g.db.add(user)
+            g.db.commit()
         g.db.add(requirment)
         g.db.commit()
         result = {'succeed':True, 'erro':u''}
