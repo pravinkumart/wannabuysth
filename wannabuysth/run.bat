@@ -1,1 +1,1 @@
-<!-- wannabuysth.py runserver -t 0.0.0.0 -->
+wannabuysth.py runserver -t 0.0.0.0

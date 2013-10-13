@@ -55,6 +55,10 @@ def update_user_mobile(user_id, mobile):
     '''
     if len(mobile) != 11:
         return False, u'请输入11位手机号!'
+    try:
+        int(mobile)
+    except:
+        return False, u'请输入11位手机号!'
     if g.db.query(Customer).filter(Customer.mobile == mobile).first():
         return False, u'手机已使用'
     user = g.db.query(Customer).filter(Customer.id == user_id).first()
@@ -64,6 +68,24 @@ def update_user_mobile(user_id, mobile):
         g.db.commit()
         return True, u'修改成功'
     return False, u'找不到用户'
+
+def update_bind_mobile(user, mobile, password):
+    '''
+    @note: 绑定帐号
+    '''
+    if len(mobile) != 11:
+        return False, u'请输入11位手机号!'
+    try:
+        int(mobile)
+    except:
+        return False, u'请输入11位手机号!'
+    if g.db.query(Customer).filter(Customer.mobile == mobile).first():
+        return False, u'手机已使用'
+    user.mobile = mobile
+    user.password = password
+    g.db.add(user)
+    g.db.commit
+    return True, u'绑定成功'
 
 
 def update_user_password(user_id, password):
@@ -88,21 +110,29 @@ def get_notification(user_id):
 
 import requests
 import urllib
+import json
 class QQOAuth2Mixin(object):
 
     _OAUTH_CONSUMER_KEY = '100538015'
     _OAUTH_CONSUMER_SECRET = 'a7886775fc0564f27ef3b0fa642e6d93'
 
-    _OAUTH_AUTHORIZE_URL = 'https://open.t.qq.com/cgi-bin/oauth2/authorize?'
-    _OAUTH_ACCESS_TOKEN_URL = 'https://open.t.qq.com/cgi-bin/oauth2/access_token?'
-    _OAUTH_API_URL = 'https://open.t.qq.com/api/%s'
-    _OAUTH_VERSION = '2.a'
-    redirect_uri = 'http://www.qp197.com:8000/home/oauth/qq'
+    _OAUTH_CONSUMER_KEY = '100538712'
+    _OAUTH_CONSUMER_SECRET = '82e30dd675f209c0ae500a3fdae02e4a'
 
+    _OAUTH_AUTHORIZE_URL = 'https://graph.qq.com/oauth2.0/authorize?'
+    _OAUTH_ACCESS_TOKEN_URL = 'https://graph.qq.com/oauth2.0/token?'
+    _OAUTH_ACCESS_OPEN_ID_URL = 'https://graph.z.qq.com/moc2/me?'
+
+    _OAUTH_USERINFO = 'https://graph.qq.com/user/get_simple_userinfo?'
+
+
+    _OAUTH_VERSION = '2.a'
+    redirect_uri = 'http://www.qp197.com:5000/home/oauth/qq'
 
 
     def get_authorize_redirect(self):
-        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s" % (self._OAUTH_AUTHORIZE_URL, self._OAUTH_CONSUMER_KEY, self.redirect_uri)
+        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s&state=%s&display=2" % \
+        (self._OAUTH_AUTHORIZE_URL, self._OAUTH_CONSUMER_KEY, self.redirect_uri, 'test')
         return url
 
     def get_authenticated_user(self, code):
@@ -118,7 +148,33 @@ class QQOAuth2Mixin(object):
         content = response.content
         content = content.split('&')
         content = dict([[s.split('=')[0], s.split('=')[1]] for s in content if len(s.split('=')) == 2])
+        if content.has_key('access_token'):
+            access_token = content['access_token']
+            args = {
+                   'access_token':access_token
+                   }
+            request_url = self._OAUTH_ACCESS_OPEN_ID_URL + urllib.urlencode(args)
+            response = requests.get(request_url)
+            temp = response.content
+            temp = temp.split('&')
+            temp = dict([[s.split('=')[0], s.split('=')[1]] for s in temp if len(s.split('=')) == 2])
+            content.update(temp)
         return content
+
+    def get_user_info(self, access_token, openid):
+        args = {
+               'access_token':access_token,
+               'oauth_consumer_key':self._OAUTH_CONSUMER_KEY,
+               'openid':openid,
+               'format':'json'
+               }
+        request_url = self._OAUTH_USERINFO + urllib.urlencode(args)
+        response = requests.get(request_url)
+        content = json.loads(response.content)
+        return content
+
+
+
 
 
 

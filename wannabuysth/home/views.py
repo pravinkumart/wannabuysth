@@ -59,15 +59,20 @@ def oauth_qq():
         content = qq.get_authenticated_user(code)
         if content.has_key('openid'):
             openid = content['openid']
-            name = content['name']
-
             access_token = content['access_token']
             refresh_token = content['refresh_token']
             userbind = g.db.query(UserExternalBind).filter(UserExternalBind.external_user_id == openid,
                                                          UserExternalBind.source == 'qq').first()
             if userbind:
                 session["user_id"] = userbind.customer.id
+                userbind.access_token = access_token
+                userbind.refresh_token = refresh_token
+                g.db.add(userbind)
+                g.db.commit()
+                return redirect('/home/proxy?next=index')
             else:
+                user_info = qq.get_user_info(access_token, openid)
+                name = user_info['nickname']
                 if g.db.query(Customer).filter(Customer.name == name).first():
                     name = '%s' % int(time.time() * 1000)
                 mobile = 'q%s%s' % (random.randint(10000, 99999), random.randint(10000, 99999))
@@ -85,8 +90,7 @@ def oauth_qq():
                 g.db.add(userbind)
                 g.db.commit()
                 session["user_id"] = userbind.customer.id
-
-        return redirect('/home/proxy?next=index')
+                return redirect('/home/proxy?next=index')
     return redirect('/home/proxy?next=login')
 
 
@@ -488,11 +492,14 @@ def update_mobile():
 
 @index.route("/update_user_mobile", methods=["POST"])
 def update_user_mobile():
+    oper = request.form.get("oper", "").strip()
     mobile = request.form.get("mobile", "").strip()
     password = request.form.get("password", "")
     succeed, erro = False, u'密码错误'
     user = g.user
-    if user.password == password:
+    if oper == 'bind':
+        succeed, erro = server.update_bind_mobile(user, mobile, password)
+    elif user.password == password:
         if mobile == user.mobile:
             return jsonify({'succeed':True, 'erro':'保存成功'})
         succeed, erro = server.update_user_mobile(user.id, mobile)
