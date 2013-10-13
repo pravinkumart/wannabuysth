@@ -103,10 +103,10 @@ class CustomerCataog(Base):
     @note: 用户选择的类别
     """
     catalog_id = Column(Integer, ForeignKey("subcataog.id"))
-    catalog = relationship("SubCataog", backref=backref("customers"))
+    catalog = relationship("SubCataog")
 
-    customer_id = Column(Integer, ForeignKey("customer.id"))
-    customer = relationship("Customer", backref=backref("customers"))
+    merchant_id = Column(Integer, ForeignKey("merchant.id"))
+    merchant = relationship("Merchant")
 
 
 

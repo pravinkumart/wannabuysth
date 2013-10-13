@@ -48,7 +48,7 @@ def mc_index():
         return redirect('/mc/login')
     else:
         mc_user = g.mc_user
-        if not g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id).first():
+        if not g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id).first():
             return redirect('/mc/product/catalog')
         else:
             return redirect('/mc/requirment/0')
@@ -62,7 +62,7 @@ def requirment_show(requirment_id):
     replys = g.db.query(Reply).filter(Reply.merchant_id == mc_user.id)
     requirment_ids = [reply.requirment_id for reply in replys]
     if requirment_id == 0:
-        my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id)
+        my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
         mu_subcataog_ids = [rec.catalog_id  for rec in my_subcatalogs]
         datas = g.db.query(Requirment).filter(Requirment.state.in_([0, 1]), Requirment.subcataog_id.in_(mu_subcataog_ids))
     if requirment_id == 2:
@@ -159,16 +159,16 @@ def mc_catalog():
     else:
         catalogs = g.db.query(Catalog).filter(Catalog.status == True)
 
-    my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id)
+    my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
     my_subcatalogs = [rec.catalog for rec in my_subcatalogs]
     if request.method == 'POST':
-        has_data = g.db.query(CustomerCataog).filter(CustomerCataog.customer_id == mc_user.id)
+        has_data = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
         has_data.delete()
         subcatalogs = request.form.getlist('subcatalog')
         for i, catalog_id in enumerate(subcatalogs):
             if i > 2:
                 continue
-            add_sub = CustomerCataog(catalog_id=catalog_id, customer_id=mc_user.id)
+            add_sub = CustomerCataog(catalog_id=catalog_id, merchant_id=mc_user.id)
             g.db.add(add_sub)
         g.db.commit()
         return redirect('/mc/product/catalog')

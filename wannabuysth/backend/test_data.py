@@ -33,7 +33,7 @@ def init_data():
 
     session = Session()
     for catalog in catalog_list:
-        c = Catalog(name=catalog[1], descp='', icon_smaill='../static/data/' + catalog[0], icon_large='../static/data/' + catalog[0], idx=0)
+        c = Catalog(name=catalog[1], descp='', icon_smaill='/static/data/' + catalog[0], icon_large='../static/data/' + catalog[0], idx=0)
         catalog_id = c.id
         session.add(c)
         session.commit()
