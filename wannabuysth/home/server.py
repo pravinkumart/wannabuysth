@@ -85,7 +85,7 @@ def update_bind_mobile(user, mobile, password):
     user.mobile = mobile
     user.password = password
     g.db.add(user)
-    g.db.commit
+    g.db.commit()
     return True, u'绑定成功'
 
 
