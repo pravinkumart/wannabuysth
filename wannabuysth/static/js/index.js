@@ -398,6 +398,12 @@ function item_list_init(){
   item_list_page.myScroll = myScroll;
 }
 
+
+$("#notification").live('pageshow', function() {
+	$.post(www+'home/notification/read',{},function(datas){
+	})
+});
+
 /* 购买列表 */
 var sell_list_page = {}
 $("#sell_list").live('pageshow', function() {
@@ -695,7 +701,7 @@ function comment_ok(showcase_id){
 	$.post('/home/comment/'+showcase_id,{content:comment_content},function(datas){
 		$.mobile.loading('hide');
 		if(datas.succeed){
-			alert('发布成功!');
+			alert('发表成功!');
 			gopage(my_navigator[my_navigator.length-1])
 		}else{
 			alert(datas.erro);

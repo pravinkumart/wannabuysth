@@ -2,6 +2,7 @@
 
 from flask import g
 from models import Customer
+from models import Notification
 
 def change_password(username, password):
     '''
@@ -106,7 +107,9 @@ def get_notification(user_id):
     '''
     @note: 获取通知数目
     '''
-    return 0
+    return g.db.query(Notification).filter(Notification.customer_id == user_id,
+                                           Notification.is_visit == False
+                                           ).count()
 
 import requests
 import urllib

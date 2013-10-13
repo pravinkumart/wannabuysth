@@ -29,13 +29,13 @@
 				{% if user %}
 					<img src="{{ user.get_portrait() }}"   />
 				{% else %}
-					<img src="../static/data/portrait.jpg"   />
+					<img src="/static/data/my_portrait.png"   />
 				{% endif %}
 			</div>
 			{% if user %}
-			<div style="position: relative;margin-top: 25px;" class="tc me_tap" me_event="wating">
+			<div style="position: relative;margin-top: 25px;" class="tc me_tap" me_event="gopage" me_data="notification">
 				<div class="inform_num">{{ notification }}</div>
-				<img src="../static/images/inform.png"  width="22" />
+				<img src="/static/images/inform.png"  width="22" />
 			</div>
 			{% endif %}
 	</div>

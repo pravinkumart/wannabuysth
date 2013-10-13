@@ -74,6 +74,7 @@ def requirment_show(requirment_id):
 
 @mc.route("/requirment/reply/<requirment_id>", methods=["GET", "POST"])
 def requirment_reply(requirment_id):
+    from models import Notification
     if not g.mc_user:
         return redirect('/mc/login')
     mc_user = g.mc_user
@@ -82,6 +83,14 @@ def requirment_reply(requirment_id):
     rec = Reply(requirment_id=requirment_id, merchant_id=mc_user.id, fee=my_fee, descrip='')
     g.db.add(rec)
     g.db.commit()
+    # 通知用户
+    url = 'item_detail'
+    content = '商家%s回应了你的发布' % rec.merchant.name
+    rec = Notification(customer_id=rec.requirment.customer_id, content=content, type=1, url=url)
+    g.db.add(rec)
+    g.db.commit()
+
+
     return redirect('/mc/requirment/0')
 
 @mc.route("/requirment/reset_code/<requirment_id>", methods=["GET", "POST"])

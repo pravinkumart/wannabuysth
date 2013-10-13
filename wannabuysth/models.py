@@ -37,10 +37,18 @@ class SubCataog(Base):
     catalog_id = Column(Integer, ForeignKey("catalog.id"))  # 父级频道编号
     catalog = relationship("Catalog", backref=backref("subcatalogs"))  # 父级频道对象
     name = Column(String(100), unique=True)  # 分类名
+    pingying = Column(String(100), unique=True)  # 分类名
     descp = Column(String(500))  # 分类介绍
     icon_smaill = Column(String(200))  # 小图标
     icon_large = Column(String(200))  # 大图标
     idx = Column(SmallInteger)  # 排序
+    count = Column(Integer, default=0)  # 总金额
+
+    def get_img(self):
+        if self.icon_smaill:
+            return self.icon_smaill
+        else:
+            return '/static/data/type.jpg'
 
 
 
@@ -295,6 +303,17 @@ class UserExternalBind(Base):
     customer = relationship("Customer")
 
 
+class Notification(Base):
+    '''
+    @note: 系统通知
+    '''
 
+    customer_id = Column(Integer, ForeignKey("customer.id"))
+    customer = relationship("Customer")
+
+    content = Column(Text)  # 评论内容
+    type = Column(Integer)  # 类型   0系统消息   1回应
+    url = Column(Text)  # 连接地址
+    is_visit = Column(Boolean, default=False)
 
 

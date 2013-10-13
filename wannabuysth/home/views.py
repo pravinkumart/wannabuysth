@@ -11,7 +11,7 @@ from models import Catalog
 from models import SubCataog
 from models import Product, SuccessRequirment
 from models import Requirment, Reply
-from models import ProductAds, Comments
+from models import ProductAds, Comments, Notification
 from models import ShowCase, ShowCaseReplay, UserExternalBind
 from home import server
 from datetime import datetime
@@ -27,6 +27,31 @@ def help_me():
 @index.route("/about")
 def about():
     return render_template("home/about.html", **locals())
+
+
+@index.route("/notification")
+def notification():
+    sort_type = int(request.args.get("sort_type", '0'))
+    user = g.user
+    if not user:
+        return redirect(url_for("home.login", need_login="my_keeper"))
+
+    datas = g.db.query(Notification).filter(Notification.customer_id == user.id)
+    if sort_type == 0:
+        datas = datas.filter(Notification.type == 1).order_by(Notification.id)
+    else:
+        datas = datas.filter(Notification.type == 0).order_by(Notification.id)
+    return render_template("home/notification.html", **locals())
+
+@index.route("/notification/read", methods=["POST"])
+def notification_read():
+    sort_type = int(request.args.get("sort_type", '0'))
+    user = g.user
+    if user:
+        g.db.query(Notification).filter(Notification.customer_id == user.id).update({Notification.is_visit:True})
+        g.db.commit()
+    return jsonify({})
+
 
 @index.route("/accounts")
 def accounts():
@@ -212,7 +237,9 @@ def second_lv(catalog_id):
     if catalog:
         datas = g.db.query(SubCataog).filter(SubCataog.catalog == catalog)
         if sort_type == 1:
-            datas = datas.order_by(SubCataog.name)
+            datas = datas.order_by(SubCataog.pingying)
+        else:
+            datas = datas.order_by(SubCataog.count)
         total = datas.count()
         catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
     return render_template("home/second_lv.html", **locals())
@@ -408,7 +435,8 @@ def update_choose_item(requirment_id):
     code = request.form.get("code", '')
     state = request.form.get("state", '')
     state = int(state)
-    requirment = g.db.query(Requirment).filter(Requirment.id == requirment_id).first()
+    user = g.user
+    requirment = g.db.query(Requirment).filter(Requirment.id == requirment_id, Requirment.customer_id == user.id).first()
     if requirment and requirment.code == code and state:
         state = int(state)
         requirment.state = state
@@ -416,7 +444,6 @@ def update_choose_item(requirment_id):
             product = requirment.product
             product.success_count = product.success_count + 1
             g.db.add(product)
-
 
             reply = g.db.query(Reply).filter(Reply.id == requirment.reply_id).first()
 

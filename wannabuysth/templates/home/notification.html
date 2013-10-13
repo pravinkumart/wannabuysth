@@ -1,0 +1,57 @@
+<div data-role="page" id="notification" class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>通知</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div style="height: 40px;line-height: 40px;" class="horizontal col4 f18 bg1 fb tc">
+		<div style="width: 50%;" class="box_flex1">
+			{% if sort_type == 0 %}
+			<span class="show_on">回应</span>
+			{% else %}
+			<span class="me_tap" me_event="gopage" me_data="notification">回应</span>
+			{% endif %}
+		</div>
+		<div style="width: 50%;" class="box_flex1">
+			{% if sort_type == 1 %}
+			<span class="show_on">系统消息</span>
+			{% else %}
+			<span class="me_tap" me_event="gopage" me_data="notification?sort_type=1" >系统消息</span>
+			{% endif %}
+		</div>
+	</div>
+	<div id="bijia_list_wrapper">
+		<div class="scroller">
+		<ul class="thelist item_list">
+			{% for noti in datas%}
+			<li class="item horizontal me_tap" {% if noti.url %} me_event="gopage" {% endif %} me_data='{{ noti.url }}'  >
+				<div style="width: 80px;" class="pad10">
+					{% if noti.type == 0 %}
+					<img src="/static/images/n_system.png" width="70" height="70"/>
+					{% else %}
+					{% if not noti.is_visit %}
+					<img src="/static/images/n_read.png" width="70" height="70"/>
+					{% else %}
+					<img src="/static/images/noti.png" width="70" height="70"/>
+					{% endif %}
+					{% endif %}
+				</div>
+				<div class="box_flex1 pad10">
+					<div>{{ noti.content }}</div>
+				</div>
+				{% if noti.url %} 
+				<div style="overflow:hidden;width: 45px;">
+					<div  class="go_grey" style="margin-top: 25px;" ></div>
+				</div>
+				{% endif %} 
+			</li>
+			{%  endfor %}
+		</div>
+	</div>
+</div>

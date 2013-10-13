@@ -36,9 +36,9 @@
 		    	{% for catalogs in catalog_list %}
 		      <li>
 		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list/{{ catalogs.0.id }}' >{{ catalogs.0.name }}</div>
+		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.0.get_img() }}') no-repeat 10px center;"  me_event="gopage" me_data='item_list/{{ catalogs.0.id }}' >{{ catalogs.0.name }}</div>
 		      		{% if  catalogs.1 %}
-		      		<div class="box_flex1 me_tap"  me_event="gopage" me_data='item_list/{{ catalogs.1.id }}' >{{ catalogs.1.name }}</div>
+		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.1.get_img() }}') no-repeat 10px center;"  me_event="gopage" me_data='item_list/{{ catalogs.1.id }}' >{{ catalogs.1.name }}</div>
 		      		{% else %}
 					<div class="box_flex1 "  style="background:none;" ></div>
 		      		{% endif %}
