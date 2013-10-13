@@ -1,3 +1,4 @@
+var www = 'http://192.168.1.120:5000/';
 var www = 'http://125.65.46.33:8000/';
 var $ = jQuery;
 $.mobile.allowCrossDomainPages=true;
@@ -37,8 +38,10 @@ else{
 	document.getElementsByTagName("body")[0].appendChild(e);
 	
 	
-	// var e = document.createElement("script");
-	// e.setAttribute("src","http://192.168.1.120:8080/target/target-script-min.js#anonymous");
-	// document.getElementsByTagName("body")[0].appendChild(e);
+	if(www.indexOf('5000')>-1){
+		var e = document.createElement("script");
+		e.setAttribute("src","http://192.168.1.120:8080/target/target-script-min.js#anonymous");
+		document.getElementsByTagName("body")[0].appendChild(e);
+	}
 
 })(window)
