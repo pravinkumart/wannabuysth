@@ -71,5 +71,5 @@ def init_product():
     session.commit()
 
 if __name__ == '__main__':
-    init_data()
-#    init_product()
+#    init_data()
+    init_product()

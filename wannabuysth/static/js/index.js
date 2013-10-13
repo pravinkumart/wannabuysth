@@ -47,6 +47,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	window.device.overrideBackButton();
 	document.addEventListener("backbutton", function(){
+		if(go_back()){return false;}
 		if(!confirm('是否退出?')){return false;}
 		window.device.exitApp();
 	}, false);
@@ -128,14 +129,15 @@ function go_back(){
 	if(my_navigator.length==1&&my_navigator[0]=="home/help"){
 		my_navigator.pop()
 		gopage('home/accounts');
-		return 
+		return true
 	}
 	if(my_navigator.length <= 1){
-		return 
+		return false
 	}
 	var current = my_navigator.pop();
+	if(current=="home/index"){return false}
 	gopage(my_navigator.pop(),true);
-	 
+	return true
 }
 
 function gopage(page_id,reverse){
@@ -511,8 +513,12 @@ function choose_d(id){
 
 $( window ).hashchange(function() {
 	var hash = location.hash;
-	
-	
 });
+
+$("#apply_item").live('pageshow', function() {
+	var a = {display:"modal",lang:"zh",mode:"scroller",preset:"date",theme:"default"}
+    $('#test_default').val('').scroller('destroy').scroller(a);
+});
+
 
 

@@ -1,4 +1,5 @@
 <div data-role="page" id="apply_item" class="bg">
+	
 	<div data-role="header"  data-theme="me">
 		<div class="horizontal">
 			<div class="header_b">
@@ -25,12 +26,14 @@
 		</div>
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
-				<div>有效期</div>
+				<div style="margin-top: 20px;">有效期</div>
 			</div>
-			<div class="box_flex1 bg1 padl_15">
-				<input class="username" type="text" data-role="none" placeholder="请输入日期(2013-12-2)" autocomplete="on" maxlength="128" tabindex="1" name="end_time" value="">
+			<div class="box_flex1 bg1 " style="padding: 3px 10px;">
+				<input name="end_time" class="" type="date" id="test_default" />
 			</div>
 		</div>
+		
+					
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
 				<div style="margin-top: 30px;">备注</div>
@@ -41,10 +44,10 @@
 		</div>
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
-				<div>交易地</div>
+				<div style="margin-top: 20px;">交易地</div>
 			</div>
-			<div class="box_flex1 bg1 padl_15 ">
-				<select name="location"  data-role="none" style="width: 80%;margin-top: 15px;margin-bottom: 15px;" >
+			<div class="box_flex1 bg1 " style="padding: 3px 10px;">
+				<select name="location"  style="width: 80%;margin-top: 15px;margin-bottom: 15px;" >
 					<option value="锦江区">锦江区</option>
 					<option value="青羊区">青羊区</option>
 					<option value="金牛区">金牛区</option>

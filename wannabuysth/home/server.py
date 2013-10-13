@@ -51,5 +51,10 @@ def update_user_name(mobile, name):
 
 
 
+def get_notification(user_id):
+    '''
+    @note: 获取通知数目
+    '''
+    return 0
 
 

@@ -121,6 +121,9 @@ def home_index():
     catalogs = g.db.query(Catalog)
     total = catalogs.count()
     catalog_list = [catalogs[i:(i + 8)] for i in range(0, total, 8)]
+    user = g.user
+    if user:
+        notification = server.get_notification(user.id)
     return render_template("index.html", **locals())
 
 

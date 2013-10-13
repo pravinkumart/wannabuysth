@@ -24,12 +24,18 @@
 	</div>
 	<div style="width: 50px;position:absolute;right: 10px;top: 10px;" class="tc">
 			<div class="portrait tr me_tap" me_event="gopage" me_data="my_keeper" >
-				<img src="../static/data/portrait.jpg"   />
+				{% if user %}
+					<img src="{{ user.get_portrait() }}"   />
+				{% else %}
+					<img src="../static/data/portrait.jpg"   />
+				{% endif %}
 			</div>
+			{% if user %}
 			<div style="position: relative;margin-top: 25px;" class="tc me_tap" me_event="wating">
-				<div class="inform_num">5</div>
+				<div class="inform_num">{{ notification }}</div>
 				<img src="../static/images/inform.png"  width="22" />
 			</div>
+			{% endif %}
 	</div>
 	<div style="position:absolute;bottom: 30px;right: 15px;" class="tc">
 		<div class="me_tap" me_event="gopage" me_data="sell_list">
