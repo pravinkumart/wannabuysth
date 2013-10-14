@@ -243,7 +243,7 @@ def mc_add_product():
                 icon_large.save(os.path.join(UPLOAD_FOLDER, icon_large_filename))
 
                 pr = Product(catalog_id=catalog_id, merchant_id=mc_user.id, title=title, descrip=descrip,
-                        acept_fee=acept_fee, show_fee=show_fee, icon_smaill='/static/upload/' + icon_smaill_filename,
+                        acept_fee=acept_fee_init, show_fee=show_fee_init, icon_smaill='/static/upload/' + icon_smaill_filename,
                         icon_large='/static/upload/' + icon_large_filename, view_count=0, success_count=0
                         )
 
