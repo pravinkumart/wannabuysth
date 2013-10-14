@@ -173,10 +173,22 @@ def mc_product():
         return redirect('/mc/login')
     mc_user = g.mc_user
     datas = g.db.query(Product).filter(Product.merchant_id == mc_user.id, Product.status == True)
-
     return render_template("mc/product_list.html", **locals())
 
 
+@mc.route("/product/del/<product_id>", methods=["GET", "POST"])
+def mc_product_del(product_id):
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    data = g.db.query(Product).filter(Product.merchant_id == mc_user.id, Product.id == product_id).first()
+    if data:
+        data.status = False
+        g.db.add(data)
+        g.db.commit()
+        add_success(u'删除商品成功')
+        return redirect('/mc/product/product')
+    return redirect('/mc/product/product')
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
