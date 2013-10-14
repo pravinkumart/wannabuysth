@@ -172,18 +172,74 @@ def mc_product():
     if not g.mc_user:
         return redirect('/mc/login')
     mc_user = g.mc_user
+    datas = g.db.query(Product).filter(Product.merchant_id == mc_user.id, Product.status == True)
+
     return render_template("mc/product_list.html", **locals())
 
 
+
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 @mc.route("/product/add", methods=["GET", "POST"])
 def mc_add_product():
+    from settings import UPLOAD_FOLDER
+    from werkzeug import secure_filename
+    import time
+    import os
     if not g.mc_user:
         return redirect('/mc/login')
     catalogs = g.db.query(Catalog).filter(Catalog.status == True)
     mc_user = g.mc_user
     my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
     if request.method == 'POST':
-        pass
+        catalog_id = request.form.get("catalog_id", "0")
+        title = request.form.get("title", "")
+        descrip = request.form.get("descrip", "")
+        show_fee = request.form.get("show_fee", "")
+        acept_fee = request.form.get("acept_fee", "")
+        icon_smaill = request.files.get("icon_smaill", "")
+        icon_large = request.files.get("icon_smaill", "")
+        try:
+            show_fee_init = float(show_fee) * 100
+            acept_fee_init = float(acept_fee) * 100
+        except:
+            add_error(u'显示价格或者最低卖价只能输入数字')
+        else:
+            if not title or not descrip:
+                add_error(u'标题或者介绍不能为空')
+            elif not icon_smaill or not icon_large:
+                add_error(u'图标不能为空')
+            elif not allowed_file(icon_smaill.filename):
+                add_error(u'小图标文件格式不对')
+            elif not allowed_file(icon_large.filename):
+                add_error(u'大图标文件格式不对')
+            else:
+                filename = secure_filename(icon_smaill.filename)
+                filename = str(time.time()).replace('.', '') + '01.' + filename.rsplit('.', 1)[1]
+                icon_smaill_filename = filename
+                icon_smaill.seek(0)
+                icon_smaill.save(os.path.join(UPLOAD_FOLDER, icon_smaill_filename))
+
+                filename = secure_filename(icon_large.filename)
+                filename = str(time.time()).replace('.', '') + '02.' + filename.rsplit('.', 1)[1]
+                icon_large_filename = filename
+                icon_large.seek(0)
+                icon_large.save(os.path.join(UPLOAD_FOLDER, icon_large_filename))
+
+                pr = Product(catalog_id=catalog_id, merchant_id=mc_user.id, title=title, descrip=descrip,
+                        acept_fee=acept_fee, show_fee=show_fee, icon_smaill='/static/upload/' + icon_smaill_filename,
+                        icon_large='/static/upload/' + icon_large_filename, view_count=0, success_count=0
+                        )
+
+                g.db.add(pr)
+                g.db.commit()
+                add_success(u'添加商品成功')
+                return redirect('/mc/product/add')
+
     return render_template("mc/add.html", **locals())
 
 

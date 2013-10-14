@@ -202,3 +202,7 @@ body {
 .fl {float:left;}
 .blank0{clear:both;}
 
+.table th, .table td {
+    text-align: center;
+    vertical-align:middle;
+}

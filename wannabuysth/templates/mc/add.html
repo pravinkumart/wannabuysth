@@ -13,31 +13,31 @@
               <div class="controls">
                 <select name="catalog_id" style="margin:10px 0px;">
                 	{% for my_subcatalog in my_subcatalogs %}
-                	<option value="{{ my_subcatalog.catalog.id }}">{{ my_subcatalog.catalog.name }}</option>
+                	<option {% if catalog_id == my_subcatalog.catalog.id %} selected="selected" {% endif %} value="{{ my_subcatalog.catalog.id }}">{{ my_subcatalog.catalog.name }}</option>
                 	{% endfor %}
                 </select>
               </div>
               <label class="control-label" for="focusedInput">商品名称</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="title" maxlength="11" value="{{ mobile }}">
+                <input class="input-xlarge focused"  type="text" name="title" maxlength="11" value="{{ title }}">
               </div>
               <label class="control-label" for="focusedInput">商品介绍</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="descrip" value="{{ name }}">
+                <input class="input-xlarge focused"  type="text" name="descrip" value="{{ descrip }}">
               </div>
               <label class="control-label" for="focusedInput">显示价格</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="show_fee" value="">
+                <input class="input-xlarge focused"  type="text" name="show_fee" value="{{ show_fee }}">
               </div>
               <label class="control-label" for="focusedInput">最低卖价</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="acept_fee" value="">
+                <input class="input-xlarge focused"  type="text" name="acept_fee" value="{{ acept_fee }}">
               </div>
-              <label class="control-label" for="focusedInput">小图标</label>
+              <label class="control-label" for="focusedInput">小图标(100*60)</label>
               <div class="controls">
                 <input class="input-xlarge focused" style=" margin: 5px;"  type="file" name="icon_smaill" value="">
               </div>
-              <label class="control-label" for="focusedInput">大图标</label>
+              <label class="control-label" for="focusedInput">大图标(320*60)</label>
               <div class="controls">
                 <input class="input-xlarge focused" style=" margin: 5px;" type="file" name="icon_large" value="">
               </div>

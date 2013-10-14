@@ -143,7 +143,10 @@ class Product(Base):
     success_count = Column(Integer)  # 成功次数
 
     def get_show_fee(self):
-        return self.show_fee
+        return self.show_fee / 100.0
+
+    def get_acept_fee(self):
+        return self.acept_fee / 100.0
 
 class ProductAds(Base):
     '''

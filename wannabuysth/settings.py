@@ -1,5 +1,6 @@
 # coding=utf8
 __author__ = 'Alexander.Li'
+import os
 
 DEBUG = True
 LOCAL = True
@@ -16,3 +17,7 @@ SECRET_KEY = "011556654433221changge!"
 
 MEDIA_ROOT = "/static"
 
+
+SITE_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+UPLOAD_FOLDER = SITE_ROOT + '/static/upload'

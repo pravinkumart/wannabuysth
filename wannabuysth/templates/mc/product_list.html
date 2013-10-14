@@ -14,10 +14,11 @@
 	              <thead>
 	                <tr>
 	                  <th>#</th>
-	                  <th>服务类别</th>
-	                  <th>需求介绍</th>
-	                  <th>客户出价</th>
-	                  <th>已回应的商家</th>
+	                  <th>小图</th>
+	                  <th>标题</th>
+	                  <th>介绍</th>
+	                  <th>显示出价</th>
+	                  <th>最低价格</th>
 	                  <th>操作</th>
 	                </tr>
 	              </thead>
@@ -25,15 +26,13 @@
 	              	{% for data in datas %}
 	                <tr class="{{ loop.cycle('success', 'error','info') }}">
 	                  <td width="30">{{ loop.index }}</td>
-	                  <td width="100">{{ data.subcataog.name }}</td>
+	                  <td width="100"><img src="{{ data.icon_smaill }}" width="100" /> </td>
+	                  <td width="100">{{ data.title }}</td>
 	                  <td>{{ data.descrip}}</td>
-	                  <td width="60">￥{{ data.get_wanna_fee() }}</td>
-	                  <td width="160">{{  data.replys|length  }}</td>
-	                  {% if data.id in requirment_ids %}
-	                  	<td width="160">已投标</td>
-	                  {% else %}
-	                  	<td width="160"> <a class="btn btn-info" onclick="return reply(this,'{{ data.get_wanna_fee() }}')" href="/mc/requirment/reply/{{ data.id }}">投标</></td>
-	                  {% endif %}
+	                  <td width="60">￥{{ data.get_show_fee() }}</td>
+	                  <td width="60">￥{{ data.get_acept_fee() }}</td>
+	                  <td width="160"></td>
+	                  
 	                </tr>
 	                {% endfor %}
 	              </tbody>
