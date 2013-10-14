@@ -253,9 +253,9 @@ def item_list(catalog_id):
     if catalog:
         datas = g.db.query(Product).filter(Product.catalog == catalog, Product.status == True)
         if sort_type:
-            datas = datas.order_by(Product.show_fee)
+            datas = datas.order_by(Product.show_fee.desc())
         else:
-            datas = datas.order_by(Product.show_fee)
+            datas = datas.order_by(Product.show_fee.asc())
     return render_template("home/item_list.html", **locals())
 
 @index.route("/release/<catalog_id>/")
