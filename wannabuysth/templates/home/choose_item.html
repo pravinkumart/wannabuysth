@@ -45,10 +45,11 @@
 		<div class="pad10">{{ requirment.descrip }}</div>
 	</div>
 	<div class="" style="padding: 20px 10px 0 10px; ">
-		<div class="col4">中标商家</div>
+		<div class="col4 fl">中标商家</div>
+		<div class="pad10 fr">{{ requirment.merchant.name }}</div>
 		<div class="blank5"></div>
-		<div class="pad10 fl">{{ requirment.merchant.name }}</div>
-		<div class="pad10 fr">{{ requirment.merchant.mobile }}</div>
+		<div class="pad10 fl">联系电话:{{ requirment.merchant.mobile }}</div>
+		<div class="pad10 fr">商家报价:{{ reply.get_fee() }}</div>
 	</div>
 	<div class="blank0"></div>
 	<div data-role="content">

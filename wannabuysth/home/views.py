@@ -366,6 +366,8 @@ def choose_item(requirment_id):
     user = g.user
     requirment = g.db.query(Requirment).filter(Requirment.customer_id == user.id,
                                                 Requirment.id == requirment_id).first()
+
+    reply = g.db.query(Reply).filter(Reply.id == requirment.reply_id).first()
     return render_template("home/choose_item.html", **locals())
 
 
