@@ -134,7 +134,7 @@ class QQOAuth2Mixin(object):
 
 
     def get_authorize_redirect(self):
-        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s&state=%s&display=2" % \
+        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s&state=%s&display=mobile" % \
         (self._OAUTH_AUTHORIZE_URL, self._OAUTH_CONSUMER_KEY, self.redirect_uri, 'test')
         return url
 
