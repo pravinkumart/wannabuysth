@@ -252,7 +252,7 @@ def item_list(catalog_id):
     catalog = g.db.query(SubCataog).filter(SubCataog.id == catalog_id).first()
     if catalog:
         datas = g.db.query(Product).filter(Product.catalog == catalog, Product.status == True)
-        if sort_type:
+        if sort_type == 0:
             datas = datas.order_by(Product.show_fee.desc())
         else:
             datas = datas.order_by(Product.show_fee.asc())
