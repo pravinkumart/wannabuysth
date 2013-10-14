@@ -28,6 +28,10 @@ def hello_world():
     return redirect('/mc')
 #    return render_template("base.html", **locals())
 
+@app.route('/base')
+def base():
+    return render_template("home/base.html", **locals())
+
 @index.route("static/<file_name>")
 def down_file(file_name):
     import os

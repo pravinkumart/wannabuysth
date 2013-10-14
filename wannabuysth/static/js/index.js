@@ -33,20 +33,6 @@ function del_data(key){
 	return	window.localStorage.removeItem(key);
 }
 
-//初始化数据
-(function() {
-	$.mobile.allowCrossDomainPages=true;
-	if(is_init_main){return false;}
-	 is_init_main =true;
-	 init_main();
-	 if(get_data('user_is_first')){
-	 	 gopage('home/accounts')
-	 }else{
-		 gopage('home/help');
-	 	 set_data('user_is_first','false')
-	 }
-})();
-
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -745,3 +731,27 @@ function clear_data(){
 function check_update(){
 	alert('已经是最新版本了')
 }
+
+
+$(function() {
+	$.mobile.allowCrossDomainPages=true;
+	if(is_init_main){return false;}
+	 is_init_main =true;
+	 init_main();
+});
+
+$(function(){
+	setTimeout(function() {
+		
+		if(get_data('user_is_first')){
+		 	 gopage('home/accounts')
+		 }else{
+			 gopage('home/help');
+		 	 set_data('user_is_first','false')
+		 }
+		
+		
+	}, 1000);
+	
+})
+
