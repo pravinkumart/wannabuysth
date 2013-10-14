@@ -288,10 +288,8 @@ function second_lv_init(){
   	}
   function pullUpAction () {
   	setTimeout(function(){
-		$('.thelist').append($('.thelist li').eq(0).clone())
 		myScroll.refresh();	
-		  		
-  	},3000)
+  	},0)
 	}
 	pullUpEl = document.getElementById('pullUp');	
 	if(!pullUpEl){
@@ -341,10 +339,8 @@ function item_list_init(){
   	}
   function pullUpAction () {
   	setTimeout(function(){
-		$('.item_list').append($('.item_list li').eq(0).clone())
 		myScroll.refresh();	
-		  		
-  	},3000)
+  	},0)
 	}
 	pullUpEl = document.getElementById('pullUp');	
 	pullUpOffset = pullUpEl.offsetHeight;
@@ -404,10 +400,8 @@ function sell_list_init(){
   	}
   function pullUpAction () {
   	setTimeout(function(){
-		$('.thelist').append($('.thelist li').eq(0).clone())
 		myScroll.refresh();	
-		  		
-  	},3000)
+  	},0)
 	}
   var pullUpEl = document.getElementById('pullUp');	
   var pullUpOffset = pullUpEl.offsetHeight;
@@ -457,10 +451,8 @@ function history_list_init(){
   	}
   function pullUpAction () {
   	setTimeout(function(){
-		$('.thelist').append($('.thelist li').eq(0).clone())
 		myScroll.refresh();	
-		  		
-  	},3000)
+  	},0)
 	}
   var pullUpEl = document.getElementById('pullUp');	
   var pullUpOffset = pullUpEl.offsetHeight;
