@@ -1,5 +1,5 @@
-var www = 'http://www.qp197.com:8000/';
 var www = 'http://192.168.1.120:5000/';
+var www = 'http://www.qp197.com:8000/';
 var $ = jQuery;
 $.mobile.allowCrossDomainPages=true;
 if(!navigator.onLine){
@@ -11,7 +11,7 @@ if(!navigator.onLine){
 else{
 	$("#loading").live('pageshow', function() {
 		$.mobile.loading('show', {text : 'test', theme : 'a'});
-	})
+	});
 }
 
 (function(win){
@@ -30,4 +30,4 @@ else{
 		document.getElementsByTagName("body")[0].appendChild(e);
 	}
 
-})(window)
+})(window);
