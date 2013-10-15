@@ -656,7 +656,7 @@ textarea::-webkit-input-placeholder {
 
 #share_requirment_wrapper {
 	position: absolute;
-	top: 42px;
+	top: 0;
 	left: 0;
 	width: 100%;
 	bottom: 0px;
