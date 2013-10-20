@@ -497,10 +497,14 @@ function reload_js(){
 }
 
 function apply_item_ok(type_data){
-	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	var data = $('#apply_item_form').serializeArray();
 	var id = type_data.split(' ')[0];
 	var type = type_data.split(' ')[1];
+	if($('.place_text').val()==$('.place_text').attr('placeholder')){
+		alert('内容不能为空!');
+		return false;
+	}
+	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	$.post('/home/apply_item_do',data,function(datas){
 		$.mobile.loading('hide');
 		my_navigator.pop();

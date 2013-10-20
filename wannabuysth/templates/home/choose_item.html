@@ -54,20 +54,7 @@
 	<div class="blank0"></div>
 	<div data-role="content">
 	<form action="" id="choose_item_form">
-	<div class="horizontal me_field">
-		<div class="field_msg tc">
-			<div style="margin-top: 23px;">交易结果</div>
-		</div>
-		<div class="box_flex1 bg1 padl_15" style="padding: 5px 0 5px 10px;">
-			<select name="state">
-				<option value="3">完成交易</option>
-				<option value="4">协定取消</option>
-			</select>
-		</div>
-		<div style="width: 40px;line-height: 50px;overflow:hidden;">
-			<div class="clear_but none"></div>
-		</div>
-	</div> 
+	
 	<div style="height:10px;"></div>
 	<div class="horizontal me_field">
 		<div class="field_msg tc">
@@ -80,10 +67,22 @@
 			<div class="clear_but none"></div>
 		</div>
 	</div>
+	<div style="height:10px;"></div>
+	<div class="horizontal me_field">
+		<div class="field_msg tc">
+			<div>评价</div>
+		</div>
+		<div class="box_flex1 bg1 padl_15">
+			<input class="username" name="like" type="text" data-role="none" placeholder="" autocomplete="on" maxlength="4" tabindex="1"  value="">
+		</div>
+		<div style="width: 40px;line-height: 50px;overflow:hidden;">
+			<div class="clear_but none"></div>
+		</div>
+	</div>
 	<div style="height: 20px;"></div>
 	<div class="info_list">
 		<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="update_choose_item" me_data='{{ requirment.id }}' >
-				提交交易
+				完成交易
 		</div>
 	</div>
 	</form>

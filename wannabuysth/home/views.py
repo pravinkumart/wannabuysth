@@ -349,7 +349,18 @@ def apply_item_do():
     g.db.commit()
     if auto == 'true':
             req.merchant_id = req.product.merchant_id
-    g.db.commit()
+            req.state = 2
+            g.db.add(req)
+            g.db.commit()
+
+            r = Reply(requirment_id=req.id, merchant_id=user.id, fee=req.product.show_fee)
+            g.db.add(r)
+            g.db.commit()
+
+            req.reply_id = r.id
+            g.db.add(req)
+            g.db.commit()
+
     g.db.flush()
     result = {'succeed':True, 'erro':'%s' % req.id }
     return jsonify(result)
@@ -455,8 +466,9 @@ def select_reply_do(reply_id):
 @index.route("/update_choose_item/<requirment_id>", methods=["POST"])
 def update_choose_item(requirment_id):
     code = request.form.get("code", '')
-    state = request.form.get("state", '')
+    state = 3  # request.form.get("state", '')
     state = int(state)
+    like = int(request.form.get("state", '1'))
     user = g.user
     requirment = g.db.query(Requirment).filter(Requirment.id == requirment_id, Requirment.customer_id == user.id).first()
     if requirment and requirment.code == code and state:
@@ -472,7 +484,7 @@ def update_choose_item(requirment_id):
             re = SuccessRequirment(customer_id=requirment.customer_id, merchant_id=requirment.merchant_id, wanna_fee=requirment.wanna_fee,
                               descrip=requirment.descrip, end_time=requirment.end_time, location=requirment.location,
                               succes_fee=reply.fee, reply_id=requirment.reply_id, product_id=requirment.product_id,
-                              subcataog_id=requirment.subcataog_id,
+                              subcataog_id=requirment.subcataog_id, like=like
                               )
             g.db.add(re)
             g.db.commit()

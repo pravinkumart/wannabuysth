@@ -235,6 +235,7 @@ class SuccessRequirment(Base):
     merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 中标商家ID
     merchant = relationship("Merchant", backref=backref("success_requirments"))
 
+    like = Column(Integer)  # 评价
     wanna_fee = Column(Integer)  # 成交价格
     descrip = Column(String(500))  # 需求描述
     end_time = Column(DateTime)  # 截止时间
