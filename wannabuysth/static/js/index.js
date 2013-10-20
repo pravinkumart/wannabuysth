@@ -201,18 +201,10 @@ $("#index").live('pageshow', function() {
 var index_page = {};
 function index_init(){
   var obj = $('#wrapper_index');
-  var width = 230;
-  var count = obj.find('.thelist li').length;
-  	  obj.find('.thelist li').width(width);
-  	  obj.find('.scroller').width(count*width);
   if(index_page.myScroll){
   		index_page.myScroll.destroy();
   	}
-  var myScroll = new iScroll('wrapper_index',{
-    snap: true,
-    momentum: false,
-    hScrollbar: false
-  });
+  var myScroll = new iScroll('wrapper_index',{hideScrollbar: true});
   index_page.myScroll = myScroll;
   index_page.myScroll.refresh()
 }

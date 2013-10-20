@@ -2,19 +2,19 @@
 	<div style="padding: 15px 50px 15px 15px;">
 		<div style="width: 230px;overflow:hidden; margin: 0 auto;">
 			{% if ad %}
-			<img src="{{ ad.img }}" id="myImage" class="me_tap"  me_event="gopage" me_data='item_detail/{{ ad.product_id }}'  style="width:230px;" />
+			<img src="{{ ad.img }}" id="myImage" class="me_tap"  me_event="gopage" me_data='item_detail/{{ ad.product_id }}'  style="width:230px;height: 115px;" />
 			<div class="tc bg2 f18 col1" style="height: 40px;line-height: 40px; width: 230px;">今日推荐</div>
 			{% endif %}
-			<div id="wrapper_index" style="height: 360px;overflow:hidden;">
+			<div id="wrapper_index" style="height: 360px;">
 				  <div class="scroller">
 				    <ul class="thelist">
-				    	{% for catalogs in catalog_list %}
-				      <li>
-				      	{% for catalog in catalogs %}
-				      	<img src="{{ catalog.icon_smaill }}" class="me_tap" me_event="gopage" me_data="second_lv/{{ catalog.id }}/" />
-				      	{% endfor %}
-				      </li>
-				      {% endfor %}
+				    	 {% for catalogs in catalog_list %}
+					      <li>
+					     {% for catalog in catalogs %}
+					      	<img src="{{ catalog.icon_smaill }}" class="me_tap" me_event="gopage" me_data="second_lv/{{ catalog.id }}/" />
+				      	 {% endfor %}
+					      </li>
+				         {% endfor %}
 				    </ul>
 				    <div class="blank0"></div>
 				  </div>
