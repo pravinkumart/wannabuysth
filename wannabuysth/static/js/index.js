@@ -734,15 +734,12 @@ $(function() {
 
 $(function(){
 	setTimeout(function() {
-		
 		if(get_data('user_is_first')){
 		 	 gopage('home/accounts')
 		 }else{
 			 gopage('home/help');
 		 	 set_data('user_is_first','false')
 		 }
-		
-		
 	}, 1000);
 	
 })

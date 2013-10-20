@@ -17,12 +17,21 @@
 	</div>
 	<div data-role="content" class="apply_item">
 		<form action="" method="post" id="apply_item_form" >
-		<div class="horizontal me_field">
+		<div class="horizontal  me_field">
+			<div class="field_msg tc">
+				<div style="margin-top: 30px;">需求</div>
+			</div>
+			<div class="box_flex1 bg1 padl_15">
+				<textarea style="height: 80px" data-role="none"  class="username" placeholder="阐述你的需求,如:我需要一个保姆照顾老人，费用约为5000左右每月，地点在华阳某街某号,希望能在12月25号之前确定。" name="descrip"></textarea>
+			</div>
+		</div>
+		
+		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
 				<div>价格</div>
 			</div>
 			<div class="box_flex1 bg1 padl_15">
-				<input class="username" type="text" data-role="none" placeholder="商品单价" autocomplete="on" maxlength="128" tabindex="1" name="wanna_fee" value="">
+				<input class="username" type="text" data-role="none" placeholder="你愿意接收的价格" autocomplete="on" maxlength="128" tabindex="1" name="wanna_fee" value="">
 			</div>
 			<div style="width: 40px;line-height: 50px;">
 				元
@@ -30,22 +39,15 @@
 		</div>
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
-				<div style="margin-top: 20px;">有效期</div>
+				<div style="margin-top: 20px;">截至日期</div>
 			</div>
 			<div class="box_flex1 bg1 " style="padding: 3px 10px;">
-				<input name="end_time" class="" type="date" id="test_default" />
+				<input name="end_time" class="" type="date" id="test_default" placeholder="你的需求截至期" />
 			</div>
 		</div>
 		
 					
-		<div class="horizontal mart_10 me_field">
-			<div class="field_msg tc">
-				<div style="margin-top: 30px;">备注</div>
-			</div>
-			<div class="box_flex1 bg1 padl_15">
-				<textarea style="height: 80px" data-role="none"  class="username" placeholder="" name="descrip"></textarea>
-			</div>
-		</div>
+		
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
 				<div style="margin-top: 20px;">交易地</div>

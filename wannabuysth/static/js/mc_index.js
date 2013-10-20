@@ -10,7 +10,7 @@ function login_out(){
 
 
 function reply(el,fee){
-	if(!confirm('投标价格不能高于'+fee+'，是否继续投标?')){
+	if(!confirm('投标价格不能高于该消费者的报价，若要继续投标请等于或低于'+fee+'元')){
 		return false;
 	}
 	var my_fee = window.prompt('请输入投标金额');

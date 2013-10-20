@@ -1,5 +1,6 @@
 var www = 'http://www.qp197.com:8000/';
 var www = 'http://192.168.1.120:5000/';
+var www = 'http://127.0.0.1:5000/';
 var $ = jQuery;
 $.mobile.allowCrossDomainPages=true;
 if(!navigator.onLine){
