@@ -209,6 +209,19 @@ function index_init(){
   index_page.myScroll.refresh()
 }
 
+var item_detail_page = {};
+$("#item_detail").live('pageshow', function() {
+	
+  var obj = $('#wrapper_item_detail');
+  if(item_detail_page.myScroll){
+  		index_page.myScroll.destroy();
+  	}
+  var myScroll = new iScroll('wrapper_item_detail',{hideScrollbar: true});
+  item_detail_page.myScroll = myScroll;
+  item_detail_page.myScroll.refresh()
+  
+});
+
 
 $("#login").live('pageshow', function() {
 	var username = get_data('username');
@@ -493,11 +506,11 @@ function apply_item_ok(type_data){
 		my_navigator.pop();
 		if(datas.succeed){
 			if(type==0){
-				alert('申请成功!');
-				gopage();
+				alert('提交成功!');
+				go_back();
 			}else{
 				alert('发布成功!');
-				gopage();
+				go_back();
 			}
 			
 		}else{

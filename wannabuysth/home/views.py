@@ -294,7 +294,7 @@ def item_detail(item_id):
 def apply_item(item_id):
     if not g.user:
         return redirect(url_for("home.login", need_login="apply_item/%s" % item_id))
-    sort_type = int(request.args.get("sort_type", '0'))
+    auto = True if  request.args.get("auto", '') == 'true' else False
     item = g.db.query(Product).filter(Product.id == item_id).first()
     return render_template("home/apply_item.html", **locals())
 
@@ -312,6 +312,8 @@ def apply_item_do():
     end_time = request.form.get("end_time", '')
     location = request.form.get("location", '')
     wanna_fee = request.form.get("wanna_fee", '')
+
+    auto = request.form.get("auto", '')
 
     if not wanna_fee :
         result['erro'] = '单价输入错误!'
@@ -344,6 +346,9 @@ def apply_item_do():
     if item_id:
         req.product_id = item_id
     g.db.add(req)
+    g.db.commit()
+    if auto == 'true':
+            req.merchant_id = req.product.merchant_id
     g.db.commit()
     g.db.flush()
     result = {'succeed':True, 'erro':'%s' % req.id }

@@ -17,6 +17,7 @@
 	</div>
 	<div data-role="content" class="apply_item">
 		<form action="" method="post" id="apply_item_form" >
+		
 		<div class="horizontal  me_field">
 			<div class="field_msg tc">
 				<div style="margin-top: 70px;">需求</div>
@@ -25,7 +26,7 @@
 				<textarea style="height: 160px;color: #D1D1D1;" data-role="none"  class="username place_text" placeholder="阐述你的需求,如:我需要一个保姆照顾老人，费用约为5000左右每月，地点在华阳某街某号,希望能在12月25号之前确定。" name="descrip">阐述你的需求,如:我需要一个保姆照顾老人，费用约为5000左右每月，地点在华阳某街某号,希望能在12月25号之前确定。</textarea>
 			</div>
 		</div>
-		
+		{% if not auto %}
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
 				<div>价格</div>
@@ -37,6 +38,9 @@
 				元
 			</div>
 		</div>
+		{% else %}
+		<input type="hidden" value="{{ item.get_show_fee() }}" name="wanna_fee" />
+		{% endif %}
 		<div class="horizontal mart_10 me_field">
 			<div class="field_msg tc">
 				<div style="margin-top: 20px;">截至日期</div>
@@ -78,6 +82,9 @@
 		{% else %}
 		<input type="hidden" name="catalog_id" value="{{ catalog.id }}" />
 		{% endif %}
+		{% if  auto %}
+		<input type="hidden" name="auto" value="true" />
+		{% endif %}
 		</form>
 		<div style="height: 40px;"></div>
 		<div class="info_list">
@@ -86,7 +93,11 @@
 			{% else %}
 			<div class="regedit box_flex1 tc br_5 f18 me_tap"  me_event="apply_item_ok" me_data="{{ catalog.id }} 1" >
 			{% endif %}
-					提交报价
+					{% if not auto %}
+						提交报价
+					{% else %}
+						确认购买
+					{% endif %}
 			</div>
 		</div>
 	</div>
