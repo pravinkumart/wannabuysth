@@ -498,13 +498,14 @@ function apply_item_ok(type_data){
 	var type = type_data.split(' ')[1];
 	$.post('/home/apply_item_do',data,function(datas){
 		$.mobile.loading('hide');
+		my_navigator.pop();
 		if(datas.succeed){
 			if(type==0){
 				alert('申请成功!');
-				gopage('item_list/'+id);
+				gopage();
 			}else{
 				alert('发布成功!');
-				gopage('item_list/'+id);
+				gopage();
 			}
 			
 		}else{
@@ -724,6 +725,26 @@ function check_update(){
 	alert('已经是最新版本了')
 }
 
+$(function (){
+	$('.place_text').live('focus',function(){
+		if($(this).val()==$(this).attr('placeholder')){
+			$(this).val('');
+			$(this).css('color','');
+		}
+		
+	});
+	
+	$('.place_text').live('blur',function(){
+		if($(this).val()==''){
+			$(this).val($(this).attr('placeholder'));
+			$(this).css('color','#D1D1D1');
+		}else{
+			$(this).css('color','');
+		}
+		
+	});
+	
+})
 
 $(function() {
 	$.mobile.allowCrossDomainPages=true;

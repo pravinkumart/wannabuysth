@@ -246,6 +246,20 @@ def second_lv(catalog_id):
     return render_template("home/second_lv.html", **locals())
 
 
+@index.route("/catalog/<catalog_id>/")
+def catalog(catalog_id):
+    sort_type = int(request.args.get("sort_type", '0'))
+    catalog = g.db.query(Catalog).filter(Catalog.id == catalog_id).first()
+    if catalog:
+        datas = g.db.query(SubCataog).filter(SubCataog.catalog == catalog)
+        if sort_type == 1:
+            datas = datas.order_by(SubCataog.pingying)
+        else:
+            datas = datas.order_by(SubCataog.count)
+        total = datas.count()
+        catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
+    return render_template("home/sub_catalog_list.html", **locals())
+
 @index.route("/item_list/<catalog_id>/")
 def item_list(catalog_id):
     sort_type = int(request.args.get("sort_type", '0'))
@@ -263,7 +277,7 @@ def release_item(catalog_id):
     if not g.user:
         return redirect(url_for("home.login", need_login="release/%s" % catalog_id))
     sort_type = int(request.args.get("sort_type", '0'))
-    catalog = g.db.query(SubCataog).filter(Product.id == catalog_id).first()
+    catalog = g.db.query(SubCataog).filter(SubCataog.id == catalog_id).first()
     return render_template("home/apply_item.html", **locals())
 
 
@@ -694,3 +708,12 @@ def re_showcase(showcase_id, showcase_re_id):
     g.db.commit()
     result = {'succeed':True, 'erro':''}
     return jsonify(result)
+
+@index.route("/catalog_list", methods=["GET"])
+def catalog_list():
+    catalogs = g.db.query(Catalog).filter(Catalog.status == True).order_by(Catalog.idx)
+    catalog_list = [catalogs[i:(i + 2)] for i in range(0, catalogs.count(), 2)]
+    return render_template("home/catalog_list.html", **locals())
+
+
+

@@ -1,0 +1,32 @@
+<div data-role="page" id="catalog_list"  class="bg">
+	<div data-role="header"  data-theme="me">
+		<div class="horizontal">
+			<div class="header_b">
+				<a class="back" href="javascript:void(0)" ></a>
+			</div>
+			<div class="tc header_m box_flex1">
+				<h1>服务类</h1>
+			</div>
+			<div class="header_a"></div>
+		</div>
+	</div>
+	<div id="">
+		<div class="scroller">
+		<ul class="thelist item_list">
+			<div id="wrapper_index" style="margin: 0 auto; width: 230px;float:none;">
+				  <div class="scroller">
+				    <ul class="thelist">
+				    	{% for catalogs in catalog_list %}
+					     <li>
+				      	{% for catalog in catalogs %}
+				      		<img src="{{ catalog.icon_smaill }}" class="me_tap fl" me_event="gopage" me_data="catalog/{{ catalog.id }}/" />
+				      	{% endfor %}
+					     </li>
+				      {% endfor %}
+				    </ul>
+				    <div class="blank0"></div>
+				  </div>
+			</div>
+		</div>
+	</div>
+</div>
