@@ -751,10 +751,9 @@ textarea::-webkit-input-placeholder {
     color: #FFFFFF;
 }
 
-
 .none{display:none;}
 
-#qq_login{
-	
+.like_msg {
+	line-height: 50px;
 }
-
+.like_msg span {margin-right: 15px; display:inline-block;padding-top: 10px;}

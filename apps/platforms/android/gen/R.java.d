@@ -1,4 +1,4 @@
-E:\workspace\wannabuysth\apps\platforms\android\gen\com\phonegap\hello_world\R.java \
+E:\workspace\wannabuysth\apps\platforms\android\gen\com\miaomi\bangbanguanjia\R.java \
  : E:\workspace\wannabuysth\apps\platforms\android\res\drawable\icon.png \
 E:\workspace\wannabuysth\apps\platforms\android\res\drawable-hdpi\icon.png \
 E:\workspace\wannabuysth\apps\platforms\android\res\drawable-hdpi\ic_launcher.png \

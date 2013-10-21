@@ -26,7 +26,11 @@ function get_data(key){
 }
 
 function set_data(key,data){
-	window.localStorage.setItem(key, data);
+	if(typeof window.localStorage.setItem == "string"){
+		window.localStorage.setItem[key] = data;
+	}else{
+		window.localStorage.setItem(key, data);
+	}
 }
 
 function del_data(key){
@@ -753,6 +757,17 @@ $(function (){
 		
 	});
 	
+	$('.like_msg span').live('fastClick',function(el){
+		var index = $(this).attr('v');
+		for(var i=0;i<=4;i++){
+			if(i<=index){
+				$('.like_msg span').eq(i).find('img').attr('src','/static/images/star1.png')
+			}else{
+				$('.like_msg span').eq(i).find('img').attr('src','/static/images/star0.png')
+			}
+		}
+		$('input[name=like]').val(1+ parseInt(index))
+	})
 })
 
 $(function() {

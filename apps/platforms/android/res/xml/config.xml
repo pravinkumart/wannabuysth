@@ -11,12 +11,6 @@
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.CameraLauncher" />
-    </feature>
-    <plugins>
-        <plugin name="Device" value="org.apache.cordova.Device" />
-    </plugins>
     <access origin="http://127.0.0.1*" />
     <access origin="*" />
     <preference name="useBrowserHistory" value="true" />

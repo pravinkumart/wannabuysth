@@ -1,3 +1,4 @@
+var www = 'http://www.qp197.com:8000/';
 var www = 'http://192.168.1.120:5000/';
 var $ = jQuery;
 $.mobile.allowCrossDomainPages=true;
@@ -23,7 +24,7 @@ else{
 				$.mobile.loading('hide');
 			}
 		});
-	})
+	});
 }
 
 (function(win){
@@ -37,8 +38,10 @@ else{
 	document.getElementsByTagName("body")[0].appendChild(e);
 	
 	
-	var e = document.createElement("script");
-	e.setAttribute("src","http://192.168.1.120:8080/target/target-script-min.js#anonymous");
-	document.getElementsByTagName("body")[0].appendChild(e);
+	if(www.indexOf('5000')>-1){
+		var e = document.createElement("script");
+		e.setAttribute("src","http://192.168.1.120:8080/target/target-script-min.js#anonymous");
+		document.getElementsByTagName("body")[0].appendChild(e);
+	}
 
-})(window)
+})(window);
