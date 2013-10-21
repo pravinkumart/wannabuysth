@@ -119,7 +119,7 @@ def requirment_cancel(requirment_id):
     requirment_id = int(requirment_id)
     rec = g.db.query(Requirment).filter(Requirment.id == requirment_id, Requirment.merchant_id == mc_user.id).first()
     if rec and rec.state == 2:
-        rec.state = -1
+        rec.state = 4
         g.db.add(rec)
         g.db.commit()
         add_success(u'取消交易成功')

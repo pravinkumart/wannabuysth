@@ -28,7 +28,7 @@
 	                <tr class="{{ loop.cycle('success', 'error','info') }}">
 	                  <td width="30">{{ loop.index }}</td>
 	                  <td width="100">{{ data.catalog.name }}</td>
-	                  <td width="100"><img src="{{ data.icon_smaill }}" width="100" /> </td>
+	                  <td width="100"><img src="{{ data.icon_smaill }}" width="100" style="max-height: 100px;max-width: 100px;" /> </td>
 	                  <td width="100">{{ data.title }}</td>
 	                  <td>{{ data.descrip}}</td>
 	                  <td width="60">￥{{ data.get_show_fee() }}</td>
