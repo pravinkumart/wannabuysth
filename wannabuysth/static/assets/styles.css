@@ -203,6 +203,7 @@ body {
 .blank0{clear:both;}
 
 .table th, .table td {
-    text-align: center;
+    text-align:left;
     vertical-align:middle;
 }
+.red {color: red;}

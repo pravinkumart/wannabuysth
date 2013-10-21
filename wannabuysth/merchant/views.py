@@ -11,7 +11,7 @@ from models import Catalog
 from models import SubCataog
 from models import Product
 from models import Requirment, Reply
-from models import Merchant, CustomerCataog
+from models import Merchant, CustomerCataog, SuccessRequirment
 from utils import add_error, add_success
 
 mc = Blueprint('mc', __name__, template_folder='templates', url_prefix='/mc')
@@ -68,7 +68,9 @@ def requirment_show(requirment_id):
     if requirment_id == 2:
         datas = g.db.query(Requirment).filter(Requirment.merchant_id == mc_user.id, Requirment.state == 2)
     if requirment_id == 3:
-        datas = g.db.query(Requirment).filter(Requirment.merchant_id == mc_user.id, Requirment.state.in_([3, 4]))
+        datas = g.db.query(SuccessRequirment).filter(SuccessRequirment.merchant_id == mc_user.id)
+    if requirment_id == 4:
+        datas = g.db.query(Requirment).filter(Requirment.merchant_id == mc_user.id, Requirment.state == 4)
     return render_template("mc/requirment_%s.html" % requirment_id, **locals())
 
 
@@ -106,6 +108,23 @@ def requirment_reset_code(requirment_id):
         g.db.add(rec)
         g.db.commit()
     return redirect('/mc/requirment/2')
+
+
+@mc.route("/requirment/cancel/<requirment_id>", methods=["GET", "POST"])
+def requirment_cancel(requirment_id):
+    import random
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    requirment_id = int(requirment_id)
+    rec = g.db.query(Requirment).filter(Requirment.id == requirment_id, Requirment.merchant_id == mc_user.id).first()
+    if rec and rec.state == 2:
+        rec.state = -1
+        g.db.add(rec)
+        g.db.commit()
+        add_success(u'取消交易成功')
+    return redirect('/mc/requirment/2')
+
 
 
 @mc.route("/regedit", methods=["GET", "POST"])

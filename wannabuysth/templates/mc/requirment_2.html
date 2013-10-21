@@ -2,7 +2,8 @@
 
 {% block body_id %}id="main_index" {% endblock %} 
 {% block container %} 
-      {% include "mc/_head.html" %} 
+  {% include "mc/_head.html" %} 
+  {% include "mc/_info.html" %} 
 <div class="row-fluid">
     <!-- block -->
     <div class="block">
@@ -20,7 +21,7 @@
 	                  <th>客户出价</th>
 	                  <th>客户电话</th>
 	                  <th>交易地址</th>
-	                  <th>交易码</th>
+	                  <th>操作</th>
 	                </tr>
 	              </thead>
 	              <tbody>
@@ -33,12 +34,38 @@
 	                  <td width="60">{{ data.customer.mobile }}</td>
 	                  <td width="160">{{  data.location }}</td>
 	                  <td width="160">
-	                  		<div class="btn-group">
-							  <button class="btn">{{ data.code }}</button>
-							  <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
-							  <ul class="dropdown-menu">
+	                  		<!-- <div class="btn-group">
 								<li><a href="/mc/requirment/reset_code/{{ data.id }}">重新生成</a></li>
-							  </ul>
+							</div> -->
+		                   <a href="#myModal_{{ data.id }}" role="button" class="btn" data-toggle="modal">下一步</a>
+						   <div id="myModal_{{ data.id }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="myModalLabel_{{ data.id }}">下一步操作提示:</h3>
+								</div>
+								<div class="modal-body">
+									<p>恭喜你该消费者已经选择了您的商品和服务，</p>
+									<p>请拨打他的电话<span class="red">{{ data.customer.mobile }}</span>与他联系，如果顺利完成请讲成功交易码<span class="red">{{ data.code }}</span>告知他，便于他对您进行评价，并提升您的排名，</p>
+									<p>若对方取消交易，请勿将此交易码{{ data.code }}告知他，避免受到恶评。</p>
+								</div>
+								<div class="modal-footer">
+								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+								</div>
+							</div>
+							
+							<a href="#myModal_{{ data.id }}_c" role="button" data-toggle="modal">取消交易</a>
+							<div id="myModal_{{ data.id }}_c" class="modal hide fade" tabindex="-1" role="dialog"  aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h3 >提示</h3>
+								</div>
+								<div class="modal-body">
+									<p>确定取消这笔交易?</p>
+								</div>
+								<div class="modal-footer">
+									<a class="btn btn-primary" href="/mc/requirment/cancel/{{ data.id }}">取消交易</a>
+									<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+								</div>
 							</div>
 	                  	</td>
 	                </tr>

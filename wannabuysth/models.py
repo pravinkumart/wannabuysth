@@ -245,6 +245,12 @@ class SuccessRequirment(Base):
     reply_id = Column(Integer, ForeignKey("reply.id"))  # 中标回复
     reply = relationship("Reply", backref=backref("successrequirment"))
 
+    def get_wanna_fee(self):
+        return self.wanna_fee / 100.0
+
+    def get_state(self):
+        return u'交易成功'
+
 
 class ShowCase(Base):
     """
