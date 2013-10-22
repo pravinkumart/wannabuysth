@@ -201,6 +201,14 @@ $("#guide").live('pageshow', function() {
 	$('#loading_lv li').width($(window).width());
   	$('#loading_lv .scroller').width($(window).width()*3);
   	$('#loading_lv .thelist').width($(window).width()*3);
+  	var max_height = $(window).height()
+  	var imgs = $('#loading_lv li img');
+  	for(var i = 0;i<imgs.length;i++){
+  		var height =  imgs.eq(i).height();
+  		if (max_height > height){
+  			imgs.eq(i).css('margin-top',(max_height-height)/2)
+  		}
+  	}
   	var myScroll = new iScroll('loading_lv',{
   			snap: true,
 		    momentum: false,
@@ -208,6 +216,7 @@ $("#guide").live('pageshow', function() {
   		});
   	myScroll.refresh();
   	$.mobile.loading('hide');
+  	$('#loading_lv li img').show();
   	my_navigator = [];
 });
 
