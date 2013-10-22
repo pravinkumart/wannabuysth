@@ -803,9 +803,9 @@ $(function() {
 $(function(){
 	setTimeout(function() {
 		if(get_data('user_is_first')){
-			 gopage('home/loading')
-		 }else{
 			 gopage('home/index');
+		 }else{
+			 gopage('home/loading')
 		 	 set_data('user_is_first','false')
 		 }
 	}, 1000);

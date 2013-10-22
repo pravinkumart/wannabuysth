@@ -107,8 +107,6 @@ body.body {
 }
 
 #wrapper_index .scroller {
-  height:100%;
-  float:left;
   padding:0;
 }
 
@@ -117,7 +115,6 @@ body.body {
   display:block;
   float:left;
   width:100%;
-  height:100%;
   padding:0;
   margin:0;
   text-align:left;
