@@ -3,6 +3,7 @@
 {% block body_id %}id="main_index" {% endblock %} 
 {% block container %} 
 {% include "mc/_head.html" %} 
+{% include "mc/_info.html" %} 
 <div class="row-fluid">
 	{% if  my_subcatalogs %}
 	<ul class="breadcrumb" style="padding: 0 30px;">
@@ -12,71 +13,33 @@
      <ul class="thumbnails" style="padding: 10px 30px;">
      {% for catalog in my_subcatalogs %}
       <li class="" style="width: 100px;">
-        <div class="thumbnail">
+        <div class="thumbnail ">
           	<img src="{{ catalog.get_img() }}" alt="{{ catalog.name }}">
         </div>
         <div class="caption" style="margin-top: 5px;">
-        	<label>{{ catalog.name }}</label>
+        	<label class="tc">{{ catalog.name }}</label>
+        	<a href="#myModal_{{ catalog.id }}_c" role="button" class="btn" style=" width: 70px;" data-toggle="modal">删 除</a>
+			<div id="myModal_{{ catalog.id }}_c" class="modal hide fade" tabindex="-1" role="dialog"  aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 >提示</h3>
+				</div>
+				<div class="modal-body">
+					<p>确定删除 <span class="red">{{ catalog.name }} </span>服务吗?</p>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-primary" href="/mc/product/cancel/{{ catalog.id }}">删除服务</a>
+					<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+				</div>
+			</div>
         </div>
       </li>
       {% endfor %}
     </ul>
-    {% if not my_subcatalogs %}
-    <div class="alert alert-info">
-		<strong>注意!</strong> 免费用户只能选择一个服务大类，大类下面最多选择3个子类
-	</div>
-	<ul class="breadcrumb" style="padding: 0 30px;">
-    	{% if catalog_type %}
-    	<li><a href="/mc/product/catalog">选择服务类型</a> <span class="divider">/</span></li>
-    	<li class="active"><a href="#">{{ catalog.name }}</a></li>
-    	{% else %}
-    	<li class="active"><a href="#">选择服务类型</a> <span class="divider">/</span></li>
-    	{% endif %}
-    </ul>
-	<div class="row-fluid" style="padding: 10px 30px;">
-        <ul class="thumbnails">
-         {% for catalog in catalogs %}
-          <li class="" style="width: 100px;">
-            <div class="thumbnail">
-            	<a href="/mc/product/catalog?type={{ catalog.id }}">
-              		<img src="{{ catalog.icon_smaill }}" alt="{{ catalog.name }}">
-              	</a>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-        <form action="" method="post">
-        <ul class="thumbnails">
-         {% for catalog in subcatalogs %}
-          <li class="" style="width: 100px;">
-            <div class="thumbnail">
-              	<img src="{{ catalog.get_img() }}" alt="{{ catalog.name }}">
-            </div>
-            <div class="caption" style="margin-top: 5px;">
-            	<label><input type="checkbox" name="subcatalog" onclick="check_catalog(this)" value="{{ catalog.id }}" style="margin-right: 5px;"  /> {{ catalog.name }}</label>
-	        </div>
-          </li>
-          {% endfor %}
-        </ul>
-        <div class="blank0"> </div>
-        {% if subcatalogs %}
-        <div style="text-align: center;" class="thumbnails">
-        	<button type="submit" class="btn btn-large btn-primary" style="width: 200px; "> 保存</button>
-        </div>
-        {% endif %}
-        </form>
-      </div>
-      {% endif %}
+    {% if not  my_subcatalogs %}
+    	<p style="margin-left: 20px;" class="f16">你还没有选择服务，请去 　<a  href="/mc/product/add_catalog" class="btn">添加新服务</a></p> 
+    {% endif %}
 </div>
-
-<script type="text/javascript">
-	var catalog_limit = 3;
-	function check_catalog(el){
-		
-	}
-</script>
-
-
 {% endblock %} 
 
 

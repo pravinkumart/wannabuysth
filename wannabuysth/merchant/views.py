@@ -49,7 +49,7 @@ def mc_index():
     else:
         mc_user = g.mc_user
         if not g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id).first():
-            return redirect('/mc/product/catalog')
+            return redirect('/mc/product/add_catalog')
         else:
             return redirect('/mc/requirment/0')
 
@@ -161,6 +161,15 @@ def mc_catalog():
     if not g.mc_user:
         return redirect('/mc/login')
     mc_user = g.mc_user
+    my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
+    my_subcatalogs = [rec.catalog for rec in my_subcatalogs]
+    return render_template("mc/catalog.html", **locals())
+
+@mc.route("/product/add_catalog", methods=["GET", "POST"])
+def add_catalog():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
     catalog_type = request.args.get("type", "").strip()
     if catalog_type:
         catalog = g.db.query(Catalog).filter(Catalog.id == catalog_type, Catalog.status == True).first()
@@ -173,18 +182,27 @@ def mc_catalog():
     my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
     my_subcatalogs = [rec.catalog for rec in my_subcatalogs]
     if request.method == 'POST':
-        has_data = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
-        has_data.delete()
         subcatalogs = request.form.getlist('subcatalog')
         for i, catalog_id in enumerate(subcatalogs):
-            if i > 2:
-                continue
-            add_sub = CustomerCataog(catalog_id=catalog_id, merchant_id=mc_user.id)
-            g.db.add(add_sub)
+            if not g.db.query(CustomerCataog).filter(CustomerCataog.catalog_id == catalog_id, CustomerCataog.merchant_id == mc_user.id).first():
+                add_sub = CustomerCataog(catalog_id=catalog_id, merchant_id=mc_user.id)
+                g.db.add(add_sub)
         g.db.commit()
+        add_success(u'添加服务成功')
         return redirect('/mc/product/catalog')
-    return render_template("mc/catalog.html", **locals())
+    return render_template("mc/add_catalog.html", **locals())
 
+@mc.route("/product/cancel/<catalog_id>", methods=["GET", "POST"])
+def mc_product_cancel(catalog_id):
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    data = g.db.query(CustomerCataog).filter(CustomerCataog.catalog_id == catalog_id, CustomerCataog.merchant_id == mc_user.id).first()
+    if data:
+        g.db.delete(data)
+        g.db.commit()
+        add_success(u'成功删除服务')
+    return redirect('/mc/product/catalog')
 
 @mc.route("/product/product", methods=["GET", "POST"])
 def mc_product():
