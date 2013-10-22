@@ -197,6 +197,20 @@ function gopage(page_id,reverse){
 	});
 	
 }
+$("#guide").live('pageshow', function() {
+	$('#loading_lv li').width($(window).width());
+  	$('#loading_lv .scroller').width($(window).width()*3);
+  	$('#loading_lv .thelist').width($(window).width()*3);
+  	var myScroll = new iScroll('loading_lv',{
+  			snap: true,
+		    momentum: false,
+		    hScrollbar: false
+  		});
+  	myScroll.refresh();
+  	$.mobile.loading('hide');
+  	my_navigator = [];
+});
+
 
 $("#index").live('pageshow', function() {
 	index_init()
@@ -780,9 +794,9 @@ $(function() {
 $(function(){
 	setTimeout(function() {
 		if(get_data('user_is_first')){
-		 	 gopage('home/accounts')
+			 gopage('home/loading')
 		 }else{
-			 gopage('home/help');
+			 gopage('home/index');
 		 	 set_data('user_is_first','false')
 		 }
 	}, 1000);

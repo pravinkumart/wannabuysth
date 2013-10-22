@@ -757,3 +757,8 @@ textarea::-webkit-input-placeholder {
 	line-height: 50px;
 }
 .like_msg span {margin-right: 15px; display:inline-block;padding-top: 10px;}
+
+#loading_lv .thelist {height: 100%; list-style:none;}
+#loading_lv li{text-align:center; float: left;}
+#loading_lv li img{width: 320px;}
+#loading_lv {position:absolute;top: 0;left: 0;bottom: 0;width: 100%;overflow:hidden;}

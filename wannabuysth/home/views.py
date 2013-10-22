@@ -23,6 +23,9 @@ index = Blueprint('home', __name__, template_folder='templates', url_prefix='/ho
 def help_me():
     return render_template("home/help.html", **locals())
 
+@index.route("/loading")
+def loading():
+    return render_template("home/loading.html", **locals())
 
 @index.route("/about")
 def about():
