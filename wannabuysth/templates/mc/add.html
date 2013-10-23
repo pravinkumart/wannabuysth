@@ -3,6 +3,9 @@
 {% block body_id %}id="login" {% endblock %} 
 
 {% block container %} 
+	<script src="/static/common/jquery.Jcrop.min.js"></script>
+	<link href="/static/css/jquery.Jcrop.min.css" rel="stylesheet" media="screen">
+	
 	{% include "mc/_head.html" %} 
     <div class="container form-signin">
       <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
@@ -33,15 +36,24 @@
               <div class="controls">
                 <input class="input-xlarge focused"  type="text" name="acept_fee" value="{{ acept_fee }}">
               </div>
-              <label class="control-label" for="focusedInput">小图标(100*60)</label>
+              <label class="control-label" for="focusedInput">介绍图(宽640)</label>
               <div class="controls">
-                <input class="input-xlarge focused" style=" margin: 5px;"  type="file" name="icon_smaill" value="">
-              </div>
-              <label class="control-label" for="focusedInput">大图标(320*60)</label>
-              <div class="controls">
-                <input class="input-xlarge focused" style=" margin: 5px;" type="file" name="icon_large" value="">
+                <input class="input-xlarge focused" style=" margin: 5px;" type="file" onchange="add_product_img(this)" name="temp_img" value="">
               </div>
               <div style="padding: 10px;width: 100px;"></div>
+    		  <input id="icon_smaill" name="icon_smaill" type="hidden" />
+    		  <input id="icon_large" name="icon_large" type="hidden" />
+        		
+              <div id="cropbox_wap" style="display:none;" >
+			       <div style="width: 640px;margin: 0 auto;overflow:hidden;">
+			          <img src="" id="cropbox" style="max-width: 640px;" alt="Avatar" />
+			       </div>
+			      <input id="crop_x" name="crop_x" type="hidden" />
+			      <input id="crop_y" name="crop_y" type="hidden" />
+			      <input id="crop_w" name="crop_w" type="hidden" />
+			      <input id="crop_h" name="crop_h" type="hidden" />
+		      </div>
+		      <div  class="blank10"></div>
               <label class="control-label" for="focusedInput"> </label>
               <div class="controls">
                  <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;">发布</button>
@@ -50,4 +62,10 @@
           </fieldset>
         </form>
     </div> <!-- /container -->
+
+<script type="text/javascript">
+	
+	
+</script> 
+   
 {% endblock %} 

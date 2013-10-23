@@ -13,9 +13,23 @@
     <script src="/static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
   </head>
   <body {% block body_id %}{% endblock %} >
-  	{% block container %} {% endblock %} 
     <script src="/static/vendors/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript"> var jQ = $;</script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/common/ajaxfileupload.js"></script>
     <script src="/static/js/mc_index.js"></script>
+  	{% block container %} {% endblock %} 
+  	<div id="alertTest" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h3 id="myModalLabel">提示标题</h3>
+	    </div>
+	    <div class="modal-body">
+	        <p>提示内容！</p>
+	    </div>
+	    <div class="modal-footer">
+	        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+	    </div>
+	</div>
   </body>
 </html>

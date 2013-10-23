@@ -235,8 +235,8 @@ def allowed_file(filename):
 
 @mc.route("/product/add", methods=["GET", "POST"])
 def mc_add_product():
-    from settings import UPLOAD_FOLDER
-    from werkzeug import secure_filename
+    from settings import UPLOAD_FOLDER, SITE_ROOT
+    from PIL import Image, ImageEnhance
     import time
     import os
     if not g.mc_user:
@@ -250,8 +250,7 @@ def mc_add_product():
         descrip = request.form.get("descrip", "")
         show_fee = request.form.get("show_fee", "")
         acept_fee = request.form.get("acept_fee", "")
-        icon_smaill = request.files.get("icon_smaill", "")
-        icon_large = request.files.get("icon_smaill", "")
+        icon_large = request.form.get("icon_large", "")
         try:
             show_fee_init = float(show_fee) * 100
             acept_fee_init = float(acept_fee) * 100
@@ -260,28 +259,27 @@ def mc_add_product():
         else:
             if not title or not descrip:
                 add_error(u'标题或者介绍不能为空')
-            elif not icon_smaill or not icon_large:
-                add_error(u'图标不能为空')
-            elif not allowed_file(icon_smaill.filename):
-                add_error(u'小图标文件格式不对')
-            elif not allowed_file(icon_large.filename):
-                add_error(u'大图标文件格式不对')
+            elif not icon_large:
+                add_error(u'介绍图不能为空')
             else:
-                filename = secure_filename(icon_smaill.filename)
-                filename = str(time.time()).replace('.', '') + '01.' + filename.rsplit('.', 1)[1]
-                icon_smaill_filename = filename
-                icon_smaill.seek(0)
-                icon_smaill.save(os.path.join(UPLOAD_FOLDER, icon_smaill_filename))
+                file_name = SITE_ROOT + icon_large  # /static/upload/138254914612.jpg
+                crop_x = int(request.form.get("crop_x", "0"))
+                crop_y = int(request.form.get("crop_y", "0"))
+                crop_w = int(request.form.get("crop_w", "200"))
+                crop_h = int(request.form.get("crop_h", "120"))
 
-                filename = secure_filename(icon_large.filename)
-                filename = str(time.time()).replace('.', '') + '02.' + filename.rsplit('.', 1)[1]
-                icon_large_filename = filename
-                icon_large.seek(0)
-                icon_large.save(os.path.join(UPLOAD_FOLDER, icon_large_filename))
-
+                im = Image.open(file_name)
+                im = im.convert('RGB')
+                box = (int(crop_x), int(crop_y), crop_x + int(crop_w), crop_y + int(crop_h))
+                region = im.crop(box)
+                region.seek(0)
+                new_file = file_name.replace('.', '_0.');
+                region.save(new_file)
+                icon_smaill_filename = new_file.replace(SITE_ROOT, '');
+                print icon_smaill_filename
                 pr = Product(catalog_id=catalog_id, merchant_id=mc_user.id, title=title, descrip=descrip,
-                        acept_fee=acept_fee_init, show_fee=show_fee_init, icon_smaill='/static/upload/' + icon_smaill_filename,
-                        icon_large='/static/upload/' + icon_large_filename, view_count=0, success_count=0
+                        acept_fee=acept_fee_init, show_fee=show_fee_init, icon_smaill=icon_smaill_filename,
+                        icon_large=icon_large, view_count=0, success_count=0
                         )
 
                 g.db.add(pr)
@@ -291,4 +289,19 @@ def mc_add_product():
 
     return render_template("mc/add.html", **locals())
 
+@mc.route("/update_img", methods=["GET", "POST"])
+def update_img():
+    from settings import UPLOAD_FOLDER
+    from werkzeug import secure_filename
+    import os
+
+    icon_large = request.files.get("temp_img", "")
+    filename = secure_filename(icon_large.filename)
+    filename = str(time.time()).replace('.', '') + '.' + filename.rsplit('.', 1)[1]
+    icon_large_filename = filename
+    icon_large.seek(0)
+    icon_large.save(os.path.join(UPLOAD_FOLDER, icon_large_filename))
+    icon_large_src = '/static/upload/' + icon_large_filename
+    result = {'succeed':True, 'erro':'%s' % icon_large_src }
+    return jsonify(result)
 

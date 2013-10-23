@@ -201,6 +201,7 @@ body {
 .fr {float:right;}
 .fl {float:left;}
 .blank0{clear:both;}
+.blank10{clear:both;height: 10px;}
 
 .table th, .table td {
     text-align:left;
