@@ -199,8 +199,8 @@ function gopage(page_id,reverse){
 }
 $("#guide").live('pageshow', function() {
 	$('#loading_lv li').width($(window).width());
-  	$('#loading_lv .scroller').width($(window).width()*3);
-  	$('#loading_lv .thelist').width($(window).width()*3);
+  	$('#loading_lv .scroller').width($(window).width()*$('#loading_lv li').length);
+  	$('#loading_lv .thelist').width($(window).width()*$('#loading_lv li').length);
   	var max_height = $(window).height()
   	var imgs = $('#loading_lv li img');
   	for(var i = 0;i<imgs.length;i++){
@@ -754,6 +754,7 @@ function bijia_casereplay_ok(data){
 }
 
 function clear_data(){
+	window.localStorage.clear();
 	alert('清除成功');
 }
 
