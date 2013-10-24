@@ -60,6 +60,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="dropdown {% if 'pre_payed' in  request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">保证金<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="menu2">
+                                <li>
+                                    <a href="/mc/pre_payed/help">保证金计划</a>
+                                </li>
+                                <li>
+                                    <a href="/mc/pre_payed/pre_payed_list">充值记录</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->

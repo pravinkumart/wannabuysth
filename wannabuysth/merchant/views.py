@@ -2,14 +2,14 @@
 __author__ = 'alex'
 
 import logging
-from flask import Blueprint, render_template, abort, g, request
+from flask import Blueprint, render_template, abort, g, request, Response
 from flask import redirect, url_for, session, flash, send_file
 from flask import jsonify
 import time
 from models import Customer
 from models import Catalog
 from models import SubCataog
-from models import Product
+from models import Product, MerchantPayed
 from models import Requirment, Reply
 from models import Merchant, CustomerCataog, SuccessRequirment
 from utils import add_error, add_success
@@ -304,4 +304,119 @@ def update_img():
     icon_large_src = '/static/upload/' + icon_large_filename
     result = {'succeed':True, 'erro':'%s' % icon_large_src }
     return jsonify(result)
+
+
+@mc.route("/pre_payed/help", methods=["GET", "POST"])
+def pre_payed_help():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    datas = g.db.query(MerchantPayed).filter(MerchantPayed.merchant_id == mc_user.id, MerchantPayed.state == True)
+    return render_template("mc/payed.html", **locals())
+
+
+
+@mc.route("/pre_payed/pre_payed_list", methods=["GET", "POST"])
+def pre_payed_list():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    datas = g.db.query(MerchantPayed).filter(MerchantPayed.merchant_id == mc_user.id, MerchantPayed.state == True)
+    return render_template("mc/pre_payed_list.html", **locals())
+
+
+
+@mc.route("/pay", methods=["GET", "POST"])
+def pay():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    else:
+        import alipay
+        mc_user = g.mc_user
+        order_id = 'BBGJ_%s_%s' % (mc_user.id, str(time.time()).replace('.', ''))
+        pre_payed = float(request.args.get("total", "0.01").strip())
+        mp = MerchantPayed(order_id=order_id, merchant_id=mc_user.id, pre_payed=pre_payed * 100)
+        g.db.add(mp)
+        g.db.commit()
+        o_alipay = alipay.Alipay()
+        alipay_url = o_alipay.create_order_alipay_url(alipay.consumer_subject, order_id, '%.2f' % pre_payed, body=alipay.consumer_body)
+        return redirect(alipay_url)
+
+def pay_callback(order_id, total_fee=0):
+    from datetime import datetime
+    mp = g.db.query(MerchantPayed).filter(MerchantPayed.order_id == order_id).first()
+    if mp and not mp.state and mp.pre_payed == int(total_fee * 100):
+        mp.state = True
+        mp.last_modify = datetime.now()
+        g.db.add(mp)
+        g.db.commit()
+        merchant = mp.merchant
+        merchant.pre_payed += int(total_fee * 100)
+        g.db.add(merchant)
+        g.db.commit()
+        return True, ''
+    return False, ''
+
+
+
+@mc.route("/alipaycallback", methods=["GET", "POST"])
+def alipaycallback():
+    payState = 'fail'
+    payTxt = u'支付遇到问题'
+    import alipay
+    o_alipay = alipay.Alipay()
+    valid, infos = o_alipay.validate(request)
+    if valid:
+        trade_status = infos['trade_status']
+        if trade_status == u'TRADE_FINISHED' or trade_status == u'TRADE_SUCCESS':
+            buyer_email = infos['buyer_email']
+            buyer_id = infos['buyer_id']
+            trade_no = infos['trade_no']
+            order_id = infos['out_trade_no']
+            total_fee = float(infos['total_fee'])
+
+            try:
+                flag, result = pay_callback(order_id, total_fee=total_fee)
+                if flag:
+                    payState = u'success'
+                    payTxt = u'支付成功'
+                else:
+                    payTxt = u'支付失败'
+
+            except Exception, e:
+                payState = u'fail'
+                payTxt = u'支付遇到问题: %s' % str(e)
+
+    return render_template("mc/pre_payed_complete.html", **locals())
+
+
+@mc.route("/alipaynotify", methods=["GET", "POST"])
+def alipaynotify():
+    payState = u'success'
+    import alipay
+    o_alipay = alipay.Alipay()
+    valid, infos = o_alipay.validate(request)
+    if valid:
+        trade_status = infos['trade_status']
+        if trade_status == u'TRADE_FINISHED' or trade_status == u'TRADE_SUCCESS':
+            buyer_email = infos['buyer_email']
+            buyer_id = infos['buyer_id']
+            trade_no = infos['trade_no']
+            order_id = infos['out_trade_no']
+            total_fee = float(infos['total_fee'])
+
+            try:
+                flag, result = pay_callback(order_id, total_fee=total_fee)
+            except Exception, e:
+                logging.error(e)
+        return Response(payState)
+
+
+
+
+
+
+
+
+
 

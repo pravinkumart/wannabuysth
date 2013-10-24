@@ -124,6 +124,20 @@ class Merchant(Base):
     catalog_count = Column(Integer, default=1)  # 限制服务大类 数量
     subcatalog_count = Column(Integer, default=3)  # 限制服务小类 数量
 
+    def get_pre_payed(self):
+        return self.pre_payed / 100.0
+
+class MerchantPayed(Base):
+
+    order_id = Column(String(30), unique=True)  # 商家名
+    merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 商家ID
+    merchant = relationship("Merchant")  # 商家对象
+    pre_payed = Column(Integer)  # (单位：分)
+    content = Column(Text)  # 评论内容
+    state = Column(Boolean, default=False)
+
+    def get_pre_payed(self):
+        return self.pre_payed / 100.0
 
 class Product(Base):
     """
