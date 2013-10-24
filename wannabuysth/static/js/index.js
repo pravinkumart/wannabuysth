@@ -804,7 +804,7 @@ $(function() {
 $(function(){
 	setTimeout(function() {
 		if(get_data('user_is_first')){
-			 gopage('home/index');
+			 gopage('home/accounts');
 		 }else{
 			 gopage('home/loading')
 		 	 set_data('user_is_first','false')
