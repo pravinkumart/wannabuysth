@@ -356,7 +356,7 @@ def apply_item_do():
             g.db.add(req)
             g.db.commit()
 
-            r = Reply(requirment_id=req.id, merchant_id=user.id, fee=req.product.show_fee)
+            r = Reply(requirment_id=req.id, merchant_id=req.merchant_id, fee=req.product.show_fee)
             g.db.add(r)
             g.db.commit()
 

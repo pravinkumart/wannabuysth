@@ -65,6 +65,25 @@ def requirment_show(requirment_id):
         my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
         mu_subcataog_ids = [rec.catalog_id  for rec in my_subcatalogs]
         datas = g.db.query(Requirment).filter(Requirment.state.in_([0, 1]), Requirment.subcataog_id.in_(mu_subcataog_ids))
+        r_min = request.args.get("min", "0").strip()
+        r_max = request.args.get("max", "").strip()
+        index = request.args.get("index", "0").strip()
+        try:
+            r_min = float(r_min)
+            datas = datas.filter(Requirment.wanna_fee > r_min * 100)
+        except:
+            pass
+        try:
+            r_max = float(r_max)
+            datas = datas.filter(Requirment.wanna_fee < r_max * 100)
+        except:
+            pass
+        if index == '1':
+            datas = datas.order_by(Requirment.wanna_fee.desc())
+        else:
+            datas = datas.order_by(Requirment.wanna_fee.asc())
+
+
     if requirment_id == 2:
         datas = g.db.query(Requirment).filter(Requirment.merchant_id == mc_user.id, Requirment.state == 2)
     if requirment_id == 3:

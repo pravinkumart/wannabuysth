@@ -7,13 +7,17 @@ function login_out(){
 	return true;
 }
 
+function filter_re(el,index){
+	var min = $('#min_val').val();
+	var max = $('#max_val').val();
+	var url = '/mc/requirment/0?min='+min+'&max='+max+'&index='+index;
+	$(el).attr('href',url);
+	return true;
+	
+}
 
-
-function reply(el,fee){
-	if(!confirm('投标价格不能高于该消费者的报价，若要继续投标请等于或低于'+fee+'元')){
-		return false;
-	}
-	var my_fee = window.prompt('请输入投标金额');
+function reply(el,id,fee){
+	var my_fee = $('#reply_'+id).val();
 		my_fee = parseFloat(my_fee);
 		if(!my_fee||my_fee>fee){alert('金额错误');return false;}
 	var url = $(el).attr('href')+'?my_fee='+my_fee;
