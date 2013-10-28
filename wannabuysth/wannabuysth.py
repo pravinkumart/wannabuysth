@@ -25,8 +25,8 @@ app.register_blueprint(mc)
 
 @app.route('/')
 def hello_world():
-    return redirect('/mc')
-#    return render_template("base.html", **locals())
+    return render_template("welcome.html", **locals())
+#     return redirect('/mc')
 
 @app.route('/base')
 def base():
