@@ -1,0 +1,84 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "mc/_head.html" %} 
+{% include "mc/_info.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    <div id="sidebar" class="span3">
+        <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+            <li class="active">
+                <a href="/mc/self/overview"><i class="icon-chevron-right"></i>基本信息</a>
+            </li>
+            <li>
+                <a href="/mc/self/overview"><i class="icon-chevron-right"></i>销售统计</a>
+            </li>
+        </ul>
+    </div>
+    <div class="span9" id="content">
+    	<div class="span12">
+	        <div class="block">
+	            <div class="navbar navbar-inner block-header">
+	            </div>
+	            <div class="block-content collapse in">
+	                <table class="table table-striped">
+	                    <tbody>
+	                        <tr>
+	                            <td width="100">手机号:</td>
+	                            <td width="200">{{ mc_user.mobile }}</td>
+	                            <td></td>
+	                        </tr>
+	                        <tr>
+	                            <td>昵称:</td>
+	                            <td>{{ mc_user.name }}</td>
+	                            <td>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>登录密码:</td>
+	                            <td>******</td>
+	                            <td>
+	                               <a href="#myModal_update_passwod" role="button" class="btn" data-toggle="modal">修改</a>
+								   <div id="myModal_update_passwod" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_update_passwod" aria-hidden="true">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h3 id="myModalLabel_update_passwod">修改登录密码:</h3>
+										</div>
+										<form class="form-horizontal" action="" method="post">
+										<div class="modal-body">
+											<fieldset>
+									          <label for="focusedInput" class="control-label">新密码</label>
+									          <div class="controls">
+									            <input type="password" value="" name="new_password" class="input-xlarge focused">
+									          </div>
+									          <div class="blank10"></div>
+									          <label for="focusedInput" class="control-label">旧密码</label>
+									          <div class="controls">
+									            <input type="password" value="" name="password" class="input-xlarge focused">
+									          </div>
+									          <div class="blank10"></div>
+									          <label for="focusedInput" class="control-label"> </label>
+									          <div class="controls">
+									          		<button style="width: 140px;" type="submit" class="btn btn-large btn-primary fl">确定修改</button>
+											        <div class="blank0"> </div>
+									          </div>
+									          </fieldset>
+										</div>
+										</form>
+										<div class="modal-footer">
+										<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+										</div>
+									</div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <!-- /block -->
+	    </div>
+    </div>
+</div>
+</div>
+{% endblock %} 
