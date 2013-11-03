@@ -1,0 +1,86 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "mc/_head.html" %} 
+{% include "mc/_info.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    {% include "mc/_self.html" %} 
+    <div class="span9" id="content">
+    	<div class="span12">
+	        <div class="block">
+	            <div class="navbar navbar-inner block-header">
+	            	<div class="muted pull-left">最近30天成交量(测试数据)</div>
+	            </div>
+	            <div class="block-content collapse in">
+	                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	            </div>
+	        </div>
+	        <!-- /block -->
+	    </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	var start_date = Date.UTC(2013,1,1);
+	$('#container').highcharts({
+	  		exporting:{ enabled:false},
+	  		colors: [
+			   '#A7E372', 
+			   '#FED32B', 
+			   '#8bbc21', 
+			   '#910000', 
+			   '#1aadce', 
+			   '#492970',
+			   '#f28f43', 
+			   '#77a1e5', 
+			   '#c42525', 
+			   '#a6c96a'
+			],
+	  		plotOptions: {
+                spline: {
+                    pointInterval: 3600000*24, // one hour
+                    pointStart: start_date
+                }},chart: {
+                type: 'spline'
+            },
+            title: {
+                text: '',
+            },
+            xAxis: {
+                 	type: 'datetime',
+                 	labels: {
+                 		formatter:function(){
+                 			var n = new Date();
+                 				n.setTime(this.value);
+							return n.toJSON().slice(5,10);
+						}
+                 	}
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '',
+                xDateFormat:'%Y-%m-%d'
+            },
+            legend: {
+            },
+            series: [{
+                name: '成交量',
+                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            }]
+        });
+});
+</script>
+{% endblock %} 

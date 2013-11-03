@@ -1,0 +1,10 @@
+<div id="sidebar" class="span3">
+    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+        <li class="{% if 'overview' in  request.url %}active{% endif %}">
+            <a href="/mc/self/overview"><i class="icon-chevron-right"></i>基本信息</a>
+        </li>
+        <li class="{% if 'statistics' in  request.url %}active{% endif %}">
+            <a href="/mc/self/statistics"><i class="icon-chevron-right"></i>销售统计</a>
+        </li>
+    </ul>
+</div>
