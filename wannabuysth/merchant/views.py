@@ -457,16 +457,12 @@ def statistics():
     if not g.mc_user:
         return redirect('/mc/login')
     mc_user = g.mc_user
-    if request.method == 'POST':
-        new_password = request.form.get("new_password", "")
-        password = request.form.get("password", "")
-        if len(new_password) < 6:
-            add_error(u'新密码不能少于6位')
-        elif mc_user.password == password:
-            mc_user.password = new_password
-            g.db.add(mc_user)
-            g.db.commit()
-            add_success(u'密码修改成功')
-        else:
-            add_error(u'旧密码输入错误')
     return render_template("mc/statistics.html", **locals())
+
+
+@mc.route("/help", methods=["GET", "POST"])
+def help():
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    return render_template("mc/help.html", **locals())

@@ -1,0 +1,27 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "mc/_head.html" %} 
+{% include "mc/_info.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    <!-- block -->
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+             <div class="muted pull-left">使用流程</div>
+        </div>
+        <div class="block-content collapse in">
+        	...
+        </div>
+		<div class="navbar navbar-inner block-header">
+             <div class="muted pull-left">常见问题</div>
+        </div>
+        <div class="block-content collapse in">
+        	...
+        </div>        
+    </div>
+    <!-- /block -->
+</div>
+</div>
+{% endblock %} 
