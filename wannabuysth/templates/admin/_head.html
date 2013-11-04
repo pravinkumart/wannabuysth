@@ -19,6 +19,21 @@
                             </ul>
                         </li>
                     </ul>
+                    
+                    <ul class="nav">
+                        <li class="dropdown {% if 'user' in  request.url %}active{% endif %}">
+                            <a href="/"  data-toggle="dropdown" class="dropdown-toggle">管理员列表<b class="caret"></b></a>
+                            <ul class="dropdown-menu" >
+                                <li>
+                                    <a href="/admin/user/add">添加管理员</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/user/show">管理员列表</a>
+                                </li>
+                            </ul>
+                        </li>
+                       
+                    </ul>
                 </div>
                 <!--/.nav-collapse -->
             </div>

@@ -37,9 +37,9 @@ def admin_login():
         username = request.form.get("username", "")
         password = request.form.get("password", "")
         if not username or not password:
-            add_error(u'手机号或密码不能为空')
+            add_error(u'帐号或密码不能为空')
         else:
-            users = g.db.query(AdminUser).filter(AdminUser.mobile == username, AdminUser.password == password)
+            users = g.db.query(AdminUser).filter(AdminUser.name == username, AdminUser.password == password)
             if users.count() > 0:
                 session["admin_user_id"] = users[0].id
                 return redirect('/admin/index')
