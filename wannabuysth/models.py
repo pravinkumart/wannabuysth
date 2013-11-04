@@ -341,3 +341,31 @@ class Notification(Base):
     is_visit = Column(Boolean, default=False)
 
 
+
+
+#----------------------------------*----------------------------------
+
+class AdminUser(Base):
+    """
+    @note: 管理员后台 
+    """
+    name = Column(String(20), unique=True)
+    password = Column(String(48))  # 密码
+    mobile = Column(String(11))  # 手机号
+    permissions = Column(Text)  # 权限
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

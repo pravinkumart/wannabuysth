@@ -4,12 +4,15 @@ from flask.ext.script import Manager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from flask import send_file, render_template
+from flask import redirect
 from utils import print_debug
+
 from home.views import index
 from merchant.views import mc
-from models import Customer, Merchant
+from backend.views import admin
+
+from models import Customer, Merchant, AdminUser
 import settings
-from flask import redirect
 
 app = Flask(__name__)
 manage = Manager(app)
@@ -21,7 +24,7 @@ Session = sessionmaker(bind=DB)
 
 app.register_blueprint(index)
 app.register_blueprint(mc)
-
+app.register_blueprint(admin)
 
 @app.route('/')
 def hello_world():
@@ -73,12 +76,20 @@ def before_request():
         g.user = None
     else:
         g.user = g.db.query(Customer).filter(Customer.id == user_id).first()
+
     # mc 用户登录
     mc_user_id = session.get('mc_user_id', None)
     if not mc_user_id:
         g.mc_user = None
     else:
         g.mc_user = g.db.query(Merchant).filter(Merchant.id == mc_user_id).first()
+
+    # admin 用户登录
+    admin_user_id = session.get('admin_user_id', None)
+    if not admin_user_id:
+        g.admin_user = None
+    else:
+        g.admin_user = g.db.query(AdminUser).filter(AdminUser.id == admin_user_id).first()
 
 
 @app.teardown_request
