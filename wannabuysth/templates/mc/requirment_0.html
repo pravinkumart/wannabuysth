@@ -37,7 +37,7 @@
 	              	{% for data in datas %}
 	                <tr class="{{ loop.cycle('success', 'error','info') }}">
 	                  <td width="30">{{ loop.index }}</td>
-	                  <td width="100">{{ data.subcataog.name }}</td>
+	                  <td width="100">{{ data.subcatlog.name }}</td>
 	                  <td>{{ data.descrip}}</td>
 	                  <td width="60">￥{{ data.get_wanna_fee() }}</td>
 	                  <td width="160">{{  data.replys|length  }}</td>
