@@ -4,7 +4,13 @@
             <a href="/admin/index"><i class="icon-chevron-right"></i>基本信息</a>
         </li>
         <li class="{% if 'user_list' in  request.url %}active{% endif %}">
-            <a href="/admin/user_list"><i class="icon-chevron-right"></i>商家管理</a>
+            <a href="/admin/user_list"><i class="icon-chevron-right"></i>商家统计</a>
+        </li>
+        <li class="{% if 'user_list' in  request.url %}active{% endif %}">
+            <a href="/admin/user_list"><i class="icon-chevron-right"></i>用户统计</a>
+        </li>
+        <li class="{% if 'user_list' in  request.url %}active{% endif %}">
+            <a href="/admin/user_list"><i class="icon-chevron-right"></i>成交量统计</a>
         </li>
     </ul>
 </div>

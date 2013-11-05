@@ -10,7 +10,6 @@
                     <ul class="nav pull-right">
                         <li class="dropdown">
                             <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i>{{ admin_user.name }}<i class="caret"></i>
-
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -19,9 +18,8 @@
                             </ul>
                         </li>
                     </ul>
-                    
                     <ul class="nav">
-                        <li class="dropdown {% if 'user' in  request.url %}active{% endif %}">
+                        <li class="dropdown {% if '/user' in  request.url %}active{% endif %}">
                             <a href="/"  data-toggle="dropdown" class="dropdown-toggle">管理员列表<b class="caret"></b></a>
                             <ul class="dropdown-menu" >
                                 <li>
@@ -32,7 +30,15 @@
                                 </li>
                             </ul>
                         </li>
-                       
+                        <li class="">
+	                        <a href="/admin/mc_user" >商家管理</a>
+	                    </li>
+	                    <li class="">
+	                        <a href="/admin/cu_user" >用户管理</a>
+	                    </li>
+	                    <li class="{% if '/catalog' in  request.url %}active{% endif %}">
+	                        <a href="/admin/catalog" >频道管理</a>
+	                    </li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->

@@ -1,0 +1,35 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "admin/_head.html" %} 
+{% include "mc/_info.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    <div id="sidebar" class="span3">
+	    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+	        <li class="{% if cu_catalog == 0 %} active {% endif %} ">
+	            <a href="/admin/catalog"><i class="icon-chevron-right"></i>添加频道</a>
+	        </li>
+	        {% for catalog in catalogs %}
+	        <li class="{% if cu_catalog == catalog.id %} active {% endif %}">
+	            <a href="/admin/catalog?catalog={{ catalog.id }}"><i class="icon-chevron-right"></i>{{ catalog.name }}</a>
+	        </li>
+	        {% endfor %}
+	    </ul>
+	</div>
+    <div class="span9" id="content">
+    	<div class="span12">
+	        <div class="block">
+	            <div class="navbar navbar-inner block-header">
+	            </div>
+	            <div class="block-content collapse in">
+	               
+	            </div>
+	        </div>
+	        <!-- /block -->
+	    </div>
+    </div>
+</div>
+</div>
+{% endblock %} 

@@ -30,7 +30,7 @@ class Catalog(Base):
     icon_large = Column(String(200))  # 大图标
     idx = Column(SmallInteger)  # 排序
 
-class SubCataog(Base):
+class SubCatlog(Base):
     """
     子目录
     """
@@ -102,8 +102,8 @@ class CustomerCataog(Base):
     """
     @note: 用户选择的类别
     """
-    catalog_id = Column(Integer, ForeignKey("subcataog.id"))
-    catalog = relationship("SubCataog")
+    catalog_id = Column(Integer, ForeignKey("subcatlog.id"))
+    catalog = relationship("SubCatlog")
 
     merchant_id = Column(Integer, ForeignKey("merchant.id"))
     merchant = relationship("Merchant")
@@ -143,8 +143,8 @@ class Product(Base):
     """
     商家发布的商品或者服务
     """
-    catalog_id = Column(Integer, ForeignKey("subcataog.id"))  # 父级频道编号
-    catalog = relationship("SubCataog", backref=backref("products"))  # 父级频道对象
+    catalog_id = Column(Integer, ForeignKey("subcatlog.id"))  # 父级频道编号
+    catalog = relationship("SubCatlog", backref=backref("products"))  # 父级频道对象
     merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 商家ID
     merchant = relationship("Merchant", backref=backref("replys"))  # 商家对象
     title = Column(String(30))
@@ -187,8 +187,8 @@ class Requirment(Base):
     product_id = Column(Integer, ForeignKey("product.id"))
     product = relationship("Product", backref=backref("reqs"))  # 商品或者服务
 
-    subcataog_id = Column(Integer, ForeignKey("subcataog.id"))
-    subcataog = relationship("SubCataog", backref=backref("requirments"))
+    subcatlog_id = Column(Integer, ForeignKey("subcatlog.id"))
+    subcatlog = relationship("SubCatlog", backref=backref("requirments"))
 
     merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 中标商家ID
     merchant = relationship("Merchant", backref=backref("requirments"))
@@ -243,8 +243,8 @@ class SuccessRequirment(Base):
     product_id = Column(Integer, ForeignKey("product.id"))
     product = relationship("Product", backref=backref("success_reqs"))  # 商品或者服务
 
-    subcataog_id = Column(Integer, ForeignKey("subcataog.id"))
-    subcataog = relationship("SubCataog", backref=backref("success_requirments"))
+    subcatlog_id = Column(Integer, ForeignKey("subcatlog.id"))
+    subcatlog = relationship("SubCatlog", backref=backref("success_requirments"))
 
     merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 中标商家ID
     merchant = relationship("Merchant", backref=backref("success_requirments"))

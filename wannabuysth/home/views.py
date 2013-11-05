@@ -8,7 +8,7 @@ from flask import jsonify
 import time
 from models import Customer
 from models import Catalog
-from models import SubCataog
+from models import SubCatlog
 from models import Product, SuccessRequirment
 from models import Requirment, Reply
 from models import ProductAds, Comments, Notification
@@ -239,11 +239,11 @@ def second_lv(catalog_id):
     sort_type = int(request.args.get("sort_type", '0'))
     catalog = g.db.query(Catalog).filter(Catalog.id == catalog_id).first()
     if catalog:
-        datas = g.db.query(SubCataog).filter(SubCataog.catalog == catalog)
+        datas = g.db.query(SubCatlog).filter(SubCatlog.catalog == catalog)
         if sort_type == 1:
-            datas = datas.order_by(SubCataog.pingying)
+            datas = datas.order_by(SubCatlog.pingying)
         else:
-            datas = datas.order_by(SubCataog.count)
+            datas = datas.order_by(SubCatlog.count)
         total = datas.count()
         catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
     return render_template("home/second_lv.html", **locals())
@@ -254,11 +254,11 @@ def catalog(catalog_id):
     sort_type = int(request.args.get("sort_type", '0'))
     catalog = g.db.query(Catalog).filter(Catalog.id == catalog_id).first()
     if catalog:
-        datas = g.db.query(SubCataog).filter(SubCataog.catalog == catalog)
+        datas = g.db.query(SubCatlog).filter(SubCatlog.catalog == catalog)
         if sort_type == 1:
-            datas = datas.order_by(SubCataog.pingying)
+            datas = datas.order_by(SubCatlog.pingying)
         else:
-            datas = datas.order_by(SubCataog.count)
+            datas = datas.order_by(SubCatlog.count)
         total = datas.count()
         catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
     return render_template("home/sub_catalog_list.html", **locals())
@@ -266,7 +266,7 @@ def catalog(catalog_id):
 @index.route("/item_list/<catalog_id>/")
 def item_list(catalog_id):
     sort_type = int(request.args.get("sort_type", '0'))
-    catalog = g.db.query(SubCataog).filter(SubCataog.id == catalog_id).first()
+    catalog = g.db.query(SubCatlog).filter(SubCatlog.id == catalog_id).first()
     if catalog:
         datas = g.db.query(Product).filter(Product.catalog == catalog, Product.status == True)
         if sort_type == 0:
@@ -280,7 +280,7 @@ def release_item(catalog_id):
     if not g.user:
         return redirect(url_for("home.login", need_login="release/%s" % catalog_id))
     sort_type = int(request.args.get("sort_type", '0'))
-    catalog = g.db.query(SubCataog).filter(SubCataog.id == catalog_id).first()
+    catalog = g.db.query(SubCatlog).filter(SubCatlog.id == catalog_id).first()
     return render_template("home/apply_item.html", **locals())
 
 
@@ -342,7 +342,7 @@ def apply_item_do():
         result['erro'] = '描述不能为空!'
         return jsonify(result)
     code = random.randint(1000, 9999)
-    req = Requirment(customer_id=user.id, subcataog_id=catalog_id,
+    req = Requirment(customer_id=user.id, subcatlog_id=catalog_id,
                     wanna_fee=wanna_fee * 100, descrip=descrip, end_time=end_time, location=location,
                     state=1, code=code
                     )
@@ -487,7 +487,7 @@ def update_choose_item(requirment_id):
             re = SuccessRequirment(customer_id=requirment.customer_id, merchant_id=requirment.merchant_id, wanna_fee=requirment.wanna_fee,
                               descrip=requirment.descrip, end_time=requirment.end_time, location=requirment.location,
                               succes_fee=reply.fee, reply_id=requirment.reply_id, product_id=requirment.product_id,
-                              subcataog_id=requirment.subcataog_id, like=like
+                              subcatlog_id=requirment.subcatlog_id , like=like
                               )
             g.db.add(re)
             g.db.commit()

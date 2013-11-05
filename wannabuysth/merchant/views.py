@@ -8,7 +8,7 @@ from flask import jsonify
 import time
 from models import Customer
 from models import Catalog
-from models import SubCataog
+from models import SubCatlog
 from models import Product, MerchantPayed
 from models import Requirment, Reply
 from models import Merchant, CustomerCataog, SuccessRequirment
@@ -63,8 +63,8 @@ def requirment_show(requirment_id):
     requirment_ids = [reply.requirment_id for reply in replys]
     if requirment_id == 0:
         my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
-        mu_subcataog_ids = [rec.catalog_id  for rec in my_subcatalogs]
-        datas = g.db.query(Requirment).filter(Requirment.state.in_([0, 1]), Requirment.subcataog_id.in_(mu_subcataog_ids))
+        mu_subcatlog_ids = [rec.catalog_id  for rec in my_subcatalogs]
+        datas = g.db.query(Requirment).filter(Requirment.state.in_([0, 1]), Requirment.subcatlog_id.in_(mu_subcatlog_ids))
         r_min = request.args.get("min", "0").strip()
         r_max = request.args.get("max", "").strip()
         index = request.args.get("index", "0").strip()
@@ -193,7 +193,7 @@ def add_catalog():
     if catalog_type:
         catalog = g.db.query(Catalog).filter(Catalog.id == catalog_type, Catalog.status == True).first()
         if catalog:
-            subcatalogs = g.db.query(SubCataog).filter(SubCataog.catalog_id == catalog.id, SubCataog.status == True)
+            subcatalogs = g.db.query(SubCatlog).filter(SubCatlog.catalog_id == catalog.id, SubCatlog.status == True)
 
     else:
         catalogs = g.db.query(Catalog).filter(Catalog.status == True)

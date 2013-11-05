@@ -9,7 +9,7 @@ from utils import print_debug
 
 from home.views import index
 from merchant.views import mc
-from backend.views import admin
+from admin.views import admin
 
 from models import Customer, Merchant, AdminUser
 import settings
