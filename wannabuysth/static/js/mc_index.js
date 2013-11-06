@@ -34,6 +34,17 @@ function get_or_create_id(el){
 	return id;
 }
 
+function auto_img(el){
+	function callback(data){
+		if(data.succeed){
+			var id = $(el).attr('for_ref');
+			$('#'+id+'_value').val(data.erro);
+			$('#'+id+'_show').attr('src',data.erro);
+		}
+	}
+	upload_img(el,callback);
+}
+
 function upload_img(el,callback){
 	var id = get_or_create_id(el);
 	$.ajaxFileUpload({

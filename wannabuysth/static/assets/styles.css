@@ -28,6 +28,9 @@ body {
 #login .form-signin .checkbox {
     margin-bottom: 10px;
 }
+#main_index input[type="text"]{
+	margin-bottom: 10px;
+}
 #login .form-signin input[type="text"],
 #login .form-signin input[type="password"] {
     font-size: 16px;

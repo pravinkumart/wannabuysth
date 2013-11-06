@@ -1,0 +1,74 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "admin/_head.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    <div id="sidebar" class="span3">
+	    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+	        <li class="{% if cu_catalog == 0 %} active {% endif %} ">
+	            <a href="/admin/catalog"><i class="icon-chevron-right"></i>添加频道</a>
+	        </li>
+	        {% for catalog in catalogs %}
+	        <li class="{% if cu_catalog == catalog.id %} active {% endif %}">
+	            <a href="/admin/catalog?catalog={{ catalog.id }}">
+	            	<i class="icon-chevron-right"></i>{{ catalog.name }}
+	            </a>
+	        </li>
+	        {% endfor %}
+	    </ul>
+	</div>
+    <div class="span9" id="content">
+    	<div class="span12">
+	        <div class="block">
+	            <div class="block-content collapse in">
+	               <legend>添加子频道</legend>
+	            	{% include "mc/_info.html" %} 
+	               <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+	               	
+	               	  <label class="control-label" for="focusedInput">频道名</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="name" maxlength="11" value="{{ name }}">
+		              </div>
+		              <label class="control-label" for="focusedInput">拼音</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="pingying" maxlength="11" value="{{ pingying }}">
+		              </div>
+		              <label class="control-label" for="focusedInput">说明</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="descp" value="{{ descp }}">
+		              </div>
+		              <label class="control-label" for="focusedInput">小图标</label>
+		              <div class="controls">
+		                <input  type="hidden" name="icon_smaill" value="{{ icon_smaill }}" id="icon_smaill_value">
+		              	<input class="input-xlarge focused" for_ref="icon_smaill" style=" margin: 5px;" type="file" onchange="auto_img(this)" name="temp_img" value="">
+		              	<div class="blan0"></div>
+		              	<img src="{{ icon_smaill }}" align="" title="" align="left" id="icon_smaill_show" style="width:100px;" />
+		              </div>
+		              <label class="control-label" for="focusedInput">大图标</label>
+		              <div class="controls">
+		                <input  type="hidden" name="icon_large" value="{{ icon_large }}" id="icon_large_value">
+		              	<input class="input-xlarge focused" for_ref="icon_large" style=" margin: 5px;" type="file" onchange="auto_img(this)" name="temp_img" value="">
+		              	<div class="blan0"></div>
+		              	<img src="{{ icon_large }}" align="" title="" align="left" id="icon_large_show" style="width: 200px;" />
+		              </div>
+		              <div class="blank10"> </div>
+		              <label class="control-label" for="focusedInput">排序</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="idx" value="{{ idx or 0 }}">
+		              </div>
+		              <div class="controls">
+		                 <button style="width: 140px;" class="btn btn-large btn-primary fl" type="submit">发布</button>
+			        	 <div class="blank0"> </div>
+		              </div>
+	               </form>
+	            </div>
+	        </div>
+	        
+	        <!-- /block -->
+	    </div>
+    </div>
+</div>
+</div>
+{% endblock %} 

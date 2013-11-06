@@ -69,6 +69,7 @@ def test():
 def before_request():
     """
     """
+    from flask import  request
     g.db = Session()
     # 用户登陆信息加载
     user_id = session.get('user_id', None)
