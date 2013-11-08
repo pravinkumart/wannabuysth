@@ -218,7 +218,10 @@ def cu_user_able(vid):
 
 @admin.route("/user/show", methods=["GET", "POST"])
 @admin.route("/user/add", methods=["GET", "POST"])
-@admin.route("/admin/user_list", methods=["GET", "POST"])
+@admin.route("/user_list", methods=["GET", "POST"])
+@admin.route("/mc_user", methods=["GET", "POST"])
+@admin.route("/cu_user", methods=["GET", "POST"])
+@admin.route("/su_list", methods=["GET", "POST"])
 def temp_index():
     if not g.admin_user:
         return redirect('/admin/login')
