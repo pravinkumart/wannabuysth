@@ -215,3 +215,13 @@ def cu_user_able(vid):
     g.db.commit()
     add_success(u'成功开启')
     return redirect('/admin/cu_user')
+
+@admin.route("/user/show", methods=["GET", "POST"])
+@admin.route("/user/add", methods=["GET", "POST"])
+@admin.route("/admin/user_list", methods=["GET", "POST"])
+def temp_index():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    else:
+        admin_user = g.admin_user
+        return render_template("admin/index.html", **locals())
