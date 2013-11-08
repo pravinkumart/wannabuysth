@@ -140,3 +140,78 @@ def sub_catalog(cu_catalog):
     if not cu_catalog == 0:
         subcatlogs = g.db.query(SubCatlog).filter(SubCatlog.catalog_id == cu_catalog)
     return render_template("admin/sub_catalog.html", **locals())
+
+@admin.route("/mc_user", methods=["GET", "POST"])
+def mc_user():
+    from models import Merchant
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    datas = g.db.query(Merchant).order_by(Merchant.id)
+    return render_template("admin/mc_user.html", **locals())
+
+
+
+@admin.route("/mc_user/<vid>/disable", methods=["GET", "POST"])
+def mc_user_disable(vid):
+    from models import Merchant
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    data = g.db.query(Merchant).filter(Merchant.id == vid).first()
+    data.status = False
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'成功禁止')
+    return redirect('/admin/mc_user')
+
+
+@admin.route("/mc_user/<vid>/able", methods=["GET", "POST"])
+def mc_user_able(vid):
+    from models import Merchant
+    if not g.admin_user:
+        return redirect('/admin/login')
+    data = g.db.query(Merchant).filter(Merchant.id == vid).first()
+    data.status = True
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'成功开启')
+    return redirect('/admin/mc_user')
+
+
+
+@admin.route("/cu_user", methods=["GET", "POST"])
+def cu_user():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    from models import Customer
+    admin_user = g.admin_user
+    datas = g.db.query(Customer).order_by(Customer.id)
+    return render_template("admin/cu_user.html", **locals())
+
+
+@admin.route("/cu_user/<vid>/disable", methods=["GET", "POST"])
+def cu_user_disable(vid):
+    from models import Customer
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    data = g.db.query(Customer).filter(Customer.id == vid).first()
+    data.status = False
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'成功禁止')
+    return redirect('/admin/cu_user')
+
+
+@admin.route("/cu_user/<vid>/able", methods=["GET", "POST"])
+def cu_user_able(vid):
+    from models import Customer
+    if not g.admin_user:
+        return redirect('/admin/login')
+    data = g.db.query(Customer).filter(Customer.id == vid).first()
+    data.status = True
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'成功开启')
+    return redirect('/admin/cu_user')

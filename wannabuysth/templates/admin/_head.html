@@ -30,10 +30,10 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="">
+                        <li class=" {% if '/mc_user' in  request.url %}active{% endif %}">
 	                        <a href="/admin/mc_user" >商家管理</a>
 	                    </li>
-	                    <li class="">
+	                    <li class=" {% if '/cu_user' in  request.url %}active{% endif %}">
 	                        <a href="/admin/cu_user" >用户管理</a>
 	                    </li>
 	                    <li class="{% if '/catalog' in  request.url %}active{% endif %}">

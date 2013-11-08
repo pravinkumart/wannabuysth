@@ -76,21 +76,27 @@ def before_request():
     if not user_id:
         g.user = None
     else:
-        g.user = g.db.query(Customer).filter(Customer.id == user_id).first()
+        g.user = g.db.query(Customer).filter(Customer.id == user_id,
+                                             Customer.status == True
+                                             ).first()
 
     # mc 用户登录
     mc_user_id = session.get('mc_user_id', None)
     if not mc_user_id:
         g.mc_user = None
     else:
-        g.mc_user = g.db.query(Merchant).filter(Merchant.id == mc_user_id).first()
+        g.mc_user = g.db.query(Merchant).filter(Merchant.id == mc_user_id,
+                                                Merchant.status == True
+                                                ).first()
 
     # admin 用户登录
     admin_user_id = session.get('admin_user_id', None)
     if not admin_user_id:
         g.admin_user = None
     else:
-        g.admin_user = g.db.query(AdminUser).filter(AdminUser.id == admin_user_id).first()
+        g.admin_user = g.db.query(AdminUser).filter(AdminUser.id == admin_user_id,
+                                                    AdminUser.status == True
+                                                    ).first()
 
 
 @app.teardown_request
