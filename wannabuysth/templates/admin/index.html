@@ -3,7 +3,6 @@
 {% block body_id %}id="main_index" {% endblock %} 
 {% block container %} 
 {% include "admin/_head.html" %} 
-{% include "mc/_info.html" %} 
 <div class="container-fluid">
 <div class="row-fluid">
     {% include "admin/_self.html" %} 
@@ -13,6 +12,8 @@
 	            <div class="navbar navbar-inner block-header">
 	            </div>
 	            <div class="block-content collapse in">
+	            	{% include "mc/_info.html" %} 
+	            	
 	                <table class="table table-striped">
 	                    <tbody>
 	                    	<tr>

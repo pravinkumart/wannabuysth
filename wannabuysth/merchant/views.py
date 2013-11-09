@@ -27,7 +27,10 @@ def mc_login():
         else:
             users = g.db.query(Merchant).filter(Merchant.mobile == username, Merchant.password == password)
             if users.count() > 0:
-                session["mc_user_id"] = users[0].id
+                if users[0].status:
+                    session["mc_user_id"] = users[0].id
+                else:
+                    add_error(u'帐号被禁止')
                 return redirect('/mc/index')
             else:
                 add_error(u'手机号或密码错误')

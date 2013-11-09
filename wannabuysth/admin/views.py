@@ -30,6 +30,18 @@ def admin_index():
         return redirect('/admin/login')
     else:
         admin_user = g.admin_user
+        if request.method == 'POST':
+            new_password = request.form.get("new_password", "")
+            password = request.form.get("password", "")
+            if len(new_password) < 6:
+                add_error(u'新密码不能少于6位')
+            elif admin_user.password == password:
+                admin_user.password = new_password
+                g.db.add(admin_user)
+                g.db.commit()
+                add_success(u'密码修改成功')
+            else:
+                add_error(u'旧密码输入错误')
         return render_template("admin/index.html", **locals())
 
 @admin.route("/login", methods=["GET", "POST"])
@@ -55,12 +67,16 @@ def admin_logout():
     return redirect('/admin/login')
 
 @admin.route("/catalog", methods=["GET", "POST"])
-def catalog():
+@admin.route("/catalog/<vid>/update", methods=["GET", "POST"])
+def catalog(vid=0):
     if not g.admin_user:
         return redirect('/admin/login')
     cu_catalog = int(request.args.get("catalog", "0"))
     admin_user = g.admin_user
-
+    if vid != 0:
+        catalog = g.db.query(Catalog).filter(Catalog.id == vid).first()
+    else:
+        catalog = None
 
     if request.method == 'POST':
         name = request.form.get("name", "")
@@ -72,18 +88,33 @@ def catalog():
         if not name or not icon_smaill:
             add_error(u'名字或者图片不能为空')
         else:
-            if g.db.query(Catalog).filter(Catalog.name == name).first():
-                add_error(u'频道名字已存在')
+            if vid == 0:
+                if g.db.query(Catalog).filter(Catalog.name == name).first():
+                    add_error(u'频道名字已存在')
+                else:
+                    c = Catalog(name=name, descp=descp, icon_smaill=icon_smaill, icon_large=icon_large, idx=idx)
+                    g.db.add(c)
+                    g.db.commit()
+                    add_success(u'频道添加成功')
+                    return redirect('/admin/catalog?catalog=%s' % c.id)
             else:
-                c = Catalog(name=name, descp=descp, icon_smaill=icon_smaill, icon_large=icon_large, idx=idx)
-                g.db.add(c)
-                g.db.commit()
-                add_success(u'频道添加成功')
-                return redirect('/admin/catalog')
+                if g.db.query(Catalog).filter(Catalog.name == name, Catalog.id != vid).first():
+                    add_error(u'频道名字已存在')
+                else:
+                    catalog.name = name
+                    catalog.descp = descp
+                    catalog.icon_smaill = icon_smaill
+                    catalog.icon_large = icon_large
+                    catalog.idx = idx
+                    g.db.add(catalog)
+                    g.db.commit()
+                    add_success(u'频道修改成功')
+                    return redirect('/admin/catalog')
     catalogs = g.db.query(Catalog).all()
     if not cu_catalog == 0:
         subcatlogs = g.db.query(SubCatlog).filter(SubCatlog.catalog_id == cu_catalog)
     return render_template("admin/catalog.html", **locals())
+
 
 
 @admin.route("/catalog/<catalog_id>/del", methods=["GET", "POST"])
@@ -141,6 +172,40 @@ def sub_catalog(cu_catalog):
         subcatlogs = g.db.query(SubCatlog).filter(SubCatlog.catalog_id == cu_catalog)
     return render_template("admin/sub_catalog.html", **locals())
 
+
+@admin.route("/subcatlog/<vid>/update", methods=["GET", "POST"])
+def sub_catalog_edit(vid):
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    catalogs = g.db.query(Catalog).all()
+    sub_catalog = g.db.query(SubCatlog).filter(SubCatlog.id == vid).first()
+    cu_catalog = sub_catalog.catalog_id
+    if request.method == 'POST':
+        name = request.form.get("name", "")
+        descp = request.form.get("descp", "")
+        icon_smaill = request.form.get("icon_smaill", "")
+        icon_large = request.form.get("icon_large", "")
+        idx = request.form.get("idx", "0")
+        pingying = request.form.get("pingying", "")
+
+        if not name or not icon_smaill:
+            add_error(u'名字或者图片不能为空')
+        else:
+            if g.db.query(SubCatlog).filter(SubCatlog.name == name, SubCatlog.id != sub_catalog.id).first():
+                add_error(u'频道名字已存在')
+            else:
+                sub_catalog.name = name
+                sub_catalog.descp = descp
+                sub_catalog.pingying = pingying
+                sub_catalog.icon_smaill = icon_smaill
+                sub_catalog.icon_large = icon_large
+                g.db.add(sub_catalog)
+                g.db.commit()
+                add_success(u'修改成功')
+                return redirect('/admin/catalog?catalog=%s' % sub_catalog.catalog_id)
+    return render_template("admin/sub_catalog_edit.html", **locals())
+
 @admin.route("/mc_user", methods=["GET", "POST"])
 def mc_user():
     from models import Merchant
@@ -178,7 +243,37 @@ def mc_user_able(vid):
     add_success(u'成功开启')
     return redirect('/admin/mc_user')
 
+@admin.route("/mc_user/<vid>/up_password", methods=["GET", "POST"])
+def mc_user_up_password(vid):
+    from models import Merchant
+    if not g.admin_user:
+        return redirect('/admin/login')
+    password = request.form.get("password", "")
+    if len(password) < 6:
+        add_error(u'密码不能少于6位')
+        return redirect('/admin/mc_user')
+    data = g.db.query(Merchant).filter(Merchant.id == vid).first()
+    data.password = password
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'密码修改成功')
+    return redirect('/admin/mc_user')
 
+@admin.route("/cu_user/<vid>/up_password", methods=["GET", "POST"])
+def cu_user_up_password(vid):
+    from models import Customer
+    if not g.admin_user:
+        return redirect('/admin/login')
+    password = request.form.get("password", "")
+    if len(password) < 6:
+        add_error(u'密码不能少于6位')
+        return redirect('/admin/cu_user')
+    data = g.db.query(Customer).filter(Customer.id == vid).first()
+    data.password = password
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'密码修改成功')
+    return redirect('/admin/cu_user')
 
 @admin.route("/cu_user", methods=["GET", "POST"])
 def cu_user():
@@ -216,15 +311,119 @@ def cu_user_able(vid):
     add_success(u'成功开启')
     return redirect('/admin/cu_user')
 
-@admin.route("/user/show", methods=["GET", "POST"])
-@admin.route("/user/add", methods=["GET", "POST"])
-@admin.route("/user_list", methods=["GET", "POST"])
-@admin.route("/mc_user", methods=["GET", "POST"])
-@admin.route("/cu_user", methods=["GET", "POST"])
-@admin.route("/su_list", methods=["GET", "POST"])
-def temp_index():
+
+@admin.route("/statistics", methods=["GET", "POST"])
+def statistics():
     if not g.admin_user:
         return redirect('/admin/login')
     else:
         admin_user = g.admin_user
         return render_template("admin/index.html", **locals())
+
+
+@admin.route("/statistics/mc", methods=["GET", "POST"])
+def statistics_mc():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    else:
+        admin_user = g.admin_user
+        return render_template("admin/statistics_mc.html", **locals())
+
+
+
+@admin.route("/statistics/cu", methods=["GET", "POST"])
+def statistics_cu():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    else:
+        admin_user = g.admin_user
+        return render_template("admin/statistics_cu.html", **locals())
+
+
+@admin.route("/statistics/su", methods=["GET", "POST"])
+def statistics_su():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    else:
+        admin_user = g.admin_user
+        return render_template("admin/statistics_su.html", **locals())
+
+
+
+@admin.route("/admin_user", methods=["GET", "POST"])
+def admin_user():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    else:
+        admin_user = g.admin_user
+        datas = g.db.query(AdminUser).filter(AdminUser.name != 'admin').order_by(AdminUser.id)
+        return render_template("admin/admin_user.html", **locals())
+
+
+@admin.route("/admin_user/add", methods=["GET", "POST"])
+def admin_user_add():
+    if not g.admin_user:
+        return redirect('/admin/login')
+    else:
+        admin_user = g.admin_user
+        if request.method == 'POST':
+            name = request.form.get("name", "")
+            mobile = request.form.get("mobile", "")
+            password = request.form.get("password", "")
+
+            if not name or not password:
+                add_error(u'帐号或密码不能为空')
+            else:
+                if g.db.query(AdminUser).filter(AdminUser.name == name).first():
+                    add_error(u'帐号已存在')
+                else:
+                    c = AdminUser(name=name, mobile=mobile, password=password)
+                    g.db.add(c)
+                    g.db.commit()
+                    add_success(u'成功添加管理员')
+                    return redirect('/admin/admin_user')
+        return render_template("admin/admin_add.html", **locals())
+
+
+
+@admin.route("/admin_user/<vid>/disable", methods=["GET", "POST"])
+def admin_user_disable(vid):
+    from models import Customer
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    data = g.db.query(AdminUser).filter(AdminUser.id == vid).first()
+    data.status = False
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'成功禁止')
+    return redirect('/admin/admin_user')
+
+
+@admin.route("/admin_user/<vid>/able", methods=["GET", "POST"])
+def admin_user_able(vid):
+    from models import Customer
+    if not g.admin_user:
+        return redirect('/admin/login')
+    data = g.db.query(AdminUser).filter(AdminUser.id == vid).first()
+    data.status = True
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'成功开启')
+    return redirect('/admin/admin_user')
+
+@admin.route("/admin_user/<vid>/up_password", methods=["GET", "POST"])
+def admin_user_up_password(vid):
+    from models import Customer
+    if not g.admin_user:
+        return redirect('/admin/login')
+    password = request.form.get("password", "")
+    if len(password) < 6:
+        add_error(u'密码不能少于6位')
+        return redirect('/admin/admin_user')
+    data = g.db.query(AdminUser).filter(AdminUser.id == vid).first()
+    data.password = password
+    g.db.add(data)
+    g.db.commit()
+    add_success(u'密码修改成功')
+    return redirect('/admin/admin_user')

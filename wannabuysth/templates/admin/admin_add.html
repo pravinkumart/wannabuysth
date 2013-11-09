@@ -1,0 +1,36 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "admin/_head.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    <div class="block">
+	            <div class="block-content collapse in">
+	               <legend>添加管理员</legend>
+	            	{% include "mc/_info.html" %} 
+	               <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+	               	  <label class="control-label" for="focusedInput">帐号</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="name" maxlength="11" value="{{ name }}">
+		              </div>
+		              <label class="control-label" for="focusedInput">密码</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="password" name="password" value="{{ password }}">
+		              </div>
+		              <div class="blank10"></div>
+		              <label class="control-label" for="focusedInput">联系电话</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="mobile" value="{{ mobile }}">
+		              </div>
+		              <div class="controls">
+		                 <button style="width: 140px;" class="btn btn-large btn-primary fl" type="submit">创建</button>
+			        	 <div class="blank0"> </div>
+		              </div>
+	               </form>
+	            </div>
+	        </div>
+    <!-- /block -->
+</div>
+</div>
+{% endblock %} 

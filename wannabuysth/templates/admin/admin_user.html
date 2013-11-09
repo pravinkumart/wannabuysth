@@ -9,8 +9,9 @@
     <div class="block">
         <div class="navbar navbar-inner block-header">
             <div class="muted pull-left">
-            	用户列表
+            	管理员列表
             </div>
+            <a href="/admin/admin_user/add" class="btn pull-right">添加管理员</a>
         </div>
         <div class="block-content collapse in">
             <div class="span12">
@@ -18,11 +19,8 @@
 	              <thead>
 	                <tr>
 	                  <th>#</th>
-	                  <th>名字</th>
-	                  <th>电话</th>
-	                  <th>需求总数</th>
-	                  <th>成功次数</th>
-	                  <th>基金余额</th>
+	                  <th>帐号</th>
+	                  <th>手机号</th>
 	                  <th>注册日期</th>
 	                  <th>操作</th>
 	                </tr>
@@ -31,13 +29,10 @@
 	              	{% for data in datas %}
 	                <tr class="{{ loop.cycle('success','info') }}">
 	                  <td width="30">{{ loop.index }}</td>
-	                  <td width="100">{{ data.name }}</td>
-	                  <td width="100">{{ data.mobile}}</td>
-	                  <td width="60">{{ data.publish_count }}</td>
-	                  <td width="160">{{  data.success_count  }}</td>
-	                  <td width="160">{{  data.current_fee  }}</td>
-	                  <td width="">{{  data.create_time  }}</td>
-	                  <td width="260">
+	                  <td >{{ data.name }}</td>
+	                  <td >{{ data.mobile}}</td>
+	                  <td >{{  data.create_time  }}</td>
+	                  <td >
 	                  	{% if data.status %}
 	                  	  <a href="#myModal_{{ data.id }}" role="button" class="btn btn-info" data-toggle="modal">禁止登录</a>
 		                  <div id="myModal_{{ data.id }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
@@ -46,10 +41,10 @@
 								<h3 id="myModalLabel_{{ data.id }}">提示:</h3>
 								</div>
 								<div class="modal-body">
-									<p>是否禁止用户登录?</p>
+									<p>是否禁止管理员登录?</p>
 								</div>
 								<div class="modal-footer">
-								<a class="btn btn-primary"  href="/admin/cu_user/{{ data.id }}/disable">确定</a>
+								<a class="btn btn-primary"  href="/admin/admin_user/{{ data.id }}/disable">确定</a>
 								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
 								</div>
 							</div>
@@ -61,19 +56,19 @@
 								<h3 id="myModalLabel_{{ data.id }}">提示:</h3>
 								</div>
 								<div class="modal-body">
-									<p>是否开启用户登录?</p>
+									<p>是否开启管理员登录?</p>
 								</div>
 								<div class="modal-footer">
-								<a class="btn btn-primary"  href="/admin/cu_user/{{ data.id }}/able">确定</a>
+								<a class="btn btn-primary"  href="/admin/admin_user/{{ data.id }}/able">确定</a>
 								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>	
 						{% endif %}
-						<a href="#myModal_{{ data.id }}_password" role="button" class="btn btn-danger" data-toggle="modal">修改密码</a>
+						  <a href="#myModal_{{ data.id }}_password" role="button" class="btn btn-danger" data-toggle="modal">修改密码</a>
 		                  <div id="myModal_{{ data.id }}_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 									<h3 id="myModalLabel_{{ data.id }}">修改密码:</h3>
 								</div>
-								<form action="/admin/cu_user/{{ data.id }}/up_password" method="post">
+								<form action="/admin/admin_user/{{ data.id }}/up_password" method="post">
 								<div class="modal-body">
 									<p>新密码:<input type="password" name="password" value="" id="password_{{ data.id }}" /> 最少6位</p>
 								</div>
@@ -83,6 +78,7 @@
 								</div>
 								</form>
 							</div>
+						
 	                  	</td>
 	                </tr>
 	                {% endfor %}

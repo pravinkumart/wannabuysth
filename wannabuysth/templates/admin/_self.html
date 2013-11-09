@@ -3,14 +3,14 @@
         <li class="{% if 'index' in  request.url %}active{% endif %}">
             <a href="/admin/index"><i class="icon-chevron-right"></i>基本信息</a>
         </li>
-        <li class="{% if 'mc_user' in  request.url %}active{% endif %}">
-            <a href="/admin/mc_user"><i class="icon-chevron-right"></i>商家统计</a>
+        <li class="{% if 'statistics/mc' in  request.url %}active{% endif %}">
+            <a href="/admin/statistics/mc"><i class="icon-chevron-right"></i>商家统计</a>
         </li>
-        <li class="{% if 'cu_user' in  request.url %}active{% endif %}">
-            <a href="/admin/cu_user"><i class="icon-chevron-right"></i>用户统计</a>
+        <li class="{% if 'statistics/cu' in  request.url %}active{% endif %}">
+            <a href="/admin/statistics/cu"><i class="icon-chevron-right"></i>用户统计</a>
         </li>
-        <li class="{% if 'su_list' in  request.url %}active{% endif %}">
-            <a href="/admin/su_list"><i class="icon-chevron-right"></i>成交量统计</a>
+        <li class="{% if 'statistics/su' in  request.url %}active{% endif %}">
+            <a href="/admin/statistics/su"><i class="icon-chevron-right"></i>成交量统计</a>
         </li>
     </ul>
 </div>

@@ -18,8 +18,8 @@
 	              <thead>
 	                <tr>
 	                  <th>#</th>
-	                  <th>名字</th>
-	                  <th>电话</th>
+	                  <th>昵称</th>
+	                  <th>帐号</th>
 	                  <th>预付款</th>
 	                  <th>成功次数</th>
 	                  <th>注册日期</th>
@@ -35,7 +35,7 @@
 	                  <td width="60">￥{{ data.get_pre_payed() }}</td>
 	                  <td width="160">{{  data.success_count  }}</td>
 	                  <td width="">{{  data.create_time  }}</td>
-	                  <td width="160">
+	                  <td width="260">
 	                  	{% if data.status %}
 	                  	  <a href="#myModal_{{ data.id }}" role="button" class="btn btn-info" data-toggle="modal">禁止登录</a>
 		                  <div id="myModal_{{ data.id }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
@@ -65,6 +65,22 @@
 								<a class="btn btn-primary"  href="/admin/mc_user/{{ data.id }}/able">确定</a>
 								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>	
 						{% endif %}
+						<a href="#myModal_{{ data.id }}_password" role="button" class="btn btn-danger" data-toggle="modal">修改密码</a>
+		                  <div id="myModal_{{ data.id }}_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h3 id="myModalLabel_{{ data.id }}">修改密码:</h3>
+								</div>
+								<form action="/admin/mc_user/{{ data.id }}/up_password" method="post">
+								<div class="modal-body">
+									<p>新密码:<input type="password" name="password" value="" id="password_{{ data.id }}" /> 最少6位</p>
+								</div>
+								<div class="modal-footer">
+									<input type="submit"  class="btn btn-primary" value="确定" />
+									<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+								</div>
+								</form>
+							</div>
 	                  	</td>
 	                </tr>
 	                {% endfor %}
