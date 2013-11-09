@@ -63,9 +63,11 @@
 								</div>
 								<div class="modal-footer">
 								<a class="btn btn-primary"  href="/admin/mc_user/{{ data.id }}/able">确定</a>
-								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>	
+								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+								</div>
+							</div>	
 						{% endif %}
-						<a href="#myModal_{{ data.id }}_password" role="button" class="btn btn-danger" data-toggle="modal">修改密码</a>
+						<a href="#myModal_{{ data.id }}_password" role="button" class="btn btn-warning" data-toggle="modal">修改密码</a>
 		                  <div id="myModal_{{ data.id }}_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

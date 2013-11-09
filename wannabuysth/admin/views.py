@@ -57,7 +57,7 @@ def admin_login():
                 session["admin_user_id"] = users[0].id
                 return redirect('/admin/index')
             else:
-                add_error(u'手机号或密码错误')
+                add_error(u'帐号或密码错误')
     return render_template("admin/login.html", **locals())
 
 
