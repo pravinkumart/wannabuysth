@@ -9,7 +9,11 @@
     <div class="block">
         <div class="navbar navbar-inner block-header">
             <div class="muted pull-left">
-            	用户列表
+            	<form action="" style="margin-bottom: 0px;">
+            		<input type="text" value="{{ name }}" placeholder="输入用户昵称或电话"  name="name" style="width: 150px;margin-top: 0px;" class="fl" />
+            		<input type="submit" class="btn" style="width: 80px;margin-top: 2px; margin-left: 10px;"  value="搜索" class="fl" />
+            	</form>
+            	
             </div>
         </div>
         <div class="block-content collapse in">

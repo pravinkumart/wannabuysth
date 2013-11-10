@@ -8,6 +8,7 @@ from models import AdminUser
 from datetime import datetime
 from utils import add_error, add_success
 from models import Catalog, SubCatlog
+from sqlalchemy import or_
 
 admin = Blueprint('backend', __name__, template_folder='templates', url_prefix='/admin')
 
@@ -211,8 +212,11 @@ def mc_user():
     from models import Merchant
     if not g.admin_user:
         return redirect('/admin/login')
+    name = request.args.get("name", "").strip()
     admin_user = g.admin_user
     datas = g.db.query(Merchant).order_by(Merchant.id)
+    if name:
+        datas = datas.filter(or_(Merchant.name.ilike('%%%s%%' % name), Merchant.mobile.ilike('%%%s%%' % name)))
     return render_template("admin/mc_user.html", **locals())
 
 
@@ -280,8 +284,11 @@ def cu_user():
     if not g.admin_user:
         return redirect('/admin/login')
     from models import Customer
+    name = request.args.get("name", "").strip()
     admin_user = g.admin_user
     datas = g.db.query(Customer).order_by(Customer.id)
+    if name:
+        datas = datas.filter(or_(Customer.name.ilike('%%%s%%' % name), Customer.mobile.ilike('%%%s%%' % name)))
     return render_template("admin/cu_user.html", **locals())
 
 
