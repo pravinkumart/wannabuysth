@@ -1,0 +1,35 @@
+<div data-role="page" id="catalog_search" class="bg">
+	<div data-role="header"  data-theme="me">
+				<div class="horizontal">
+					<div class="header_b">
+						<a class="back" href="javascript:void(0)" ></a>
+					</div>
+					<div class="tc header_m box_flex1">
+						<h1>看看能买撒</h1>
+					</div>
+					<div class="header_a"></div>
+				</div>
+			</div>
+	<div data-role="content">
+		<div class="horizontal mart_10 me_field">
+			<div class="field_msg tc">
+				<div style="margin-top: 20px;">输入金额</div>
+			</div>
+			<div class="box_flex1 bg1 " style="padding: 3px 10px;">
+				<input name="my_fee" class="" type="text" id="my_fee" placeholder="输入金额" value="100" />
+			</div>
+			<div class="field_msg tc">
+				<span style="margin-top: 20px;display:inline-block;">元</span>
+			</div>
+		</div>
+		<div class="blank10"></div>
+		<div  class="info_list horizontal">
+			<div class="regedit box_flex1 tc br_5 f18 me_tap" me_event="befor_catalog_search">
+				查询
+			</div>
+		</div>
+
+		
+	</div>
+	<input id="need_login_el" type="hidden" value="{{need_login}}" />
+</div>

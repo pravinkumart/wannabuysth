@@ -32,6 +32,10 @@ def about():
     return render_template("home/about.html", **locals())
 
 
+@index.route("/catalog_search")
+def catalog_search():
+    return render_template("home/catalog_search.html", **locals())
+
 @index.route("/notification")
 def notification():
     sort_type = int(request.args.get("sort_type", '0'))
@@ -202,10 +206,14 @@ def login_do():
 
     users = g.db.query(Customer).filter(Customer.mobile == username, Customer.password == password)
     if users.count() > 0:
-        session["user_id"] = users[0].id
-        result = {'succeed':True, 'erro':users[0].id}
+        user = users[0]
+        if user.status:
+            session["user_id"] = user.id
+            result = {'succeed':True, 'erro':users[0].id}
+        else:
+            result = {'succeed':False, 'erro':u'帐号被禁止'}
     else:
-        result = {'succeed':False, 'erro':'登录失败！请检查帐号和密码'}
+        result = {'succeed':False, 'erro':u'登录失败！请检查帐号和密码'}
     return jsonify(result)
 
 @index.route("/login_out/", methods=['GET', "POST"])
@@ -248,7 +256,6 @@ def second_lv(catalog_id):
         catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
     return render_template("home/second_lv.html", **locals())
 
-
 @index.route("/catalog/<catalog_id>/")
 def catalog(catalog_id):
     sort_type = int(request.args.get("sort_type", '0'))
@@ -263,8 +270,26 @@ def catalog(catalog_id):
         catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
     return render_template("home/sub_catalog_list.html", **locals())
 
+@index.route("/catalog/<catalog_id>/<my_fee>")
+def catalog_my_fee(catalog_id, my_fee):
+    sort_type = int(request.args.get("sort_type", '0'))
+    catalog = g.db.query(Catalog).filter(Catalog.id == catalog_id).first()
+    if catalog:
+        datas = g.db.query(SubCatlog).filter(SubCatlog.catalog == catalog)
+        if sort_type == 1:
+            datas = datas.order_by(SubCatlog.pingying)
+        else:
+            datas = datas.order_by(SubCatlog.count)
+        total = datas.count()
+        catalog_list = [datas[i:(i + 2)] for i in range(0, total, 2)]
+        for catalogs in catalog_list:
+            for catalog in catalogs:
+                catalog.ucount = g.db.query(Product).filter(Product.show_fee < float(my_fee) * 100, Product.catalog_id == catalog.id, Product.status == True).count()
+    return render_template("home/sub_catalog_list.html", **locals())
+
 @index.route("/item_list/<catalog_id>/")
-def item_list(catalog_id):
+@index.route("/item_list/<catalog_id>/<my_fee>")
+def item_list(catalog_id, my_fee=None):
     sort_type = int(request.args.get("sort_type", '0'))
     catalog = g.db.query(SubCatlog).filter(SubCatlog.id == catalog_id).first()
     if catalog:
@@ -273,6 +298,8 @@ def item_list(catalog_id):
             datas = datas.order_by(Product.show_fee.desc())
         else:
             datas = datas.order_by(Product.show_fee.asc())
+        if my_fee:
+            datas = datas.filter(Product.show_fee < float(my_fee) * 100)
     return render_template("home/item_list.html", **locals())
 
 @index.route("/release/<catalog_id>/")
@@ -734,6 +761,26 @@ def catalog_list():
     catalogs = g.db.query(Catalog).filter(Catalog.status == True).order_by(Catalog.idx)
     catalog_list = [catalogs[i:(i + 2)] for i in range(0, catalogs.count(), 2)]
     return render_template("home/catalog_list.html", **locals())
+
+@index.route("/catalog_list/<my_fee>", methods=["GET"])
+def catalog_list_my_fee(my_fee):
+    catalogs = g.db.query(Catalog).filter(Catalog.status == True).order_by(Catalog.idx)
+
+    catalog_list = [catalogs[i:(i + 2)] for i in range(0, catalogs.count(), 2)]
+    for catalogs in catalog_list:
+        for catalog in catalogs:
+            subs = g.db.query(SubCatlog).filter(SubCatlog.catalog_id == catalog.id)
+            sub_ids = [sub.id for sub in subs]
+            catalog.ucount = g.db.query(Product).filter(Product.show_fee < float(my_fee) * 100, Product.catalog_id.in_(sub_ids), Product.status == True).count()
+
+    return render_template("home/catalog_list.html", **locals())
+
+
+
+
+
+
+
 
 
 

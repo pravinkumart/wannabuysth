@@ -17,14 +17,22 @@
 			{% if sort_type == 0 %}
 				<span class="show_on">按人气</span>
 			{% else %}
+			{% if my_fee %}
+				<span class="me_tap"  me_event="gopage" me_data="catalog/{{ catalog.id }}/{{my_fee}}" >按人气</span>
+			{% else %}
 				<span class="me_tap"  me_event="gopage" me_data="catalog/{{ catalog.id }}/" >按人气</span>
+			{% endif %}
 			{% endif %}
 		</div>
 		<div style="width: 50%;" class="box_flex1">
 			{% if sort_type == 1 %}
 				<span class="show_on">按字母</span>
 			{% else %}
+				{% if my_fee %}
+				<span class="me_tap"  me_event="gopage" me_data="catalog/{{ catalog.id }}/{{ my_fee }}?sort_type=1" >按字母</span>
+				{% else %}
 				<span class="me_tap"  me_event="gopage" me_data="catalog/{{ catalog.id }}/?sort_type=1" >按字母</span>
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>
@@ -36,9 +44,27 @@
 		    	{% for catalogs in catalog_list %}
 		      <li>
 		      	<div class="horizontal">
-		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.0.get_img() }}') no-repeat 10px center;"  me_event="gopage" me_data='release/{{ catalogs.0.id }}' >{{ catalogs.0.name }}</div>
+		      		{% if my_fee %}
+		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.0.get_img() }}') no-repeat 10px center;position:relative;"  me_event="gopage" me_data='item_list/{{ catalogs.0.id }}/{{ my_fee }}' >
+		      			{{ catalogs.0.name }}
+		      			<span class="f16" style="position:absolute;bottom: 0;right: 10px;">{{ catalogs.0.ucount }}</span>
+		      		</div>
+		      		{% else %}
+		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.0.get_img() }}') no-repeat 10px center;"  me_event="gopage" me_data='release/{{ catalogs.0.id }}' >
+		      			{{ catalogs.0.name }}
+		      		</div>
+		      		{% endif %}
 		      		{% if  catalogs.1 %}
-		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.1.get_img() }}') no-repeat 10px center;"  me_event="gopage" me_data='release/{{ catalogs.1.id }}' >{{ catalogs.1.name }}</div>
+		      		{% if my_fee %}
+		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.1.get_img() }}') no-repeat 10px center;position:relative;"  me_event="gopage" me_data='item_list/{{ catalogs.1.id }}/{{ my_fee }}' >
+		      			{{ catalogs.1.name }}
+		      			<span class="f16" style="position:absolute;bottom: 0;right: 10px;">{{ catalogs.1.ucount }}</span>
+		      		</div>
+		      		{% else %}
+		      		<div class="box_flex1 me_tap" style="background:url('{{ catalogs.1.get_img() }}') no-repeat 10px center;"  me_event="gopage" me_data='release/{{ catalogs.1.id }}' >
+		      			{{ catalogs.1.name }}
+		      		</div>
+		      		{% endif %}
 		      		{% else %}
 					<div class="box_flex1 "  style="background:none;" ></div>
 		      		{% endif %}

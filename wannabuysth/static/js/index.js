@@ -813,3 +813,33 @@ $(function(){
 	
 })
 
+
+
+function befor_catalog_search(){
+	var my_fee = $('#my_fee').val();
+		my_fee = parseFloat(my_fee);
+		if(my_fee){
+			gopage('home/catalog_list/'+my_fee);
+		}else{
+			alert('请输入正确金额。');
+		}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
