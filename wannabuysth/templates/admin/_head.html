@@ -12,6 +12,9 @@
                             <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i>{{ admin_user.name }}<i class="caret"></i>
                             </a>
                             <ul class="dropdown-menu">
+                            	<li>
+						            <a href="/admin/index">基本信息</a>
+						        </li>
                                 <li>
                                     <a tabindex="-1" onclick="return login_out()" href="/admin/logout">退出登录</a>
                                 </li>
@@ -19,12 +22,9 @@
                         </li>
                     </ul>
                     <ul class="nav">
-                    	<li class=" {% if '/statistics' in  request.url %}active{% endif %}">
-	                        <a href="/admin/statistics" >统计</a>
-	                    </li>
 	                    {% if admin_user.name == 'admin' %}
                         <li class=" {% if '/admin_user' in  request.url %}active{% endif %}">
-	                        <a href="/admin/admin_user" >设置管理员</a>
+	                        <a href="/admin/admin_user" >管理员设置</a>
 	                    </li>
                         {% endif %}
                         <li class=" {% if '/mc_user' in  request.url %}active{% endif %}">
@@ -35,6 +35,9 @@
 	                    </li>
 	                    <li class="{% if '/catalog' in  request.url %}active{% endif %}">
 	                        <a href="/admin/catalog" >频道管理</a>
+	                    </li>
+	                    <li class=" {% if '/statistics' in  request.url %}active{% endif %}">
+	                        <a href="/admin/statistics/mc" >统计</a>
 	                    </li>
                     </ul>
                 </div>
