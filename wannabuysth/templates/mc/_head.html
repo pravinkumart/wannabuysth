@@ -16,6 +16,9 @@
                                 <li>
                                     <a tabindex="-1" href="/mc/self/overview">个人信息</a>
                                 </li>
+                                 <li>
+                                    <a tabindex="-1" href="/mc/self/password">修改密码</a>
+                                </li>
                                 <li class="divider"></li>
                                 <li>
                                     <a tabindex="-1" onclick="return login_out()" href="/mc/logout">退出登录</a>
@@ -42,8 +45,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown {% if 'product' in  request.url %}active{% endif %}">
-                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">服务管理<b class="caret"></b></a>
+                        <li class="dropdown {% if 'product/product' in  request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">商品管理<b class="caret"></b></a>
                             <ul class="dropdown-menu" id="menu2">
                                 <li>
                                     <a href="/mc/product/product">商品列表</a>
@@ -51,7 +54,11 @@
                                 <li>
                                     <a href="/mc/product/add">添加商品</a>
                                 </li>
-                                <li class="divider"></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown {% if '/catalog' in  request.url or '/add_catalog' in request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">服务管理<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="menu2">
                                 <li>
                                     <a href="/mc/product/add_catalog">添加新服务</a>
                                 </li>
@@ -71,7 +78,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="">
+                        <li class="{% if 'statistics' in  request.url %}active{% endif %}">
                             <a href="/mc/self/statistics" >销售统计</a>
                         </li>
                         <li class="">
