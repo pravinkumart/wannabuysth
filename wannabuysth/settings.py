@@ -3,7 +3,7 @@ __author__ = 'Alexander.Li'
 import os
 
 DEBUG = True
-LOCAL = True
+LOCAL = False
 
 TIMEOUT = 3600
 

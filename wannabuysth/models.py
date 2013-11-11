@@ -355,10 +355,17 @@ class AdminUser(Base):
     permissions = Column(Text)  # 权限
 
 
+#----------------------------------*----------------------------------
 
 
-
-
+class Statistics(Base):
+    '''
+    @note: 统计
+    '''
+    type_choise = ((0, u'商家统计'), (1, u'用户统计'), (2, u'成交量统计'))
+    cur_day = Column(DateTime)
+    type = Column(Integer)
+    value = Column(Integer)
 
 
 

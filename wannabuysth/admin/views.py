@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, abort, g, request
 from flask import redirect, url_for, session, flash, send_file
 from flask import jsonify
 import time
-from models import AdminUser
+from models import AdminUser, Statistics
 from datetime import datetime
 from utils import add_error, add_success
 from models import Catalog, SubCatlog
@@ -334,6 +334,17 @@ def statistics_mc():
         return redirect('/admin/login')
     else:
         admin_user = g.admin_user
+        now = datetime.now()
+        start_day = datetime(now.year, 1, 1)
+        end_day = datetime(now.year, 12, 31)
+        datas = g.db.query(Statistics).filter(Statistics.type == 0, Statistics.cur_day >= start_day, Statistics.cur_day <= end_day)
+        datas_ = {}
+        for data in datas:
+            datas_[data.cur_day.date().isoformat()] = data.value
+        datas = []
+        for i in range(12):
+            k = '%s-%02d-01' % (now.year, i + 1)
+            datas.append([k, datas_.get(k, 0)])
         return render_template("admin/statistics_mc.html", **locals())
 
 
@@ -344,6 +355,17 @@ def statistics_cu():
         return redirect('/admin/login')
     else:
         admin_user = g.admin_user
+        now = datetime.now()
+        start_day = datetime(now.year, 1, 1)
+        end_day = datetime(now.year, 12, 31)
+        datas = g.db.query(Statistics).filter(Statistics.type == 1, Statistics.cur_day >= start_day, Statistics.cur_day <= end_day)
+        datas_ = {}
+        for data in datas:
+            datas_[data.cur_day.date().isoformat()] = data.value
+        datas = []
+        for i in range(12):
+            k = '%s-%02d-01' % (now.year, i + 1)
+            datas.append([k, datas_.get(k, 0)])
         return render_template("admin/statistics_cu.html", **locals())
 
 
@@ -353,6 +375,17 @@ def statistics_su():
         return redirect('/admin/login')
     else:
         admin_user = g.admin_user
+        now = datetime.now()
+        start_day = datetime(now.year, 1, 1)
+        end_day = datetime(now.year, 12, 31)
+        datas = g.db.query(Statistics).filter(Statistics.type == 2, Statistics.cur_day >= start_day, Statistics.cur_day <= end_day)
+        datas_ = {}
+        for data in datas:
+            datas_[data.cur_day.date().isoformat()] = data.value
+        datas = []
+        for i in range(12):
+            k = '%s-%02d-01' % (now.year, i + 1)
+            datas.append([k, datas_.get(k, 0)])
         return render_template("admin/statistics_su.html", **locals())
 
 

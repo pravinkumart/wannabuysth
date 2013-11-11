@@ -459,7 +459,22 @@ def overview():
 def statistics():
     if not g.mc_user:
         return redirect('/mc/login')
+    import datetime
     mc_user = g.mc_user
+    now = datetime.datetime.now()
+    to_day = now.date()
+    end_day = to_day - datetime.timedelta(days=30)
+    datas = g.db.query(SuccessRequirment).filter(SuccessRequirment.merchant_id == mc_user.id, SuccessRequirment.create_time >= end_day)
+    datas_ = {}
+    for data in datas:
+        k = data.create_time.date().isoformat()
+        datas_[k] = datas_.get(k, 0) + data.value
+    datas = []
+    start_day = end_day
+    for i in range(30):
+        k = end_day.isoformat()
+        datas.append([k, datas_.get(k, 0)])
+        end_day += datetime.timedelta(days=1)
     return render_template("mc/statistics.html", **locals())
 
 

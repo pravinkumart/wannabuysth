@@ -24,7 +24,10 @@
 
 <script type="text/javascript">
 $(function(){
-	var start_date = Date.UTC(2013,1,1);
+	var data = [];
+	{% for data in datas %}
+		data.push(parseFloat('{{ data.1 }}'));
+	{% endfor %}
 	$('#container').highcharts({
 	  		exporting:{ enabled:false},
 	  		colors: [
@@ -39,25 +42,11 @@ $(function(){
 			   '#c42525', 
 			   '#a6c96a'
 			],
-	  		plotOptions: {
-                spline: {
-                    pointInterval: 3600000*24, // one hour
-                    pointStart: start_date
-                }},chart: {
-                type: 'spline'
-            },
             title: {
                 text: '',
             },
             xAxis: {
-                 	type: 'datetime',
-                 	labels: {
-                 		formatter:function(){
-                 			var n = new Date();
-                 				n.setTime(this.value);
-							return n.toJSON().slice(5,10);
-						}
-                 	}
+                categories: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
             },
             yAxis: {
                 title: {
@@ -70,17 +59,13 @@ $(function(){
                 }]
             },
             tooltip: {
-                valueSuffix: '',
-                xDateFormat:'%Y-%m-%d'
+                valueSuffix: ''
             },
             legend: {
             },
             series: [{
-                name: 'Tokyo',
-                data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-            }, {
-                name: 'London',
-                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                name: '用户数',
+                data: data
             }]
         });
 });

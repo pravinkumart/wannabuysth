@@ -25,7 +25,11 @@
 
 <script type="text/javascript">
 $(function(){
-	var start_date = Date.UTC(2013,1,1);
+	var start_date = Date.UTC(parseFloat('{{ start_day.year }}') ,parseFloat('{{ start_day.month }}')-1,parseFloat('{{ start_day.day }}'));
+	var data = [];
+	{% for data in datas %}
+		data.push(parseFloat('{{ data.1 }}')/100);
+	{% endfor %}	
 	$('#container').highcharts({
 	  		exporting:{ enabled:false},
 	  		colors: [
@@ -42,7 +46,7 @@ $(function(){
 			],
 	  		plotOptions: {
                 spline: {
-                    pointInterval: 3600000*24, // one hour
+                    pointInterval: 3600000*24, 
                     pointStart: start_date
                 }},chart: {
                 type: 'spline'
@@ -78,7 +82,7 @@ $(function(){
             },
             series: [{
                 name: '成交量',
-                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                data: data
             }]
         });
 });
