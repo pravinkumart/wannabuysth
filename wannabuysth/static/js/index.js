@@ -810,7 +810,9 @@ $(function(){
 		 	 set_data('user_is_first','false')
 		 }
 	}, 1000);
-	
+	if(Raven){
+		Raven.captureMessage('服务端index 加载完成');
+	}
 })
 
 
@@ -825,7 +827,6 @@ function befor_catalog_search(){
 		}
 	
 }
-
 
 
 
