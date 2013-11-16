@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//wannabuysth/home/__init__.py=utf8
 encoding//wannabuysth/home/views.py=UTF-8
+encoding//wannabuysth/merchant/alipay.py=utf-8
 encoding//wannabuysth/models.py=utf-8
 encoding//wannabuysth/settings.py=utf8
 encoding//wannabuysth/utils.py=utf8
