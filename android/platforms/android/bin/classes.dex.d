@@ -1,0 +1,19 @@
+E:\workspace\wannabuysth\android\platforms\android\bin\classes.dex : \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\BuildConfig.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\HelloWorld.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\R$attr.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\R$drawable.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\R$string.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\R$xml.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\bangban\app\R.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\com\example\hello\HelloWorld.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\batterystatus\BatteryListener$1.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\batterystatus\BatteryListener.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\camera\CameraLauncher.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\camera\ExifHelper.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\camera\FileHelper.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\device\Device$1.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\device\Device.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\networkinformation\NetworkManager$1.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\classes\org\apache\cordova\networkinformation\NetworkManager.class \
+E:\workspace\wannabuysth\android\platforms\android\bin\dexedLibs\cordova-3.1.0-15f09e18ee4216e6990bb78b5c80f6bb.jar \
