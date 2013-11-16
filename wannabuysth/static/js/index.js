@@ -40,12 +40,12 @@ function del_data(key){
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-	window.device.overrideBackButton();
+	navigator.app.overrideBackbutton();
 	document.addEventListener("backbutton", function(){
 		if(current_page){return false;}
 		if(go_back()){return false;}
 		if(!confirm('是否退出?')){return false;}
-		window.device.exitApp();
+		navigator.app.exitApp();
 	}, false);
 }
 
