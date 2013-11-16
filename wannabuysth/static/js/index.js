@@ -4,6 +4,7 @@ var is_init_main = false;
 var my_navigator = [];
 var pre_domin = ''; //强制指定后退回到的页面
 $.mobile.ajaxEnabled = false;
+$.mobile.pageLoadErrorMessage = "获取数据失败";
 $(document).bind('pagechangefailed',function(){
 	$('.header_b').removeClass('on');
 	$.mobile.loading('hide');
@@ -810,9 +811,6 @@ $(function(){
 		 	 set_data('user_is_first','false')
 		 }
 	}, 1000);
-	if(Raven){
-		Raven.captureMessage('服务端index 加载完成');
-	}
 })
 
 
