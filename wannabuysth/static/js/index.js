@@ -62,7 +62,7 @@ function onDeviceReady() {
 
 function showConfirm(message, completeCallback, title){
 	if(!confirm(message)){return false;}
-		completeCallback();
+		completeCallback(1);
 	return 
 	if(navigator.notification&&navigator.notification.confirm){
 			if(!title){title = '提示';}
