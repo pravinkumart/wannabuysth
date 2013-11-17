@@ -61,6 +61,9 @@ function onDeviceReady() {
 }
 
 function showConfirm(message, completeCallback, title){
+	if(!confirm(message)){return false;}
+		completeCallback();
+	return 
 	if(navigator.notification&&navigator.notification.confirm){
 			if(!title){title = '提示';}
 			navigator.notification.confirm(message, completeCallback, title, ['确定','取消'])
@@ -228,10 +231,10 @@ $("#guide").live('pageshow', function() {
   	var max_height = $(window).height()
   	var imgs = $('#loading_lv li img');
   	for(var i = 0;i<imgs.length;i++){
-  		var height =  imgs.eq(i).height();
-  		if (max_height > height){
-  			imgs.eq(i).css('margin-top',(max_height-height)/2)
-  		}
+  		// var height =  imgs.eq(i).height();
+  		// if (max_height > height){
+  			// imgs.eq(i).css('margin-top',(max_height-height)/2)
+  		// }
   	}
   	var myScroll = new iScroll('loading_lv',{
   			snap: true,
@@ -832,7 +835,7 @@ $(function(){
 		if(get_data('user_is_first')){
 			 gopage('home/accounts');
 		 }else{
-			 gopage('home/loading')
+			 gopage('home/loading');
 		 	 set_data('user_is_first','false')
 		 }
 	}, 1000);
