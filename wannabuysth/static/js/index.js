@@ -45,10 +45,31 @@ function onDeviceReady() {
 	document.addEventListener("backbutton", function(){
 		if(current_page){return false;}
 		if(go_back()){return false;}
-		if(!confirm('是否退出?')){return false;}
-		navigator.app.exitApp();
+		showConfirm('是否退出?',function(data){
+			if(data == 1){
+				navigator.app.exitApp();
+			}
+		});
 	}, false);
+	if(navigator.notification&&navigator.notification.alert){
+		window.alert = function(message, alertCallback,title){
+			if(!title){title='提示';}
+			navigator.notification.alert(message, alertCallback, title, '确定')
+		};
+
+	}
 }
+
+function showConfirm(message, completeCallback, title){
+	if(navigator.notification&&navigator.notification.confirm){
+			if(!title){title = '提示';}
+			navigator.notification.confirm(message, completeCallback, title, ['确定','取消'])
+	}else{
+		if(!confirm(message)){return false;}
+		completeCallback();
+	}
+}
+
 
 var onmessage = function(e) {
        var data = e.data.split(':');
@@ -98,10 +119,12 @@ $('#accounts').live('pageshow',function() {
 });
 
 function getPicture(){
-	if(!confirm('是否修改头像？')){return  false;}
-	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-	    destinationType: Camera.DestinationType.DATA_URL
-	});
+	showConfirm('是否修改头像？',function(ok){
+		if(ok!=1){return false;}
+		navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+		    destinationType: Camera.DestinationType.DATA_URL
+		});
+	})
 }
 
 function onSuccess(imageData) {
@@ -610,17 +633,19 @@ $("#apply_item").live('pageshow', function() {
 
 
 function login_out(){
-	if(!confirm('确定要退出登录吗？')){return false;}
-	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	$.get('/home/login_out/',{},function(datas){
-		$.mobile.loading('hide');
-		if(datas.succeed){
-			alert('注销成功');
-			my_navigator = [];
-			gopage('home/accounts');
-		}else{
-			alert(datas.erro);
-		}
+	showConfirm('确定要退出登录吗？',function(ok){
+		if(ok!=1){return false;}
+		$.mobile.loading('show', {text : 'test', theme : 'a'});
+		$.get('/home/login_out/',{},function(datas){
+			$.mobile.loading('hide');
+			if(datas.succeed){
+				alert('注销成功');
+				my_navigator = [];
+				gopage('home/accounts');
+			}else{
+				alert(datas.erro);
+			}
+		});
 	});
 }
 
