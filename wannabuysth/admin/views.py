@@ -221,11 +221,10 @@ def mc_user():
 
 @admin.route("/mc_user/<vid>/del", methods=["GET", "POST"])
 def mc_user_del(vid):
-    from models import Merchant, CustomerCataog
+    from models import Merchant, CustomerCataog, Reply, Requirment
     from models import MerchantPayed, Product, SuccessRequirment
     if not g.admin_user or not g.admin_user.is_admin():
         return redirect('/admin/login')
-    admin_user = g.admin_user
     data = g.db.query(Merchant).filter(Merchant.id == vid).first()
     for d in g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == vid):
         g.db.delete(d)
@@ -234,6 +233,10 @@ def mc_user_del(vid):
     for d in g.db.query(Product).filter(Product.merchant_id == vid):
         g.db.delete(d)
     for d in g.db.query(SuccessRequirment).filter(SuccessRequirment.merchant_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(Reply).filter(Reply.merchant_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(Requirment).filter(Requirment.merchant_id == vid):
         g.db.delete(d)
     g.db.delete(data)
     g.db.commit()
