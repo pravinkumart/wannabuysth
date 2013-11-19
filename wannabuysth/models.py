@@ -354,6 +354,9 @@ class AdminUser(Base):
     mobile = Column(String(11))  # 手机号
     permissions = Column(Text)  # 权限
 
+    def is_admin(self):
+        return self.name == 'admin'
+
 
 #----------------------------------*----------------------------------
 

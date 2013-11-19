@@ -219,7 +219,26 @@ def mc_user():
         datas = datas.filter(or_(Merchant.name.ilike('%%%s%%' % name), Merchant.mobile.ilike('%%%s%%' % name)))
     return render_template("admin/mc_user.html", **locals())
 
-
+@admin.route("/mc_user/<vid>/del", methods=["GET", "POST"])
+def mc_user_del(vid):
+    from models import Merchant, CustomerCataog
+    from models import MerchantPayed, Product, SuccessRequirment
+    if not g.admin_user or not g.admin_user.is_admin():
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    data = g.db.query(Merchant).filter(Merchant.id == vid).first()
+    for d in g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(MerchantPayed).filter(MerchantPayed.merchant_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(Product).filter(Product.merchant_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(SuccessRequirment).filter(SuccessRequirment.merchant_id == vid):
+        g.db.delete(d)
+    g.db.delete(data)
+    g.db.commit()
+    add_success(u'删除成功')
+    return redirect('/admin/mc_user')
 
 @admin.route("/mc_user/<vid>/disable", methods=["GET", "POST"])
 def mc_user_disable(vid):
@@ -290,6 +309,32 @@ def cu_user():
     if name:
         datas = datas.filter(or_(Customer.name.ilike('%%%s%%' % name), Customer.mobile.ilike('%%%s%%' % name)))
     return render_template("admin/cu_user.html", **locals())
+
+
+@admin.route("/cu_user/<vid>/del", methods=["GET", "POST"])
+def cu_user_del(vid):
+    from models import Customer, Comments, Notification, Requirment
+    from models import SuccessRequirment, ShowCase, ShowCaseReplay
+    if not g.admin_user or not g.admin_user.is_admin():
+        return redirect('/admin/login')
+
+    data = g.db.query(Customer).filter(Customer.id == vid).first()
+    for d in g.db.query(Comments).filter(Comments.customer_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(Notification).filter(Notification.customer_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(ShowCase).filter(ShowCase.customer_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(Requirment).filter(Requirment.customer_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(ShowCaseReplay).filter(ShowCaseReplay.customer_id == vid):
+        g.db.delete(d)
+    for d in g.db.query(SuccessRequirment).filter(SuccessRequirment.customer_id == vid):
+        g.db.delete(d)
+    g.db.delete(data)
+    g.db.commit()
+    add_success(u'删除成功')
+    return redirect('/admin/cu_user')
 
 
 @admin.route("/cu_user/<vid>/disable", methods=["GET", "POST"])

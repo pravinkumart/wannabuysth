@@ -87,6 +87,22 @@
 								</div>
 								</form>
 							</div>
+							{% if  g.admin_user.is_admin() %}
+							<a href="#myModal_{{ data.id }}_del" role="button" class="btn btn-danger" data-toggle="modal">删除</a>
+		                  	<div id="myModal_{{ data.id }}_del" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_{{ data.id }}" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="myModalLabel_{{ data.id }}">提示:</h3>
+								</div>
+								<div class="modal-body">
+									<p>是否彻底删除商家?删除后无法恢复数据</p>
+								</div>
+								<div class="modal-footer">
+								<a class="btn btn-primary"  href="/admin/mc_user/{{ data.id }}/del">确定</a>
+								<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+								</div>
+							</div>
+							{% endif %}
 	                  	</td>
 	                </tr>
 	                {% endfor %}
