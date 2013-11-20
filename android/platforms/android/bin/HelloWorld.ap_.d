@@ -31,6 +31,7 @@ E:\workspace\wannabuysth\android\platforms\android\assets\www\common\cordova_plu
 E:\workspace\wannabuysth\android\platforms\android\assets\www\common\fastbutton.js \
 E:\workspace\wannabuysth\android\platforms\android\assets\www\common\iscroll.js \
 E:\workspace\wannabuysth\android\platforms\android\assets\www\common\jquery.js \
+E:\workspace\wannabuysth\android\platforms\android\assets\www\common\jquery.lazyload.min.js \
 E:\workspace\wannabuysth\android\platforms\android\assets\www\common\jquerymobile.js \
 E:\workspace\wannabuysth\android\platforms\android\assets\www\common\jquery_ext_fastbutton.js \
 E:\workspace\wannabuysth\android\platforms\android\assets\www\common\mobiscroll.custom-2.6.2.min.js \
