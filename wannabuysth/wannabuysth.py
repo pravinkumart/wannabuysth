@@ -4,7 +4,7 @@ from flask.ext.script import Manager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from flask import send_file, render_template
-from flask import redirect
+from flask import redirect, request
 from utils import print_debug
 
 from home.views import index
@@ -28,8 +28,13 @@ app.register_blueprint(admin)
 
 @app.route('/')
 def hello_world():
+    if request.args.get("sukey", "").strip():
+        return redirect('/app')
     return render_template("welcome.html", **locals())
-#     return redirect('/mc')
+
+@app.route('/app')
+def download_app():
+    return redirect('/static/app/banban.apk')
 
 @app.route('/base')
 def base():
