@@ -322,8 +322,17 @@ def update_img():
     filename = str(time.time()).replace('.', '') + '.' + filename.rsplit('.', 1)[1]
     icon_large_filename = filename
     icon_large.seek(0)
-    icon_large.save(os.path.join(UPLOAD_FOLDER, icon_large_filename))
-    icon_large_src = '/static/upload/' + icon_large_filename
+    ext = ''
+    if g.mc_user:
+        ext = 'm%s' % g.mc_user.id
+    if g.admin_user:
+        ext = 'a%s' % g.admin_user.id
+    path = os.path.join(UPLOAD_FOLDER, ext)
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    icon_large.save(os.path.join(path, icon_large_filename))
+    icon_large_src = '/static/upload/%s/%s' % (ext, icon_large_filename)
     result = {'succeed':True, 'erro':'%s' % icon_large_src }
     return jsonify(result)
 
