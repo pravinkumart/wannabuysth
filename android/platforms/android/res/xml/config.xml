@@ -4,8 +4,6 @@
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
-    <access origin="*" />
-    <preference name="loglevel" value="DEBUG" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
@@ -30,7 +28,10 @@
     <author email="dev@callback.apache.org" href="http://cordova.io">
     </author>
     <content src="index.html" />
-    <access origin="bangban.com" subdomains="true" />
+    <access origin="*" />
+    <access origin="bangban.com" />
+    <preference name="useBrowserHistory" value="true" />
+    <preference name="exit-on-suspend" value="false" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
 </widget>
