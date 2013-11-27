@@ -30,7 +30,7 @@ app.register_blueprint(admin)
 def hello_world():
     if request.args.get("sukey", "").strip():
         return redirect('/app')
-    return render_template("gaiban.html", **locals())
+    return render_template("welcome.html", **locals())
 
 @app.route('/app')
 def download_app():
