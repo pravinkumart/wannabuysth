@@ -8,7 +8,7 @@
     <content src="index.html" />
     <access origin="*" />
     <access origin="bangban.com" subdomains="true" />
-    
+    <access origin="qq.com" subdomains="true" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
 </widget>
