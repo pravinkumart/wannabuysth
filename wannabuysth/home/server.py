@@ -130,7 +130,7 @@ class QQOAuth2Mixin(object):
 
 
     _OAUTH_VERSION = '2.a'
-    redirect_uri = 'http://www.qp197.com:8000/home/oauth/qq'
+    redirect_uri = 'http://app.bangban.com/home/oauth/qq'
 
 
     def get_authorize_redirect(self):
