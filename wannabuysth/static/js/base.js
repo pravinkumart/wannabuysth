@@ -21,10 +21,5 @@ else{
 	e.setAttribute("rel",'stylesheet');
 	e.setAttribute("href",www+'static/css/index.css?v='+(new Date()).getTime());
 	document.getElementsByTagName("body")[0].appendChild(e);
-	
-	
-	var e = document.createElement("script");
-	e.setAttribute("src","http://192.168.1.120:8080/target/target-script-min.js#anonymous");
-	document.getElementsByTagName("body")[0].appendChild(e);
 
 })(window);
