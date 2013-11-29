@@ -2,7 +2,12 @@
 	<div style="text-align:center">请稍后</div>
 	<script type="text/javascript">
 		var next = '{{ next }}';
-		window.parent.postMessage('next:'+next,'*');
+		if (self != top) {  
+		    window.parent.postMessage('next:'+next,'*');
+		}
+		else{
+				alert('我在框架外了')
+		}
 	</script>
 	
 </div>
