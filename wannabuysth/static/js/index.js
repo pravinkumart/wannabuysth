@@ -832,10 +832,15 @@ $(function() {
 
 $(function(){
 	setTimeout(function() {
+		if(window.location.href.indexOf('next=index')>0){
+			 gopage('home/index');
+			return false;
+		}
 		if(get_data('user_is_first')){
 			 gopage('home/accounts');
 		 }else{
 			 gopage('home/loading');
+			 my_navigator = [];
 		 	 set_data('user_is_first','false')
 		 }
 	}, 1000);

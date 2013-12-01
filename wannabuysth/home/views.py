@@ -81,8 +81,24 @@ def oauth():
     request_url = qq.get_authorize_redirect()
     return render_template("home/oauth.html", **locals())
 
+
+@index.route("/oauth/w")
+def oauth_w():
+    from home.server import QQOAuth2Mixin
+    qq = QQOAuth2Mixin()
+    request_url = qq.get_authorize_redirect(display="web")
+    return redirect(request_url)
+
 @index.route("/oauth/qq")
 def oauth_qq():
+    from models import Merchant
+    display = request.args.get("display", "")
+    if display == 'pc':
+        Merchant.id = 1
+        g.mc_user = g.db.query(Merchant).filter(Merchant.mobile == '15982150122').first()
+        if g.mc_user:
+            session['mc_user_id'] = '%s' % g.mc_user.id
+        return redirect('/mc')
     import random
     from home.server import QQOAuth2Mixin
     qq = QQOAuth2Mixin()

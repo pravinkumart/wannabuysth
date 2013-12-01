@@ -133,9 +133,9 @@ class QQOAuth2Mixin(object):
     redirect_uri = 'http://app.bangban.com/home/oauth/qq'
 
 
-    def get_authorize_redirect(self):
-        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s&state=%s&display=mobile" % \
-        (self._OAUTH_AUTHORIZE_URL, self._OAUTH_CONSUMER_KEY, self.redirect_uri, 'test')
+    def get_authorize_redirect(self, display="mobile"):
+        url = "%sresponse_type=code&client_id=%s&scope=get_user_info,add_share&redirect_uri=%s&state=%s&display=%s" % \
+        (self._OAUTH_AUTHORIZE_URL, self._OAUTH_CONSUMER_KEY, self.redirect_uri + '?display=%s' % display, 'bangban', display)
         return url
 
     def get_authenticated_user(self, code):
