@@ -93,7 +93,7 @@ def oauth_w():
 def oauth_qq():
     from models import Merchant
     display = request.args.get("display", "")
-    if display == 'pc':
+    if display == 'web':
         Merchant.id = 1
         g.mc_user = g.db.query(Merchant).filter(Merchant.mobile == '15982150122').first()
         if g.mc_user:
