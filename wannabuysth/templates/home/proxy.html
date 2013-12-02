@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://192.168.1.101:8080/target/target-script-min.js#anonymous"></script>
 <div data-role="page" id="proxy">
 	<div style="text-align:center">请稍后</div>
 	<script type="text/javascript">
@@ -6,7 +7,7 @@
 		    window.parent.postMessage('next:'+next,'*');
 		}
 		else{
-			window.location.href = '/base?next=index';
+			window.location.href = 'file:///assets/index.html';
 		}
 	</script>
 	
