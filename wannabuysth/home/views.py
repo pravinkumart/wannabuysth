@@ -106,9 +106,9 @@ def oauth_qq():
                 openid = content['openid']
                 user_info = qq.get_user_info(access_token, openid)
                 name = user_info['nickname']
-                mc_user.name = name
+                mc_user[0].name = name
                 try:
-                    g.db.add(mc_user)
+                    g.db.add(mc_user[0])
                     g.db.commit()
                 except:
                     pass
