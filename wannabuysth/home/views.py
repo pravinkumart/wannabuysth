@@ -96,6 +96,22 @@ def oauth_qq():
     if display == 'web':
         mc_user = g.db.query(Merchant).filter(Merchant.mobile == '15982150122')
         if mc_user:
+            code = request.args.get("code", "")
+            from home.server import QQOAuth2Mixin
+            qq = QQOAuth2Mixin()
+            if code:
+                content = qq.get_authenticated_user(code)
+                access_token = content['access_token']
+                refresh_token = content['refresh_token']
+                openid = content['openid']
+                user_info = qq.get_user_info(access_token, openid)
+                name = user_info['nickname']
+                mc_user.name = name
+                try:
+                    g.db.add(mc_user)
+                    g.db.commit()
+                except:
+                    pass
             session['mc_user_id'] = mc_user[0].id
             return redirect('/mc')
         else:
@@ -107,7 +123,6 @@ def oauth_qq():
     code = request.args.get("code", "")
     if code:
         content = qq.get_authenticated_user(code)
-        logging.error(str(content))
         if content.has_key('openid'):
             openid = content['openid']
             access_token = content['access_token']
