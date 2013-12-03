@@ -94,11 +94,12 @@ def oauth_qq():
     from models import Merchant
     display = request.args.get("display", "")
     if display == 'web':
-        g.mc_user = g.db.query(Merchant).filter(Merchant.mobile == '15982150122').first()
-        if g.mc_user:
-            session['mc_user_id'] = '%s' % g.mc_user.id
+        mc_user = g.db.query(Merchant).filter(Merchant.mobile == '15982150122')
+        if mc_user:
+            session['mc_user_id'] = mc_user[0].id
             return redirect('/mc')
         else:
+            raise
             return redirect('/')
     import random
     from home.server import QQOAuth2Mixin
