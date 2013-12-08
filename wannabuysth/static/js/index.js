@@ -14,6 +14,13 @@ $(document).bind('pagechangefailed',function(){
 
 $(document).bind('pageshow',function(e){
 	if(!current_page){return false;}
+	var c = current_page.split('?')[0];
+	for(var i=0;i<my_navigator.length;i++){
+		if(my_navigator[i].indexOf(current_page)>-1){
+			current_page = '';
+			return false;
+		}
+	}
 	if(my_navigator.indexOf(current_page)>-1){
 		my_navigator = my_navigator.slice(0,my_navigator.indexOf(current_page)+1);
 	}else{
