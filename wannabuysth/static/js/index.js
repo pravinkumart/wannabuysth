@@ -16,7 +16,7 @@ $(document).bind('pageshow',function(e){
 	if(!current_page){return false;}
 	var c = current_page.split('?')[0];
 	for(var i=0;i<my_navigator.length;i++){
-		if(my_navigator[i].indexOf(current_page)>-1){
+		if(my_navigator[i].indexOf(c)>-1){
 			current_page = '';
 			return false;
 		}
