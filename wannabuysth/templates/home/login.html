@@ -40,7 +40,7 @@
 			</div>
 		</div>
 
-		<div  class="info_list horizontal open_list br_5 me_tap" me_event="gopage" me_data="oauth" style="margin-top: 45px;">
+		<div  class="info_list horizontal open_list br_5 me_tap" me_event="qq_login" me_data="oauth" style="margin-top: 45px;">
 			<div class="box_flex1 qq_show f18" style="padding-left: 40px; color: #666;line-height: 40px;">
 				使用QQ帐号登录
 			</div>
@@ -50,4 +50,5 @@
 		</div>
 	</div>
 	<input id="need_login_el" type="hidden" value="{{need_login}}" />
+	<input type="hidden" value="{{ request_url }}" id="qq_login" />
 </div>

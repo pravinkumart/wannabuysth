@@ -226,6 +226,9 @@ def regedit_do():
 @index.route("/login")
 def login():
     need_login = request.args.get('need_login', '')
+    from home.server import QQOAuth2Mixin
+    qq = QQOAuth2Mixin()
+    request_url = qq.get_authorize_redirect()
     return render_template("home/login.html", **locals())
 
 @index.route("/login_do", methods=["POST"])

@@ -287,25 +287,29 @@ $("#login").live('pageshow', function() {
 
 var iabRef = null;
 
-$("#oauth").live('pageshow', function() {
+function qq_login(){
+	
 	 var request_url =  $('#qq_login').val();
 	 iabRef = window.open(request_url, '_blank', 'location=no');
-	 iabRef.addEventListener('loadstop', function(a){
-	 	console.log(a);
-	 	alert('loadstop')
-	 	return a;
+	 iabRef.addEventListener('loadstop', function(data){
+	 	console.log(data);
+	 	var url = data.url;
+	 	if(url.indexOf('/home/proxy?next=index')>-1){
+	 		my_navigator = [];
+	 		gopage('index');
+	 	};
 	 });
-     iabRef.addEventListener('exit', function(){
-     	alert('exit')
+     iabRef.addEventListener('exit', function(data){
+     	console.log(data);
      });
-     iabRef.addEventListener('loadstart', function(){
-     	alert('loadstart')
+     iabRef.addEventListener('loadstart', function(data){
+     	console.log(data);
      });
-     iabRef.addEventListener('loaderror', function(){
-     	alert('loaderror')
+     iabRef.addEventListener('loaderror', function(data){
+		console.log(data);     	
      });
 
-});
+};
 
 function login_ok(){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
