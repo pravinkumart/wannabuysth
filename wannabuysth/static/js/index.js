@@ -297,7 +297,9 @@ function qq_login(){
 	 	if(url.indexOf('/home/proxy?next=index')>-1){
 	 		my_navigator = [];
 	 		gopage('index');
-	 		iabRef.close();
+	 		setTimeout(function(){
+		 		iabRef.close();
+	 		},2000);
 	 	};
 	 });
      iabRef.addEventListener('exit', function(data){
@@ -307,7 +309,8 @@ function qq_login(){
      	console.log(data);
      });
      iabRef.addEventListener('loaderror', function(data){
-		console.log(data);     	
+     	alert('网络加载失败');
+		iabRef.close();    	
      });
 
 };
