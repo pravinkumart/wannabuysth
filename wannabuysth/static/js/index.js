@@ -288,6 +288,7 @@ $("#login").live('pageshow', function() {
 var iabRef = null;
 
 $("#oauth").live('pageshow', function() {
+	 var request_url =  $('#qq_login').val();
 	 iabRef = window.open(request_url, '_blank', 'location=no');
 	 iabRef.addEventListener('loadstop', function(){
 	 	alert('loadstop')
