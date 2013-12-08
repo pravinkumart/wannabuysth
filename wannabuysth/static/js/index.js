@@ -297,6 +297,7 @@ function qq_login(){
 	 	if(url.indexOf('/home/proxy?next=index')>-1){
 	 		my_navigator = [];
 	 		gopage('index');
+	 		iabRef.close();
 	 	};
 	 });
      iabRef.addEventListener('exit', function(data){
