@@ -285,6 +285,25 @@ $("#login").live('pageshow', function() {
 	window.need_login = $('#need_login_el').val();
 });
 
+var iabRef = null;
+
+$("#oauth").live('pageshow', function() {
+	 iabRef = window.open(request_url, '_blank', 'location=no');
+	 iabRef.addEventListener('loadstop', function(){
+	 	alert('loadstop')
+	 });
+     iabRef.addEventListener('exit', function(){
+     	alert('exit')
+     });
+     iabRef.addEventListener('loadstart', function(){
+     	alert('loadstart')
+     });
+     iabRef.addEventListener('loaderror', function(){
+     	alert('loaderror')
+     });
+
+});
+
 function login_ok(){
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	var data = $('#login_form').serializeArray();
