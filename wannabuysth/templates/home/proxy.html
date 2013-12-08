@@ -1,14 +1,17 @@
-<script type="text/javascript" src="http://192.168.1.101:8080/target/target-script-min.js#anonymous"></script>
-<div data-role="page" id="proxy">
-	<div style="text-align:center">请稍后</div>
-	<script type="text/javascript">
-		var next = '{{ next }}';
-		if (self != top) {  
-		    window.parent.postMessage('next:'+next,'*');
-		}
-		else{
-			window.location.href = "file:///android_asset/www/index.html";
-		}
-	</script>
-	
-</div>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>邦办管家</title>
+	</head>
+	<body class="body">
+		<div  style="position:relative;">
+			<div class="tc" style="position:absolute;left: 0;bottom: 20%;width: 100%;text-align:center;">
+				请稍后,正在跳转.....	
+			</div>
+		</div>
+	</body>
+</html>
