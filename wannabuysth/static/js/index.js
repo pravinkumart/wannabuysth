@@ -290,8 +290,10 @@ var iabRef = null;
 $("#oauth").live('pageshow', function() {
 	 var request_url =  $('#qq_login').val();
 	 iabRef = window.open(request_url, '_blank', 'location=no');
-	 iabRef.addEventListener('loadstop', function(){
+	 iabRef.addEventListener('loadstop', function(a){
+	 	console.log(a);
 	 	alert('loadstop')
+	 	return a;
 	 });
      iabRef.addEventListener('exit', function(){
      	alert('exit')
