@@ -11,7 +11,7 @@
   		background-color:#FC5F28;
   	}
   	.cc {
-  		position:absolute;top:20px;right: 100px;text-decoration:none; color:#FFFFFF;padding: 8px 20px;background-color:#FC5F18;border:1px solid #FC5F18;border-radius: 5px;
+  		position:absolute;top:40px;right: 100px;text-decoration:none; color:#FFFFFF;padding: 8px 20px;background-color:#FC5F18;border:1px solid #FC5F18;border-radius: 5px;
   		 font-family: "黑体";
   	}
   </style>
@@ -146,9 +146,10 @@
 	});
 	</script>
 
-  	<div style="position:absolute;top: 200px;left: 0;width: 100%;z-index: 100;">
-  		
-	  	<div class="scrollbox" style="margin: 0 auto;">
+  	<div style="position:absolute;top:0px;left: 0;width: 100%;z-index: 100;">
+  		<div style="height: 30px;position:absolute;z-index: 99;width: 100%;background-color:#000000;opacity: 0.5;">
+  		</div>
+	  	<div class="scrollbox" style="margin: 0 auto;position:relative;z-index: 100;">
 		    <div id="scrollDiv">
 		        <ul>
 		            <li>软件已经在91商城发布审核中.............</li>
@@ -160,14 +161,20 @@
 	<style type="text/css">
 		body{ color:#333; font-size:13px;}
 		h3,ul,li{margin:0;padding:0; list-style:none;}
-		.scrollbox{width:900px; padding:10px;border:none;}
-		#scrollDiv{width:900px;height:25px; overflow:hidden;}/*这里的高度和超出隐藏是必须的*/
+		.scrollbox{width:1000px;border:none;}
+		#scrollDiv{width:1000px;height:25px; overflow:hidden;}/*这里的高度和超出隐藏是必须的*/
 		
-		#scrollDiv li{height:25px;line-height:25px; vertical-align:bottom; zoom:1;border:none;}
-		#scrollDiv li a{ color:#333; text-decoration:none;}
+		#scrollDiv li{
+			height:30px;line-height:30px; vertical-align:bottom; zoom:1;border:none; color: #FFFFFF;
+			background-image:url('/static/welcome/laba.png');
+			background-repeat: no-repeat;
+			background-position:center left;
+			text-indent: 25px;
+		}
+		#scrollDiv li a{ color:#FFFFFF; text-decoration:none;}
 		#scrollDiv li a:hover{ color:#FF0000; text-decoration:underline;}
 		
-		.scroltit{ height:26px; line-height:26px; border:none; padding-bottom:4px; margin-bottom:4px;}
+		.scroltit{ height:30px; line-height:30px; border:none; padding-bottom:4px; margin-bottom:4px;}
 		.scroltit h3{ width:1000px; float:left;}
 		.scroltit small{float:right; font-size:13px;}
 
