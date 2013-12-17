@@ -14,6 +14,7 @@
 	              <thead>
 	                <tr>
 	                  <th>#</th>
+	                  <th>商家</th>
 	                  <th>类别</th>
 	                  <th>小图</th>
 	                  <th>标题</th>
@@ -27,6 +28,7 @@
 	              	{% for data in datas %}
 	                <tr class="{{ loop.cycle('success', 'error','info') }}">
 	                  <td width="30">{{ loop.index }}</td>
+	                   <td width="30">{{ data.merchant.name }}</td>
 	                  <td width="100">{{ data.catalog.name }}</td>
 	                  <td width="100"><img src="{{ data.icon_smaill }}" width="100" style="max-height: 100px;max-width: 100px;" /> </td>
 	                  <td width="100">{{ data.title }}</td>

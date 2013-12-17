@@ -9,7 +9,7 @@ sys.path.insert(0, '../')
 sys.path.insert(0, '../../')
 
 from models import Catalog
-from models import SubCataog
+from models import SubCatlog
 
 from models import Merchant
 from models import Product
@@ -38,7 +38,7 @@ def init_data():
         session.add(c)
         session.commit()
         for rec in catalog[2]:
-            s = SubCataog(catalog_id=catalog_id, catalog=c, name=rec, descp='', icon_smaill='', icon_large='', idx=0, pingying='a')
+            s = SubCatlog(catalog_id=catalog_id, catalog=c, name=rec, descp='', icon_smaill='', icon_large='', idx=0, pingying='a')
             session.add(s)
             session.commit()
     session.close()
@@ -51,7 +51,7 @@ def init_product():
              )
     session.add(mc)
     session.commit()
-    su = session.query(SubCataog)
+    su = session.query(SubCatlog)
     j = 0
     for s in su :
         j += 1
