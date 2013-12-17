@@ -515,3 +515,13 @@ def admin_user_up_password(vid):
     g.db.commit()
     add_success(u'密码修改成功')
     return redirect('/admin/admin_user')
+
+
+@admin.route("/cu_product", methods=["GET", "POST"])
+def cu_product():
+    from models import Product
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    datas = g.db.query(Product).filter(Product.status == True)
+    return render_template("admin/product_list.html", **locals())
