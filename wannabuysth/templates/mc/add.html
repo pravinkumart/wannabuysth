@@ -39,7 +39,12 @@
               </div>
               <label class="control-label" for="focusedInput">介绍图(宽640)</label>
               <div class="controls">
-                <input class="input-xlarge focused" style=" margin: 5px;" type="file" onchange="add_product_img(this)" name="temp_img" value="">
+                <input class="input-xlarge focused" style=" margin: 5px;" type="file"  id="file_upload" name="temp_img" value="">
+                <script type="text/javascript">
+                	$(function(){
+                		add_product_img();
+                	});
+                </script>
               </div>
               <div style="padding: 10px;width: 100px;"></div>
     		  <input id="icon_smaill" name="icon_smaill" type="hidden" />

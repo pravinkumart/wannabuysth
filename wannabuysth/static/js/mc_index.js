@@ -69,23 +69,6 @@ function upload_img(el,callback){
           }});
 }
 
-function add_product_img(el){
-	function callback(data){
-		if(data.succeed){
-			$('#cropbox_wap').show();
-			$('#cropbox').attr('src',data.erro);
-			$('#icon_large').val(data.erro);
-			show_crop(data.erro);
-			var img_info = cropbox.getWidgetSize();
-	    	// if((img_info[0]>200)&&(img_info[1]>120)){
-	    		// $('#icon_large').val(data.erro);
-	    	// }else{
-	    		// alert('图片太小，请重新上传');
-	    	// }
-		}
-	}
-	upload_img(el,callback);
-}
 
 
 var  cropbox = null;
@@ -139,3 +122,27 @@ function alert(msg){
 	    show:true
 	});
 }
+
+
+function add_product_img(el){
+	function callback(data){
+		$('#cropbox_wap').show();
+		$('#cropbox').attr('src',data);
+		$('#icon_large').val(data);
+		show_crop(data);
+		var img_info = cropbox.getWidgetSize();
+	}
+	$('#file_upload').uploadify({
+		'swf'      : '/static/uploadify/uploadify.swf',
+		'uploader' : '/mc/update_img',
+		'onUploadSuccess' : function(file, data, response) {
+        	callback(data);
+        },
+         'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '*.gif; *.jpg; *.png' 
+		
+	});
+	
+}
+
+

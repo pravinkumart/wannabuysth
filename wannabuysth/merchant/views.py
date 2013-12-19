@@ -316,8 +316,11 @@ def update_img():
     from settings import UPLOAD_FOLDER
     from werkzeug import secure_filename
     import os
-
+    import datetime
     icon_large = request.files.get("temp_img", "")
+    if not icon_large:
+        icon_large = request.files.get("Filedata", "")
+    
     filename = secure_filename(icon_large.filename)
     filename = str(time.time()).replace('.', '') + '.' + filename.rsplit('.', 1)[1]
     icon_large_filename = filename
@@ -327,12 +330,16 @@ def update_img():
         ext = 'm%s' % g.mc_user.id
     if g.admin_user:
         ext = 'a%s' % g.admin_user.id
+    if not ext:
+        ext = datetime.datetime.now().date().isoformat()
     path = os.path.join(UPLOAD_FOLDER, ext)
     if not os.path.exists(path):
         os.makedirs(path)
 
     icon_large.save(os.path.join(path, icon_large_filename))
     icon_large_src = '/static/upload/%s/%s' % (ext, icon_large_filename)
+    if request.files.get("Filedata", ""):
+        return icon_large_src
     result = {'succeed':True, 'erro':'%s' % icon_large_src }
     return jsonify(result)
 
