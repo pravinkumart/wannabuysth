@@ -67,6 +67,29 @@ def admin_logout():
     session["mc_user_id"] = ''
     return redirect('/admin/login')
 
+def update_img_by(icon_large):
+    from settings import UPLOAD_FOLDER
+    from werkzeug import secure_filename
+    import os
+    if not icon_large:
+        return ''
+    filename = secure_filename(icon_large.filename)
+    filename = str(time.time()).replace('.', '') + '.' + filename.rsplit('.', 1)[1]
+    icon_large_filename = filename
+    icon_large.seek(0)
+    ext = ''
+    if g.mc_user:
+        ext = 'm%s' % g.mc_user.id
+    if g.admin_user:
+        ext = 'a%s' % g.admin_user.id
+    path = os.path.join(UPLOAD_FOLDER, ext)
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    icon_large.save(os.path.join(path, icon_large_filename))
+    icon_large_src = '/static/upload/%s/%s' % (ext, icon_large_filename)
+    return icon_large_src
+
 @admin.route("/catalog", methods=["GET", "POST"])
 @admin.route("/catalog/<vid>/update", methods=["GET", "POST"])
 def catalog(vid=0):
@@ -82,35 +105,40 @@ def catalog(vid=0):
     if request.method == 'POST':
         name = request.form.get("name", "")
         descp = request.form.get("descp", "")
-        icon_smaill = request.form.get("icon_smaill", "")
-        icon_large = request.form.get("icon_large", "")
+#         icon_smaill = request.form.get("icon_smaill", "")
+#         icon_large = request.form.get("icon_large", "")
         idx = request.form.get("idx", "0")
+        
+        icon_smaill = request.files.get("icon_smaill", "")
+        icon_smaill = update_img_by(icon_smaill)
+        
+        icon_large = request.files.get("icon_large", "")
+        icon_large = update_img_by(icon_large)
 
-        if not name or not icon_smaill:
-            add_error(u'名字或者图片不能为空')
-        else:
-            if vid == 0:
-                if g.db.query(Catalog).filter(Catalog.name == name).first():
-                    add_error(u'频道名字已存在')
-                else:
-                    c = Catalog(name=name, descp=descp, icon_smaill=icon_smaill, icon_large=icon_large, idx=idx)
-                    g.db.add(c)
-                    g.db.commit()
-                    add_success(u'频道添加成功')
-                    return redirect('/admin/catalog?catalog=%s' % c.id)
+        if vid == 0:
+            if g.db.query(Catalog).filter(Catalog.name == name).first():
+                add_error(u'频道名字已存在')
             else:
-                if g.db.query(Catalog).filter(Catalog.name == name, Catalog.id != vid).first():
-                    add_error(u'频道名字已存在')
-                else:
-                    catalog.name = name
-                    catalog.descp = descp
+                c = Catalog(name=name, descp=descp, icon_smaill=icon_smaill, icon_large=icon_large, idx=idx)
+                g.db.add(c)
+                g.db.commit()
+                add_success(u'频道添加成功')
+                return redirect('/admin/catalog?catalog=%s' % c.id)
+        else:
+            if g.db.query(Catalog).filter(Catalog.name == name, Catalog.id != vid).first():
+                add_error(u'频道名字已存在')
+            else:
+                catalog.name = name
+                catalog.descp = descp
+                if icon_smaill:
                     catalog.icon_smaill = icon_smaill
+                if icon_large:
                     catalog.icon_large = icon_large
-                    catalog.idx = idx
-                    g.db.add(catalog)
-                    g.db.commit()
-                    add_success(u'频道修改成功')
-                    return redirect('/admin/catalog')
+                catalog.idx = idx
+                g.db.add(catalog)
+                g.db.commit()
+                add_success(u'频道修改成功')
+                return redirect('/admin/catalog')
     catalogs = g.db.query(Catalog).all()
     if not cu_catalog == 0:
         subcatlogs = g.db.query(SubCatlog).filter(SubCatlog.catalog_id == cu_catalog)
@@ -152,11 +180,17 @@ def sub_catalog(cu_catalog):
     if request.method == 'POST':
         name = request.form.get("name", "")
         descp = request.form.get("descp", "")
-        icon_smaill = request.form.get("icon_smaill", "")
-        icon_large = request.form.get("icon_large", "")
+#         icon_smaill = request.form.get("icon_smaill", "")
+#         icon_large = request.form.get("icon_large", "")
         idx = request.form.get("idx", "0")
         pingying = request.form.get("pingying", "")
-
+        
+        icon_smaill = request.files.get("icon_smaill", "")
+        icon_smaill = update_img_by(icon_smaill)
+        
+        icon_large = request.files.get("icon_large", "")
+        icon_large = update_img_by(icon_large)
+        
         if not name or not icon_smaill:
             add_error(u'名字或者图片不能为空')
         else:
@@ -185,13 +219,19 @@ def sub_catalog_edit(vid):
     if request.method == 'POST':
         name = request.form.get("name", "")
         descp = request.form.get("descp", "")
-        icon_smaill = request.form.get("icon_smaill", "")
-        icon_large = request.form.get("icon_large", "")
+#         icon_smaill = request.form.get("icon_smaill", "")
+#         icon_large = request.form.get("icon_large", "")
         idx = request.form.get("idx", "0")
         pingying = request.form.get("pingying", "")
+        
+        icon_smaill = request.files.get("icon_smaill", "")
+        icon_smaill = update_img_by(icon_smaill)
+        
+        icon_large = request.files.get("icon_large", "")
+        icon_large = update_img_by(icon_large)
 
-        if not name or not icon_smaill:
-            add_error(u'名字或者图片不能为空')
+        if not name:
+            add_error(u'名字不能为空')
         else:
             if g.db.query(SubCatlog).filter(SubCatlog.name == name, SubCatlog.id != sub_catalog.id).first():
                 add_error(u'频道名字已存在')
@@ -199,8 +239,10 @@ def sub_catalog_edit(vid):
                 sub_catalog.name = name
                 sub_catalog.descp = descp
                 sub_catalog.pingying = pingying
-                sub_catalog.icon_smaill = icon_smaill
-                sub_catalog.icon_large = icon_large
+                if icon_smaill:
+                    sub_catalog.icon_smaill = icon_smaill
+                if icon_large:
+                    sub_catalog.icon_large = icon_large
                 g.db.add(sub_catalog)
                 g.db.commit()
                 add_success(u'修改成功')
