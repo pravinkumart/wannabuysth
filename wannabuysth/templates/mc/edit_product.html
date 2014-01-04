@@ -11,31 +11,31 @@
     <div class="container form-signin">
       <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
           <fieldset>
-            <legend>添加新商品</legend>
+            <legend>修改商品</legend>
             {% block info %}{% include "mc/_info.html" %} {% endblock %}  
               <label class="control-label" for="focusedInput">服务类型</label>
               <div class="controls">
                 <select name="catalog_id" style="margin:10px 0px;">
                 	{% for my_subcatalog in my_subcatalogs %}
-                	<option {% if catalog_id == my_subcatalog.catalog.id %} selected="selected" {% endif %} value="{{ my_subcatalog.catalog.id }}">{{ my_subcatalog.catalog.name }}</option>
+                	<option {% if rec.catalog_id == my_subcatalog.catalog.id %} selected="selected" {% endif %} value="{{ my_subcatalog.catalog.id }}">{{ my_subcatalog.catalog.name }}</option>
                 	{% endfor %}
                 </select>
               </div>
               <label class="control-label" for="focusedInput">商品名称</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="title" maxlength="11" value="{{ title }}">
+                <input class="input-xlarge focused"  type="text" name="title" maxlength="11" value="{{ rec.title }}">
               </div>
               <label class="control-label" for="focusedInput">商品介绍</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="descrip" value="{{ descrip }}">
+                <input class="input-xlarge focused"  type="text" name="descrip" value="{{ rec.descrip }}">
               </div>
               <label class="control-label" for="focusedInput">显示价格</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="show_fee" value="{{ show_fee }}">
+                <input class="input-xlarge focused"  type="text" name="show_fee" value="{{ rec.get_show_fee() }}">
               </div>
               <label class="control-label" for="focusedInput">最低卖价</label>
               <div class="controls">
-                <input class="input-xlarge focused"  type="text" name="acept_fee" value="{{ acept_fee }}">
+                <input class="input-xlarge focused"  type="text" name="acept_fee" value="{{ rec.get_acept_fee() }}">
               </div>
               <label class="control-label" for="focusedInput">列表图(200x120)</label>
               <div class="controls">
@@ -62,7 +62,7 @@
 		      <div  class="blank10"></div>
               <label class="control-label" for="focusedInput"> </label>
               <div class="controls">
-                 <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;">发布</button>
+                 <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;">保存</button>
 	        	 <div class="blank0"> </div>
               </div>
           </fieldset>

@@ -35,7 +35,8 @@
 	                  <td width="60">￥{{ data.get_show_fee() }}</td>
 	                  <td width="60">￥{{ data.get_acept_fee() }}</td>
 	                  <td width="160">
-	                  	<a class="btn" href="/mc/product/del/{{ data.id }}" onclick="return delete_item(this)">删除</a>
+	                  	<a class="btn btn-danger" href="/mc/product/edit/{{ data.id }}" >编辑</a>
+	                  	<a style="margin-left: 15px;" class="btn" href="/mc/product/del/{{ data.id }}" onclick="return delete_item(this)">删除</a>
 	                  </td>
 	                </tr>
 	                {% endfor %}

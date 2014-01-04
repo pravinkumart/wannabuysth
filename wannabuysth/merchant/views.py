@@ -257,9 +257,8 @@ def allowed_file(filename):
 
 @mc.route("/product/add", methods=["GET", "POST"])
 def mc_add_product():
+    from admin.views import update_img_by
     from settings import UPLOAD_FOLDER, SITE_ROOT
-    from PIL import Image, ImageEnhance
-    import time
     import os
     if not g.mc_user:
         return redirect('/mc/login')
@@ -272,7 +271,6 @@ def mc_add_product():
         descrip = request.form.get("descrip", "")
         show_fee = request.form.get("show_fee", "")
         acept_fee = request.form.get("acept_fee", "")
-        icon_large = request.form.get("icon_large", "")
         try:
             show_fee_init = float(show_fee) * 100
             acept_fee_init = float(acept_fee) * 100
@@ -281,32 +279,24 @@ def mc_add_product():
         else:
             if not title or not descrip:
                 add_error(u'标题或者介绍不能为空')
-            elif not icon_large:
-                add_error(u'介绍图不能为空')
             else:
-                file_name = SITE_ROOT + icon_large  # /static/upload/138254914612.jpg
-                crop_x = int(request.form.get("crop_x", "0"))
-                crop_y = int(request.form.get("crop_y", "0"))
-                crop_w = int(request.form.get("crop_w", "200"))
-                crop_h = int(request.form.get("crop_h", "120"))
+                icon_smaill = request.files.get("icon_smaill", "")
+                icon_smaill = update_img_by(icon_smaill)
+                
+                icon_large = request.files.get("icon_large", "")
+                icon_large = update_img_by(icon_large)
+                
+                if not icon_smaill or not icon_large:
+                    add_error(u'介绍图 或者列表图 不能为空')
+                else:
+                    pr = Product(catalog_id=catalog_id, merchant_id=mc_user.id, title=title, descrip=descrip,
+                            acept_fee=acept_fee_init, show_fee=show_fee_init, icon_smaill=icon_smaill,
+                            icon_large=icon_large, view_count=0, success_count=0
+                            )
 
-                im = Image.open(file_name)
-                im = im.convert('RGB')
-                box = (int(crop_x), int(crop_y), crop_x + int(crop_w), crop_y + int(crop_h))
-                region = im.crop(box)
-                region.seek(0)
-                new_file = file_name.replace('.', '_0.');
-                region.save(new_file)
-                icon_smaill_filename = new_file.replace(SITE_ROOT, '');
-                print icon_smaill_filename
-                pr = Product(catalog_id=catalog_id, merchant_id=mc_user.id, title=title, descrip=descrip,
-                        acept_fee=acept_fee_init, show_fee=show_fee_init, icon_smaill=icon_smaill_filename,
-                        icon_large=icon_large, view_count=0, success_count=0
-                        )
-
-                g.db.add(pr)
-                g.db.commit()
-                add_success(u'添加商品成功')
+                    g.db.add(pr)
+                    g.db.commit()
+                    add_success(u'添加商品成功')
                 return redirect('/mc/product/add')
 
     return render_template("mc/add.html", **locals())
@@ -514,8 +504,65 @@ def statistics():
 
 
 @mc.route("/help", methods=["GET", "POST"])
-def help():
+def help_me():
     if not g.mc_user:
         return redirect('/mc/login')
     mc_user = g.mc_user
     return render_template("mc/help.html", **locals())
+
+
+
+
+
+@mc.route("/product/edit/<vid>", methods=["GET", "POST"])
+def mc_edit_product(vid):
+    from admin.views import update_img_by
+    from settings import UPLOAD_FOLDER, SITE_ROOT
+    import os
+    if not g.mc_user:
+        return redirect('/mc/login')
+    catalogs = g.db.query(Catalog).filter(Catalog.status == True)
+    mc_user = g.mc_user
+    my_subcatalogs = g.db.query(CustomerCataog).filter(CustomerCataog.merchant_id == mc_user.id)
+    
+    rec = g.db.query(Product).filter(Product.merchant_id == mc_user.id,Product.id == vid).first()
+    if not rec:
+        return Response('0')
+    
+    if request.method == 'POST':
+        catalog_id = request.form.get("catalog_id", "0")
+        title = request.form.get("title", "")
+        descrip = request.form.get("descrip", "")
+        show_fee = request.form.get("show_fee", "")
+        acept_fee = request.form.get("acept_fee", "")
+        try:
+            show_fee_init = float(show_fee) * 100
+            acept_fee_init = float(acept_fee) * 100
+        except:
+            add_error(u'显示价格或者最低卖价只能输入数字')
+        else:
+            if not title or not descrip:
+                add_error(u'标题或者介绍不能为空')
+            else:
+                icon_smaill = request.files.get("icon_smaill", "")
+                icon_smaill = update_img_by(icon_smaill)
+                
+                icon_large = request.files.get("icon_large", "")
+                icon_large = update_img_by(icon_large)
+                
+                rec.catalog_id = catalog_id
+                rec.title = title
+                rec.descrip = descrip
+                rec.show_fee_init = show_fee_init
+                rec.acept_fee_init = acept_fee_init
+                
+                if icon_smaill:
+                    rec.icon_smaill = icon_smaill
+                if icon_large:
+                    rec.icon_large = icon_large
+                g.db.add(rec)
+                g.db.commit()
+                add_success(u'修改成功')
+                return redirect('/mc/product/product')
+
+    return render_template("mc/edit_product.html", **locals())
