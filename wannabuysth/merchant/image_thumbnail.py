@@ -126,21 +126,27 @@ def thumbnail_img(infile, file_name, size=(1000, 1000), sharpness=True, quality=
 
     return tmp_img
 
+def resize_img(img,width,height):
+    if img.mode != "RGBA":  
+        img = img.convert("RGBA")  
+    w,h = img.size
+    r = width*1.0/height
+    r_ = w*1.0/h
+    if r > r_:
+        w_ = w
+        h_ = w /r
+    else:
+        h_ = h
+        w_ = h * r
+    s_w = (w-w_)/2
+    s_h = (h-h_)/2
+    img = img.transform((width,height),Image.EXTENT,(int(s_w),int(s_h),w_,h_))
+    return img
 
 if __name__ == '__main__':
-    file_name = 'd009b3de9c82d158d6ebe27a800a19d8bd3e428b.jpg'
+    file_name = 'data/00.jpg'
     im = Image.open(file_name)
-    im = im.convert('RGB')
-    left = 0
-    top = 0
-    right = 1600
-    bottom = 80
-    box = (int(left), int(top), int(right), int(bottom))
-    region = im.crop(box)
-    f = open('1.jpg', 'wb')
-#     f.write(f)
-    region.seek(0)
-    region.save('1.jpg')
-#     f.write(region.seek())
-#     f.close()
+    
+    region = resize_img(im,1000,1000)
+    region.save('data/text.png')
 

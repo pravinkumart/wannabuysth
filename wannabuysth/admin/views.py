@@ -67,9 +67,11 @@ def admin_logout():
     session["mc_user_id"] = ''
     return redirect('/admin/login')
 
-def update_img_by(icon_large):
+def update_img_by(icon_large,width=None,height=None):
+    from PIL import Image, ImageEnhance
     from settings import UPLOAD_FOLDER
     from werkzeug import secure_filename
+    from merchant.image_thumbnail import resize_img
     import os
     if not icon_large:
         return ''
@@ -85,7 +87,9 @@ def update_img_by(icon_large):
     path = os.path.join(UPLOAD_FOLDER, ext)
     if not os.path.exists(path):
         os.makedirs(path)
-
+    if width and height:
+        icon_large = Image.open(icon_large)
+        icon_large = resize_img(icon_large,width,height)
     icon_large.save(os.path.join(path, icon_large_filename))
     icon_large_src = '/static/upload/%s/%s' % (ext, icon_large_filename)
     return icon_large_src

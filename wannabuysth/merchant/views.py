@@ -231,7 +231,7 @@ def mc_product():
     if not g.mc_user:
         return redirect('/mc/login')
     mc_user = g.mc_user
-    datas = g.db.query(Product).filter(Product.merchant_id == mc_user.id, Product.status == True)
+    datas = g.db.query(Product).filter(Product.merchant_id == mc_user.id, Product.status == True).order_by(Product.id.desc())
     return render_template("mc/product_list.html", **locals())
 
 
@@ -281,10 +281,10 @@ def mc_add_product():
                 add_error(u'标题或者介绍不能为空')
             else:
                 icon_smaill = request.files.get("icon_smaill", "")
-                icon_smaill = update_img_by(icon_smaill)
+                icon_smaill = update_img_by(icon_smaill,200,120)
                 
                 icon_large = request.files.get("icon_large", "")
-                icon_large = update_img_by(icon_large)
+                icon_large = update_img_by(icon_large,640,400)
                 
                 if not icon_smaill or not icon_large:
                     add_error(u'介绍图 或者列表图 不能为空')
