@@ -273,7 +273,7 @@ def home_index():
     ad = g.db.query(ProductAds).filter(ProductAds.type == 0, ProductAds.start_time <= now,
                                              ProductAds.end_time >= now).order_by(ProductAds.sort_num).first()
 
-    catalogs = g.db.query(Catalog).order_by(Catalog.idx) 
+    catalogs = g.db.query(Catalog).order_by(Catalog.idx.desc()) 
     total = catalogs.count()
     catalog_list = [catalogs[i:(i + 2)] for i in range(0, total, 2)]
     return render_template("home/index.html", **locals())
