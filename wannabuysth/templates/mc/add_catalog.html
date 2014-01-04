@@ -33,7 +33,7 @@
               	<img src="{{ catalog.get_img() }}" alt="{{ catalog.name }}">
             </div>
             <div class="caption" style="margin-top: 5px;">
-            	<label><input type="checkbox" name="subcatalog" onclick="check_catalog(this)" value="{{ catalog.id }}" style="margin-right: 5px;"  /> {{ catalog.name }}</label>
+            	<label><input type="checkbox" {%  if catalog in  my_subcatalogs %} checked="checked" {% endif %} name="subcatalog" onclick="check_catalog(this)" value="{{ catalog.id }}" style="margin-right: 5px;"  /> {{ catalog.name }}</label>
 	        </div>
           </li>
           {% endfor %}
@@ -53,6 +53,11 @@
 	function check_catalog(el){
 		
 	}
+	{% if not my_subcatalogs and not catalog_type %}
+		$(function(){
+			alert('你还没有添加服务，点击确定选择大类后选择子类服务。');
+		});
+	{% endif %}
 </script>
 
 
