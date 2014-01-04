@@ -70,13 +70,12 @@ def admin_logout():
 def update_img_by(icon_large,width=None,height=None):
     from PIL import Image, ImageEnhance
     from settings import UPLOAD_FOLDER
-    from werkzeug import secure_filename
     from merchant.image_thumbnail import resize_img
     import os
+    import random
     if not icon_large:
         return ''
-    filename = secure_filename(icon_large.filename)
-    filename = str(time.time()).replace('.', '') + '.' + filename.rsplit('.', 1)[1]
+    filename = str(time.time()).replace('.', '') + str(random.randint(10,100))+ '.png'
     icon_large_filename = filename
     icon_large.seek(0)
     ext = ''
@@ -88,7 +87,10 @@ def update_img_by(icon_large,width=None,height=None):
     if not os.path.exists(path):
         os.makedirs(path)
     if width and height:
-        icon_large = Image.open(icon_large)
+        try:
+            icon_large = Image.open(icon_large)
+        except:
+            return ''
         icon_large = resize_img(icon_large,width,height)
     icon_large.save(os.path.join(path, icon_large_filename))
     icon_large_src = '/static/upload/%s/%s' % (ext, icon_large_filename)
