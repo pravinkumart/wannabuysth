@@ -20,6 +20,7 @@
 	                  <th>#</th>
 	                  <th>商家</th>
 	                  <th>类别</th>
+	                  <td>时间</td>
 	                  <th>操作</th>
 	                </tr>
 	              </thead>
@@ -29,6 +30,8 @@
 	                  <td width="30">{{ loop.index }}</td>
 	                   <td width="30">{{ data.merchant.name }}</td>
 	                  <td width="100">{{ data.name }}</td>
+	                  <td width="100">{{ data.create_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+	            
 	                  <td width="160">
 	                  	<a class="btn" href="/admin/lackcatalog/del/{{ data.id }}" onclick="return delete_item(this)">删除</a>
 	                  </td>

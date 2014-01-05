@@ -582,7 +582,7 @@ def lackcatalog_show(vid):
         return redirect('/admin/login')
     admin_user = g.admin_user
     from models import LackCatalog
-    datas = g.db.query(LackCatalog).filter(LackCatalog.vtype == vid)
+    datas = g.db.query(LackCatalog).filter(LackCatalog.vtype == vid).order_by(LackCatalog.id.desc())
     return render_template("admin/lackcatalog_list.html", **locals())
 
 
