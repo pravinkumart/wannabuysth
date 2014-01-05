@@ -372,7 +372,16 @@ class Statistics(Base):
 
 
 
+#----------------------------------用户建议----------------------------------
 
+class LackCatalog(Base):
+    """
+            缺少的类别    
+    """
+    merchant_id = Column(Integer, ForeignKey("merchant.id"))  # 
+    merchant = relationship("Merchant")
+    vtype = Column(SmallInteger)  # 秀单帖类型 0比低 1比高
+    name = Column(String(48)) 
 
 
 

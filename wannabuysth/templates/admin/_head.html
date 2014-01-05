@@ -44,6 +44,17 @@
 	                    <li class=" {% if '/statistics' in  request.url %}active{% endif %}">
 	                        <a href="/admin/statistics/mc" >统计</a>
 	                    </li>
+	                    <li class="dropdown {% if '/lackcatalog' in  request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">商家建议类别<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="menu2">
+                                <li>
+                                    <a href="/admin/lackcatalog/0">建议的大类</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/lackcatalog/1">建议的小类</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->

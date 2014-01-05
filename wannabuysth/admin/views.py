@@ -573,3 +573,32 @@ def cu_product():
     admin_user = g.admin_user
     datas = g.db.query(Product).filter(Product.status == True)
     return render_template("admin/product_list.html", **locals())
+
+
+
+@admin.route("/lackcatalog/<vid>", methods=["GET", "POST"])
+def lackcatalog_show(vid):
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    from models import LackCatalog
+    datas = g.db.query(LackCatalog).filter(LackCatalog.vtype == vid)
+    return render_template("admin/lackcatalog_list.html", **locals())
+
+
+
+@admin.route("/lackcatalog/del/<vid>", methods=["GET", "POST"])
+def lackcatalog_del(vid):
+    if not g.admin_user:
+        return redirect('/admin/login')
+    from models import LackCatalog
+    rec = g.db.query(LackCatalog).filter(LackCatalog.id == vid).first()
+    vtype = rec.vtype 
+    g.db.delete(rec)
+    g.db.commit()
+    add_success(u'删除成功')
+    return redirect('/admin/lackcatalog/%s' % vtype)
+
+
+
+

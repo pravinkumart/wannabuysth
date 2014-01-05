@@ -568,3 +568,21 @@ def mc_edit_product(vid):
                 return redirect('/mc/product/product')
 
     return render_template("mc/edit_product.html", **locals())
+
+@mc.route("/lackcatalog/<vid>", methods=["GET", "POST"])
+def lackcatalog_write(vid):
+    from models import LackCatalog
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    
+    result = [False,'']
+    import json
+    if request.method == 'POST':
+        name = request.form.get("name", "")
+        rec = LackCatalog(merchant_id = mc_user.id,name=name,vtype=vid)
+        g.db.add(rec)
+        g.db.commit()
+        result = [True,'']
+    return Response(json.dumps(result))
+

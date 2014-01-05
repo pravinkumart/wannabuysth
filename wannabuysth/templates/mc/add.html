@@ -15,11 +15,17 @@
             {% block info %}{% include "mc/_info.html" %} {% endblock %}  
               <label class="control-label" for="focusedInput">服务类型</label>
               <div class="controls">
+              	{% if my_subcatalogs.count() > 0 %}
                 <select name="catalog_id" style="margin:10px 0px;">
                 	{% for my_subcatalog in my_subcatalogs %}
                 	<option {% if catalog_id == my_subcatalog.catalog.id %} selected="selected" {% endif %} value="{{ my_subcatalog.catalog.id }}">{{ my_subcatalog.catalog.name }}</option>
                 	{% endfor %}
                 </select>
+                {% else %}
+                <div style="padding: 10px;">
+	                <a href="/mc/product/add_catalog" class="btn">请先添加服务类别</a>
+                </div>
+                {% endif %}
               </div>
               <label class="control-label" for="focusedInput">商品名称</label>
               <div class="controls">
@@ -64,9 +70,13 @@
 		      <div  class="blank10"></div>
               <label class="control-label" for="focusedInput"> </label>
               <div class="controls">
+              	 {% if my_subcatalogs.count() > 0 %}
                  <button type="submit" class="btn btn-large btn-primary fl" style="width: 140px;" onclick="$(this).hide();">发布</button>
-                 <a href="/mc/product/product" class="btn btn-large" style="margin-left: 20px;">返回</a>
-	        	 <div class="blank0"> </div>
+                 {% else %}
+                 <a href="#" class="btn btn-large  fl" disabled="disabled">发布</a>
+                 {% endif %}
+                 <a href="/mc/product/product" class="btn btn-large" style="margin-left: 20px;"> 返 回 </a>
+	        	 <div class="blank0"> </div> 
               </div>
           </fieldset>
         </form>

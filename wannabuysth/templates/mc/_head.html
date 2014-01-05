@@ -45,17 +45,6 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown {% if 'product/product' in  request.url %}active{% endif %}">
-                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">商品管理<b class="caret"></b></a>
-                            <ul class="dropdown-menu" id="menu2">
-                                <li>
-                                    <a href="/mc/product/product">商品列表</a>
-                                </li>
-                                <li>
-                                    <a href="/mc/product/add">添加商品</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="dropdown {% if '/catalog' in  request.url or '/add_catalog' in request.url %}active{% endif %}">
                         	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">服务管理<b class="caret"></b></a>
                             <ul class="dropdown-menu" id="menu2">
@@ -64,6 +53,17 @@
                                 </li>
                                 <li>
                                     <a href="/mc/product/catalog">管理已有服务</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown {% if 'product/product' in  request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">商品管理<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="menu2">
+                                <li>
+                                    <a href="/mc/product/product">我的商品</a>
+                                </li>
+                                <li>
+                                    <a href="/mc/product/add">添加商品</a>
                                 </li>
                             </ul>
                         </li>
