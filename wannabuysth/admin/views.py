@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import logging
-from flask import Blueprint, render_template, abort, g, request
+from flask import Blueprint, render_template, abort, g, request,Response
 from flask import redirect, url_for, session, flash, send_file
 from flask import jsonify
 import time
@@ -598,5 +598,32 @@ def lackcatalog_del(vid):
     return redirect('/admin/lackcatalog/%s' % vtype)
 
 
+@admin.route("/notice/<vid>", methods=["GET", "POST"])
+def notice_show(vid=0):
+    import json
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    from models import Notice
+    if request.method == 'POST':
+            name = request.form.get("name", "")
+            c = Notice(name=name,vtype=vid)
+            g.db.add(c)
+            g.db.commit()
+            return Response(json.dumps([True,'']))
+    datas = g.db.query(Notice).filter(Notice.vtype == vid).order_by(Notice.id.desc())
+    return render_template("admin/notice_list.html", **locals())
 
+
+@admin.route("/notice/del/<vid>", methods=["GET", "POST"])
+def notice_del(vid):
+    if not g.admin_user:
+        return redirect('/admin/login')
+    from models import Notice
+    rec = g.db.query(Notice).filter(Notice.id == vid).first()
+    vtype = rec.vtype 
+    g.db.delete(rec)
+    g.db.commit()
+    add_success(u'删除成功')
+    return redirect('/admin/notice/%s' % vtype)
 

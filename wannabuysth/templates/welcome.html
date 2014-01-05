@@ -62,10 +62,9 @@
 	  	<div class="scrollbox" style="margin: 0 auto;position:relative;z-index: 100;">
 		    <div id="scrollDiv">
 		        <ul>
-		            <li>软件已经在91商城发布.............</li>
-		            <li>软件已经在小米应用发布.............</li>
-		            <li>软件已经在豌豆夹发布.............</li>
-		             <li>软件已经在360商城发布.............</li>
+		        	{% for data in datas %}
+		            	<li>{{ data.name }}</li>
+		        	{% endfor %}
 		        </ul>
 		    </div>
 		</div>

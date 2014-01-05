@@ -384,7 +384,12 @@ class LackCatalog(Base):
     name = Column(String(48)) 
 
 
-
+class Notice(Base):
+    """
+    @note: 公告
+    """
+    vtype = Column(SmallInteger)  # 秀单帖类型 0比低 1比高
+    name = Column(String(1204)) 
 
 
 

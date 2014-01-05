@@ -30,6 +30,8 @@ app.register_blueprint(admin)
 def hello_world():
     if request.args.get("sukey", "").strip():
         return redirect('/app')
+    from models import Notice
+    datas = g.db.query(Notice).filter(Notice.vtype == 0).order_by(Notice.id.desc())
     return render_template("welcome.html", **locals())
 
 @app.route('/app')

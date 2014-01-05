@@ -55,6 +55,11 @@
                                 </li>
                             </ul>
                         </li>
+                        {% if admin_user.name == 'admin' %}
+                        <li class=" {% if '/notice' in  request.url %}active{% endif %}">
+	                        <a href="/admin/notice/0" >首页公告</a>
+	                    </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
