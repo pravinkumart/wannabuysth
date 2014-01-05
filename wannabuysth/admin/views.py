@@ -524,7 +524,6 @@ def admin_user_add():
 
 @admin.route("/admin_user/<vid>/disable", methods=["GET", "POST"])
 def admin_user_disable(vid):
-    from models import Customer
     if not g.admin_user:
         return redirect('/admin/login')
     admin_user = g.admin_user
@@ -550,7 +549,6 @@ def admin_user_able(vid):
 
 @admin.route("/admin_user/<vid>/up_password", methods=["GET", "POST"])
 def admin_user_up_password(vid):
-    from models import Customer
     if not g.admin_user:
         return redirect('/admin/login')
     password = request.form.get("password", "")
