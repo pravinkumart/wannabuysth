@@ -12,7 +12,7 @@
 	</div>
 	{% if ad_index %}
 	<div data-role="content" class="tc f0">
-		<img src="{{ ad_index.img }}" width="290" height="100px" class="me_list" />
+		<img src="{{ ad_index.img }}" width="320" height="100" me_event="gopage" me_data='item_detail/{{ ad_index.product_id }}' class="me_list" />
 	</div>
 	{% endif %}
 	<div id="sell_list_wrapper">
@@ -21,11 +21,11 @@
 			{% for ad in ads  %}
 			<li class="item horizontals" >
 				<div class="item_img tr box_flex1 " style="padding-right: 8px;">
-					<img src="{{ ad.0.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.product_id }}' style="height: 100px;width: 135px" />
+					<img src="{{ ad.0.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.0.product_id }}' style="height: 100px;width: 135px" />
 				</div>
 				<div class="item_img tl box_flex1" style="padding-left: 8px;">
 				{% if ad.1 %}
-					<img src="{{ ad.1.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.product_id }}' style="height: 100px;width: 135px" />
+					<img src="{{ ad.1.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.1.product_id }}' style="height: 100px;width: 135px" />
 				{% endif %}
 				</div>
 			</li>

@@ -38,6 +38,18 @@
 	                    <li class="{% if '/cu_product' in  request.url %}active{% endif %}">
 	                        <a href="/admin/cu_product" >产品管理</a>
 	                    </li>
+	                    <li class="dropdown {% if '/good_product' in  request.url %}active{% endif %}">
+                        	<a href="/"  data-toggle="dropdown" class="dropdown-toggle">推荐产品<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="menu2">
+                                <li>
+                                    <a href="/admin/good_product/add">添加推荐产品</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/good_product/list">管理推荐产品</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
 	                    <li class="{% if '/catalog' in  request.url %}active{% endif %}">
 	                        <a href="/admin/catalog" >频道管理</a>
 	                    </li>

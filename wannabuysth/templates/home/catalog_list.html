@@ -21,10 +21,10 @@
 				      	{% for catalog in catalogs %}
 				      		<div class="catalog fl" style="position:relative;overflow:hidden; width: 115px;">
 				      			{% if my_fee %}
-				      			<img src="{{ catalog.icon_smaill }}" class="me_tap fl" me_event="gopage" me_data="catalog/{{ catalog.id }}/{{ my_fee }}" />
+				      			<img src="{{ catalog.icon_smaill }}" width="118" height="90" class="me_tap fl" me_event="gopage" me_data="catalog/{{ catalog.id }}/{{ my_fee }}" />
 				      			<span style="position:absolute;bottom: 0;right: 10px;color:#666666;" class="f16">{{ catalog.ucount }}条</span> 
 				      			{% else %}
-				      			<img src="{{ catalog.icon_smaill }}" class="me_tap fl" me_event="gopage" me_data="catalog/{{ catalog.id }}/" />
+				      			<img src="{{ catalog.icon_smaill }}" width="118" height="90" class="me_tap fl" me_event="gopage" me_data="catalog/{{ catalog.id }}/" />
 				      			{% endif %}
 				      		</div>
 				      	{% endfor %}

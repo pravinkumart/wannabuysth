@@ -9,6 +9,8 @@ from datetime import datetime
 from utils import add_error, add_success
 from models import Catalog, SubCatlog
 from sqlalchemy import or_
+from models import Product,Merchant
+from models import ProductAds
 
 admin = Blueprint('backend', __name__, template_folder='templates', url_prefix='/admin')
 
@@ -626,4 +628,81 @@ def notice_del(vid):
     g.db.commit()
     add_success(u'删除成功')
     return redirect('/admin/notice/%s' % vtype)
+
+
+@admin.route("/good_product/del/<vid>", methods=["GET", "POST"])
+def good_product_del(vid):
+    if not g.admin_user:
+        return redirect('/admin/login')
+    from models import Notice
+    rec = g.db.query(ProductAds).filter(ProductAds.id == vid).first()
+    g.db.delete(rec)
+    g.db.commit()
+    add_success(u'删除成功')
+    return redirect('/admin/good_product/list')
+
+
+@admin.route("/good_product/add", methods=["GET", "POST"])
+def good_product_add():
+    from models import Product
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    from models import Merchant
+    mc_id = request.args.get("mc_id", "0")
+    mc = g.db.query(Merchant).filter(Merchant.id == mc_id).first()
+    if not mc:
+        datas = g.db.query(Merchant).order_by(Merchant.id)
+        return render_template("admin/good_product_add.html", **locals())
+    else:
+        datas = g.db.query(Product).filter(Product.merchant_id == mc_id)
+        return render_template("admin/good_product_add_2.html", **locals())
+    
+
+
+@admin.route("/good_product/add/<vid>", methods=["GET", "POST"])
+def good_product_ok(vid):
+    from models import Product
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    product = g.db.query(Product).filter(Product.id == vid).first()
+    mc = product.merchant
+    if request.method == 'POST':
+        start_time = request.form.get("start_time", "")
+        end_time = request.form.get("end_time", "")
+        sort_num = request.form.get("sort_num", "0")
+        vtype = int(request.form.get("type", "1"))
+        icon_smaill = request.files.get("img", "")
+        if vtype == 0:
+            icon_smaill = update_img_by(icon_smaill,230,115)
+        elif vtype == 1:
+            icon_smaill = update_img_by(icon_smaill,300,100)
+        else:
+            icon_smaill = update_img_by(icon_smaill,100,135)
+            
+        if not start_time or not end_time:
+            add_error(u'开始或者结束时间不能为空')
+        elif not icon_smaill:
+            add_error(u'图片不能为空')
+        else:
+            c = ProductAds(start_time=start_time,end_time=end_time,img=icon_smaill,type=vtype,sort_num=sort_num,product_id=vid)
+            g.db.add(c)
+            g.db.commit()
+            add_success(u'添加成功')
+            return redirect('/admin/good_product/add?mc_id=%s' % mc.id)
+    return render_template("admin/good_product_add_ok.html", **locals())
+    
+    
+
+
+@admin.route("/good_product/list", methods=["GET", "POST"])
+def good_product_list():
+    from models import Product
+    if not g.admin_user:
+        return redirect('/admin/login')
+    admin_user = g.admin_user
+    datas = g.db.query(ProductAds).filter(ProductAds.status == True).order_by(ProductAds.sort_num.desc(),ProductAds.start_time.desc())
+    return render_template("admin/good_product_list.html", **locals())
+
 

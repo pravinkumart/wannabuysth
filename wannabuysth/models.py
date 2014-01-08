@@ -173,6 +173,9 @@ class ProductAds(Base):
     img = Column(String(200))  # 广告图片
     type = Column(Integer)  # 广告类型 0 首页广告，1 广告列表中的第一张   2 广告列表里面的小广告
     sort_num = Column(Integer)  # 排序 字段 越大越靠钱
+    
+    def get_type_display(self):
+        return {0:u'首页广告',1:u'推荐服务置顶',2:u'推荐服务'}.get(self.type,self.type)
 
 
 

@@ -1,0 +1,76 @@
+{% extends "admin/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "admin/_head.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    	<div class="span12">
+	        <div class="block">
+	        	<div class="navbar navbar-inner block-header">
+		            <div class="muted pull-left"><a href="/admin/good_product/add">选择商家</a>/<a href="/admin/good_product/add?mc_id={{ mc.id }}">{{ mc.name }}</a>/{{ product.title }}</div>
+		        </div>
+	            <div class="block-content collapse in">
+	               <legend>添加推荐商品</legend>
+	            	{% include "mc/_info.html" %} 
+	               <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+	               	
+	               	  <label class="control-label" for="focusedInput">开始时间</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="start_time" id="start_time"  maxlength="11" value="">
+		              </div>
+		              <label class="control-label" for="focusedInput">结束时间</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="end_time" id="end_time"   maxlength="11" value="">
+		              </div>
+		              
+		              <label class="control-label" for="focusedInput">广告类型</label>
+		              <div class="controls" style="padding: 10px 0;">
+		              	<select name="type">
+		              		<option value="0">首页广告(230x115)</option>
+		              		<option value="1">推荐广告置顶(300x100)</option>
+		              		<option value="2" selected="selected">推荐广告(100x135)</option>
+		              	</select>
+		              </div>
+		              <label class="control-label" for="focusedInput">图片</label>
+		              <div class="controls">
+		              	<input class="input-xlarge focused" for_ref="icon_large" style=" margin: 5px;" type="file" name="img" value="">
+		              	<div class="blan0"></div>
+		              </div>
+		              <div class="blank10"> </div>
+		              <label class="control-label" for="focusedInput">排序</label>
+		              <div class="controls">
+		                <input class="input-xlarge focused"  type="text" name="sort_num" value="0">
+		              </div>
+		              <div class="controls">
+		                 <button style="width: 140px;" class="btn btn-large btn-primary fl" type="submit">保存</button>
+			        	 <div class="blank0"> </div>
+		              </div>
+	               </form>
+	            </div>
+	        </div>
+	        
+	        <!-- /block -->
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+	$("#end_time").datepicker({
+		monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+		dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'], 
+		dateFormat:"yy-mm-dd",
+		autoSize:false,
+		onSelect:function(data){
+			}
+		});
+	$("#start_time").datepicker({
+		monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+		dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'], 
+		dateFormat:"yy-mm-dd",
+		autoSize:false,
+		onSelect:function(data){
+			}
+		});
+</script>
+{% endblock %} 
