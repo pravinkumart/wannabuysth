@@ -679,7 +679,7 @@ def good_product_ok(vid):
         elif vtype == 1:
             icon_smaill = update_img_by(icon_smaill,290,100)
         else:
-            icon_smaill = update_img_by(icon_smaill,100,135)
+            icon_smaill = update_img_by(icon_smaill,135,100)
             
         if not start_time or not end_time:
             add_error(u'开始或者结束时间不能为空')
