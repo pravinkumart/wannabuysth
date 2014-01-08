@@ -26,6 +26,8 @@
 				<div class="item_img tl box_flex1" style="padding-left: 8px;">
 				{% if ad.1 %}
 					<img src="{{ ad.1.img }}" class="me_list me_tap" me_event="gopage" me_data='item_detail/{{ ad.1.product_id }}' style="height: 100px;width: 135px" />
+				{% else %}
+					<div style="width: 100px;height: 135px;"></div?>
 				{% endif %}
 				</div>
 			</li>
