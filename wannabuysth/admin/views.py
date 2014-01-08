@@ -677,7 +677,7 @@ def good_product_ok(vid):
         if vtype == 0:
             icon_smaill = update_img_by(icon_smaill,230,115)
         elif vtype == 1:
-            icon_smaill = update_img_by(icon_smaill,300,100)
+            icon_smaill = update_img_by(icon_smaill,290,100)
         else:
             icon_smaill = update_img_by(icon_smaill,100,135)
             
