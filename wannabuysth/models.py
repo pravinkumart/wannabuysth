@@ -96,6 +96,9 @@ class Customer(Base):
             return 'data:image/jpeg;base64,%s' % self.portrait
         else:
             return '/static/data/my_portrait.png'
+    
+    def get_current_fee(self):
+        return self.current_fee / 100.0
 
 
 class CustomerCataog(Base):
