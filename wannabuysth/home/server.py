@@ -93,8 +93,8 @@ def update_user_password(user_id, password):
     '''
     @note: 修改用户密码
     '''
-    if len(password) < 4:
-        return False, u'新密码不能少于4位!'
+    if len(password) < 6:
+        return False, u'新密码不能少于6位!'
     user = g.db.query(Customer).filter(Customer.id == user_id).first()
     if user:
         user.password = password
