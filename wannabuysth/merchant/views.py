@@ -163,6 +163,8 @@ def mc_regedit():
             add_error(u'请输入11位手机号')
         elif password != re_password:
             add_error(u'2次输入的密码不一致')
+        elif len(password) < 6:
+            add_error(u'密码不能小于6位')
         elif g.db.query(Merchant).filter(Merchant.mobile == mobile).first():
             add_error(u'手机号已使用')
         elif g.db.query(Merchant).filter(Merchant.name == name).first():
