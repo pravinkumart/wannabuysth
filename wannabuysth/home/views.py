@@ -778,7 +778,12 @@ def show_casereplay(showcase_id):
     showcase = g.db.query(ShowCase).filter(ShowCase.id == showcase_id).first()
     subcatlog_id = showcase.requirment.subcatlog_id
     showcases = g.db.query(SuccessRequirment).filter(SuccessRequirment.customer_id == user.id)
-    showcases = [showcase  for showcase in showcases if showcase.subcatlog_id == subcatlog_id]
+    
+    have_cases = g.db.query(ShowCaseReplay).filter(ShowCaseReplay.customer_id == user.id)
+    have_cases = [have_case.requirment_id for have_case in have_cases]
+    
+    showcases = [showcase  for showcase in showcases if showcase.subcatlog_id == subcatlog_id and showcase.id not in have_cases]
+    
     return render_template("home/bijia_casereplay.html", **locals())
 
 
