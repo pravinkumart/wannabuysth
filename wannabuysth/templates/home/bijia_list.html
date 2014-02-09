@@ -46,6 +46,11 @@
 					<p class="col6">交易价格:<span class="fb">{{ showcase.get_wanna_fee() }}</spa>元</p>
 					<div  class="blank10"></div>
 				</div>
+				{% if user and user.id ==  showcase.customer_id %}
+				<div style="width: 100px;padding-top: 50px;" class="me_tap" me_event='delete_bijia'  me_data={{  showcase.id }}  >
+					删除
+				</div>
+				{% endif %}
 			</li>
 			{%  endfor %}
 		</div>

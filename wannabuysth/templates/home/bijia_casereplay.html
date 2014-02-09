@@ -16,16 +16,16 @@
 			{% for showcase in showcases%}
 			<li class="item horizontal me_tap" me_event="bijia_casereplay_ok" me_data='{{ showcase_id }},{{ showcase.id }}'  >
 				<div style="width: 80px;" class="pad10">
-					{%  if showcase.requirment.product %}
-					<img src="{{ showcase.requirment.product.icon_smaill }}" width="70" height="70"/>
+					{%  if showcase.product %}
+					<img src="{{ showcase.product.icon_smaill }}" width="70" height="70"/>
 					{% else %}
-						<img src="{{ showcase.requirment.subcatlog.icon_large }}" width="70" height="70"/>
+						<img src="{{ showcase.subcatlog.icon_large }}" width="70" height="70"/>
 					{% endif %}
 				</div>
 				<div class="box_flex1 pad10">
-					<div class="fb">{{ showcase.requirment.descrip }}</div>
+					<div class="fb">{{ showcase.descrip }}</div>
 					<div class="blank10"></div>
-					<p class="col6">商家:{{ showcase.requirment.merchant.name }}</p>
+					<p class="col6">商家:{{ showcase.merchant.name }}</p>
 					<div  class="blank10"></div>
 					<p class="col6">交易价格:<span class="fb">{{ showcase.get_wanna_fee() }}</spa>元</p>
 					<div  class="blank10"></div>

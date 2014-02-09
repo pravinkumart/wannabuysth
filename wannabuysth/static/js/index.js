@@ -897,6 +897,9 @@ function befor_catalog_search(){
 }
 
 
+function delete_bijia(){
+	
+}
 
 
 

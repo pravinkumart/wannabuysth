@@ -555,7 +555,7 @@ def update_choose_item(requirment_id):
                               )
             g.db.add(re)
             g.db.commit()
-            user.current_fee += reply.fee*0.1
+            user.current_fee += reply.fee * 0.1
             user.user_level += 2
             g.db.add(user)
             g.db.commit()
@@ -691,8 +691,8 @@ def sell_list():
 
 @index.route("/bijia")
 def bijia():
+    user = g.user
     sort_type = int(request.args.get("sort_type", '0'))
-    from models import ShowCase
     if sort_type:
         showcases = g.db.query(ShowCase).order_by(ShowCase.wanna_fee.desc())
     else:
@@ -707,7 +707,6 @@ def location():
 
 @index.route("/share_requirment")
 def share_requirment():
-    from models import ShowCase
     user = g.user
     if not user:
         return redirect(url_for("home.login", need_login="share_requirment"))
@@ -750,9 +749,9 @@ def bijia_detail(showcase_id):
     showcase = g.db.query(ShowCase).filter(ShowCase.id == showcase_id).first()
     sort_type = int(request.args.get("sort_type", '0'))
     if sort_type:
-        showcases = g.db.query(ShowCaseReplay).order_by(ShowCaseReplay.wanna_fee.desc())
+        showcases = g.db.query(ShowCaseReplay).filter(ShowCaseReplay.showcase_id == showcase_id).order_by(ShowCaseReplay.wanna_fee.desc())
     else:
-        showcases = g.db.query(ShowCaseReplay).order_by(ShowCaseReplay.wanna_fee.asc())
+        showcases = g.db.query(ShowCaseReplay).filter(ShowCaseReplay.showcase_id == showcase_id).order_by(ShowCaseReplay.wanna_fee.asc())
 
 
     comments = g.db.query(Comments).filter(Comments.showcase_id == showcase_id).order_by(Comments.id.asc())
@@ -773,20 +772,22 @@ def comment_showcase(showcase_id):
 
 @index.route("/show_casereplay/<showcase_id>")
 def show_casereplay(showcase_id):
+    user = g.user
+    if not user:
+        return redirect(url_for("home.login", need_login="show_casereplay/%s" % showcase_id))
     showcase = g.db.query(ShowCase).filter(ShowCase.id == showcase_id).first()
-    product = showcase.requirment.product
-    showcases = g.db.query(ShowCase).filter(Comments.showcase_id == showcase_id)
-    showcases = [showcase for showcase in showcases if showcase.requirment.product.id == product.id]
-
+    subcatlog_id = showcase.requirment.subcatlog_id
+    showcases = g.db.query(SuccessRequirment).filter(SuccessRequirment.customer_id == user.id)
+    showcases = [showcase  for showcase in showcases if showcase.subcatlog_id == subcatlog_id]
     return render_template("home/bijia_casereplay.html", **locals())
 
 
 @index.route("/re_showcase/<showcase_id>/<showcase_re_id>", methods=["POST"])
 def re_showcase(showcase_id, showcase_re_id):
-    showcase_re = g.db.query(ShowCase).filter(ShowCase.id == showcase_re_id).first()
+    showcase_re = g.db.query(SuccessRequirment).filter(SuccessRequirment.id == showcase_re_id).first()
 
 
-    rec = ShowCaseReplay(showcase_id=showcase_id , requirment_id=showcase_re.requirment_id,
+    rec = ShowCaseReplay(showcase_id=showcase_id , requirment_id=showcase_re_id,
                    customer_id=showcase_re.customer_id, wanna_fee=showcase_re.wanna_fee)
     g.db.add(rec)
     g.db.commit()
