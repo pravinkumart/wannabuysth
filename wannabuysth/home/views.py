@@ -819,7 +819,27 @@ def catalog_list_my_fee(my_fee):
     return render_template("home/catalog_list.html", **locals())
 
 
-
+@index.route("/delete_bijia/<data_id>", methods=["GET", 'POST'])
+def delete_bijia(data_id):
+    result = {'succeed':True, 'erro':''}
+    user = g.user
+    if not user:
+        return jsonify(result)
+    
+    showcase = g.db.query(ShowCase).filter(ShowCase.id == data_id, ShowCase.customer_id == user.id).first()
+    if showcase:
+        have_cases = g.db.query(ShowCaseReplay).filter(ShowCaseReplay.customer_id == user.id, ShowCaseReplay.showcase == showcase)
+        for have_case in have_cases:
+            g.db.delete(have_case)
+            
+        comments = g.db.query(Comments).filter(Comments.customer_id == user.id, Comments.showcase == showcase)
+        for comment in comments:
+            g.db.delete(comment)
+            
+        g.db.delete(showcase)
+        g.db.commit()
+    
+    return jsonify(result)
 
 
 

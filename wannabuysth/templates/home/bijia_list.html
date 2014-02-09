@@ -30,7 +30,7 @@
 		<div class="scroller">
 		<ul class="thelist item_list">
 			{% for showcase in showcases%}
-			<li class="item horizontal me_tap" me_event="gopage" me_data='bijia_detail/{{ showcase.id }}'  >
+			<li class="item horizontal"   >
 				<div style="width: 80px;" class="pad10">
 					{%  if showcase.requirment.product %}
 					<img src="{{ showcase.requirment.product.icon_smaill }}" width="70" height="70"/>
@@ -38,7 +38,7 @@
 						<img src="{{ showcase.requirment.subcatlog.icon_large }}" width="70" height="70"/>
 					{% endif %}
 				</div>
-				<div class="box_flex1 pad10">
+				<div class="box_flex1 pad10 me_tap" me_event="gopage" me_data='bijia_detail/{{ showcase.id }}'>
 					<div class="fb">{{ showcase.requirment.descrip }}</div>
 					<div class="blank10"></div>
 					<p class="col6">商家:{{ showcase.requirment.merchant.name }}</p>
@@ -47,7 +47,7 @@
 					<div  class="blank10"></div>
 				</div>
 				{% if user and user.id ==  showcase.customer_id %}
-				<div style="width: 100px;padding-top: 50px;" class="me_tap" me_event='delete_bijia'  me_data={{  showcase.id }}  >
+				<div style="width: 100px;padding-top: 50px;text-align:center;" class="me_tap" me_event='delete_bijia'  me_data={{  showcase.id }}  >
 					删除
 				</div>
 				{% endif %}

@@ -897,8 +897,17 @@ function befor_catalog_search(){
 }
 
 
-function delete_bijia(){
-	
+function delete_bijia(data_id){
+	if(!confirm('确定删除吗？')){return false;}
+	$.post('/home/delete_bijia/'+data_id,{},function(datas){
+		$.mobile.loading('hide');
+		if(datas.succeed){
+			alert('删除成功!');
+			gopage('home/bijia');
+		}else{
+			alert(datas.erro);
+		}
+	});
 }
 
 
