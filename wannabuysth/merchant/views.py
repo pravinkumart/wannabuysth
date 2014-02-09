@@ -495,7 +495,7 @@ def statistics():
     datas_ = {}
     for data in datas:
         k = data.create_time.date().isoformat()
-        datas_[k] = datas_.get(k, 0) + data.value
+        datas_[k] = datas_.get(k, 0) + data.wanna_fee
     datas = []
     start_day = end_day
     for i in range(30):
