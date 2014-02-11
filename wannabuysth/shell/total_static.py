@@ -1,5 +1,15 @@
 # -*- coding: UTF-8 -*-
 
+
+import sys
+import os
+
+file_path = os.path.dirname(os.path.abspath(__file__))
+os.chdir(file_path)
+
+sys.path.insert(0, '../')
+sys.path.insert(0, '../../')
+
 from models import Statistics
 from models import Merchant
 from models import Customer
