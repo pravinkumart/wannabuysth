@@ -1,0 +1,46 @@
+{% extends "mc/base.html" %}
+
+{% block body_id %}id="main_index" {% endblock %} 
+{% block container %} 
+{% include "mc/_head.html" %} 
+<div class="container-fluid">
+<div class="row-fluid">
+    {% include "mc/_self.html" %} 
+    <div class="span9" id="content">
+    	<div class="span12">
+	        <div class="block">
+            	<div class="navbar navbar-inner block-header">
+	            	<div class="muted pull-left">修改商家LOGO(尺寸116x166)</div>
+	            </div>
+	            <div class="block-content collapse in">
+	            	{% include "mc/_info.html" %} 
+	                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+						<div class="modal-body">
+							<fieldset>
+					          <label for="focusedInput" class="control-label"></label>
+					          <div class="controls">
+					            <img src="{{ mc_user.logo }}" />
+					          </div>
+					          <div class="blank10"></div>
+					          <label for="focusedInput" class="control-label">上传新logo</label>
+					          <div class="controls">
+					            <input type="file" value="" name="logo" class="input-xlarge focused">
+					          </div>
+					          <div class="blank10"></div>
+					          <label for="focusedInput" class="control-label"> </label>
+					          <div class="controls">
+					          		<button style="width: 140px;" type="submit" class="btn btn-large btn-primary fl">保存</button>
+							        <div class="blank0"> </div>
+					          </div>
+					          </fieldset>
+						</div>
+						</form>
+	                </table>
+	            </div>
+	        </div>
+	        <!-- /block -->
+	    </div>
+    </div>
+</div>
+</div>
+{% endblock %} 

@@ -152,11 +152,14 @@ def requirment_cancel(requirment_id):
 @mc.route("/regedit", methods=["GET", "POST"])
 def mc_regedit():
     if request.method == 'POST':
+        from admin.views import update_img_by
         name = request.form.get("name", "").strip()
         mobile = request.form.get("mobile", "").strip()
         password = request.form.get("password", "")
         re_password = request.form.get("re_password", "")
-
+        logo = request.files.get("logo", "")
+        logo = update_img_by(logo, 116, 116)
+        
         if not mobile or not password:
             add_error(u'手机号或密码不能为空')
         elif not mobile or len(mobile) != 11:
@@ -169,8 +172,10 @@ def mc_regedit():
             add_error(u'手机号已使用')
         elif g.db.query(Merchant).filter(Merchant.name == name).first():
             add_error(u'商家名称已使用')
+        elif not logo:
+            add_error(u'商家logo必选')
         else:
-            rec = Merchant(name=name, mobile=mobile, password=password, pre_payed=0,
+            rec = Merchant(name=name, mobile=mobile, password=password, pre_payed=0, logo=logo,
                            success_count=0, faild_count=0, catalog_count=1, subcatalog_count=3
                            )
             g.db.add(rec)
@@ -481,6 +486,24 @@ def up_password():
         else:
             add_error(u'旧密码输入错误')
     return render_template("mc/password.html", **locals())
+
+@mc.route("/self/logo", methods=["GET", "POST"])
+def mc_logo():
+    from admin.views import update_img_by
+    if not g.mc_user:
+        return redirect('/mc/login')
+    mc_user = g.mc_user
+    if request.method == 'POST':
+        icon_smaill = request.files.get("logo", "")
+        icon_smaill = update_img_by(icon_smaill,116,116)
+        if icon_smaill:   
+            mc_user.logo = icon_smaill
+            g.db.add(mc_user)
+            g.db.commit()
+            add_success(u'上传图片成功')
+        else:
+            add_error(u'没找到logo')
+    return render_template("mc/logo.html", **locals())
 
 @mc.route("/self/statistics", methods=["GET", "POST"])
 def statistics():

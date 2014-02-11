@@ -126,6 +126,7 @@ class Merchant(Base):
     faild_count = Column(Integer)  # 失败次数
     catalog_count = Column(Integer, default=1)  # 限制服务大类 数量
     subcatalog_count = Column(Integer, default=3)  # 限制服务小类 数量
+    logo = Column(String(128))  # 密码
 
     def get_pre_payed(self):
         return self.pre_payed / 100.0
