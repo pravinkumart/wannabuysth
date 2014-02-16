@@ -620,6 +620,9 @@ function wating(){
 }
 
 function select_reply(replay_id){
+	if(!confirm("感谢使用邦办管家，您已选择了该商家所提供的服务，祝您顺利完成交易。若因您自身原因取消本次交易，您的信用基金将被部分扣除，请谨慎选择！")){
+		return false;
+	}
 	$.mobile.loading('show', {text : 'test', theme : 'a'});
 	data = {replay_id:replay_id};
 	$.post('/home/select_reply/'+replay_id,data,function(datas){
