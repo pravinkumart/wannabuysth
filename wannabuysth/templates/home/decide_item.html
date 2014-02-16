@@ -42,7 +42,7 @@
 	<div class="" style="padding: 20px 10px 0 10px; ">
 		<div class="col4">我的需求</div>
 		<div class="blank5"></div>
-		<div class="pad10">{{ requirment.descrip }}</div>
+		<div class="pad10"><pre>{{ requirment.descrip }}</pre></div>
 	</div>
 	{% if replys.count() > 0 %}
 		<div class="reply_list">
@@ -60,7 +60,7 @@
 					</div>
 					<div class="blank5"></div>
 					<div  class="col6 f12 pad10">
-						{{ reply.descrip }}
+						<pre>{{ reply.descrip }}</pre>
 					</div>
 					<div class="blank5"></div>
 					<div class=" f0">

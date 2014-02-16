@@ -27,7 +27,7 @@
 	                <tr class="{{ loop.cycle('success', 'error','info') }}">
 	                  <td width="30">{{ loop.index }}</td>
 	                   <td width="30">{{ data.customer.name }}</td>
-	                   <td>{{ data.descrip}}</td>
+	                   <td><pre>{{ data.descrip}}</pre></td>
 	                   <td width="100">{{ data.get_wanna_fee()  }}</td>
 	                   <td width="100">{{ data.end_time  }}</td>
 	                   <td width="100">{{ data.get_state()  }}</td>
