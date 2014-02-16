@@ -217,7 +217,7 @@ class Requirment(Base):
         return self.wanna_fee / 100.0
 
     def get_state(self):
-        return {0:u'用户新发布 ', 1:u'用户选定商家 ', 2:u'商家确定 ', 3:u'交易完成', 4:u'交易失败'}.get(self.state, self.state)
+        return {0:u'用户新发布 ', 1:u'选定商家 ', 2:u'商家确定 ', 3:u'交易完成', 4:u'交易失败'}.get(self.state, self.state)
 
 
 
