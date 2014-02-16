@@ -45,6 +45,16 @@ function del_data(key){
 	return	window.localStorage.removeItem(key);
 }
 
+var pictureSource; //  getPicture:数据来源参数的一个常量
+var destinationType; // getPicture中：设置getPicture的结果类型
+var pickUrl;
+function fromCamera(pictureSource,destinationType){
+        navigator.camera.getPicture(onSuccess, onFail, {
+                    quality : 50, 
+                    destinationType : destinationType.DATA_URL,
+                    sourceType : pictureSource.PHOTOLIBRARY
+        });
+}
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -65,19 +75,20 @@ function onDeviceReady() {
 		};
 
 	}
+	pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+    // fromCamera(pictureSource,destinationType)
 }
 
 function showConfirm(message, completeCallback, title){
-	if(!confirm(message)){return false;}
-		completeCallback(1);
-	return 
-	if(navigator.notification&&navigator.notification.confirm){
-			if(!title){title = '提示';}
-			navigator.notification.confirm(message, completeCallback, title, ['确定','取消'])
-	}else{
-		if(!confirm(message)){return false;}
-		completeCallback();
+	if(window.device&&window.device.platform == 'Android'){
+		if(!title){title = '提示';}
+		navigator.notification.confirm(message, completeCallback, title, ['确定','取消'])
+		return false;
 	}
+	if(!confirm(message)){completeCallback(2);return false;}
+		completeCallback(1);
+	
 }
 
 
@@ -131,8 +142,14 @@ $('#accounts').live('pageshow',function() {
 function getPicture(){
 	showConfirm('是否修改头像？',function(ok){
 		if(ok!=1){return false;}
-		navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-		    destinationType: Camera.DestinationType.DATA_URL
+		showConfirm('是否选择现有图片？',function(ok){
+			if(ok==1){
+				fromCamera(pictureSource,destinationType)
+			}else{
+				navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+				    destinationType: Camera.DestinationType.DATA_URL
+				});
+			}
 		});
 	})
 }
@@ -620,20 +637,20 @@ function wating(){
 }
 
 function select_reply(replay_id){
-	if(!confirm("感谢使用邦办管家，您已选择了该商家所提供的服务，祝您顺利完成交易。若因您自身原因取消本次交易，您的信用基金将被部分扣除，请谨慎选择！")){
-		return false;
-	}
-	$.mobile.loading('show', {text : 'test', theme : 'a'});
-	data = {replay_id:replay_id};
-	$.post('/home/select_reply/'+replay_id,data,function(datas){
-		$.mobile.loading('hide');
-		if(datas.succeed){
-			alert('选择商家成功!')
-			gopage('decide_list')
-		}else{
-			alert(datas.erro)
-		}
-	});
+	showConfirm("感谢使用邦办管家，您已选择了该商家所提供的服务，祝您顺利完成交易。若因您自身原因取消本次交易，您的信用基金将被部分扣除，请谨慎选择！",function(ok){
+		if(ok!=1){return false;}
+		$.mobile.loading('show', {text : 'test', theme : 'a'});
+		data = {replay_id:replay_id};
+		$.post('/home/select_reply/'+replay_id,data,function(datas){
+			$.mobile.loading('hide');
+			if(datas.succeed){
+				alert('选择商家成功!')
+				gopage('decide_list')
+			}else{
+				alert(datas.erro)
+			}
+		});
+	})
 	
 }
 
