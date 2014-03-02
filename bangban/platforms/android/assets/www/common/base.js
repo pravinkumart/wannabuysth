@@ -1,5 +1,5 @@
 var Version = '1.1.0';
-var Debug = true;
+var Debug = false;
 
 
 var www = 'http://app.bangban.com/';
