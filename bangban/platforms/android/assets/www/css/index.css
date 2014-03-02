@@ -84,7 +84,7 @@ body.body {
 	font-size: 20px;
 }
 
-#help .help_des:last-child{
+.help_des:last-child{
 	border: 1px solid #d4d4d4;
 }
 
@@ -107,8 +107,6 @@ body.body {
 }
 
 #wrapper_index .scroller {
-  height:100%;
-  float:left;
   padding:0;
 }
 
@@ -117,7 +115,6 @@ body.body {
   display:block;
   float:left;
   width:100%;
-  height:100%;
   padding:0;
   margin:0;
   text-align:left;
@@ -145,6 +142,7 @@ body.body {
 }
 .portrait img{
 	width:40px;
+	height: 40px;
 	border-radius:40px;
 	border:2px solid #C8C7BC;
 }
@@ -226,8 +224,8 @@ textarea,input{
 }
 .button_01{
 	height: 20px;
-	width: 72px;
-	font-size:18px;
+	width: 80px;
+	font-size:16px;
 	padding: 5px 10px;
 	line-height: 20px;
 	background-color: #E74C3C;
@@ -301,6 +299,7 @@ textarea::-moz-placeholder{
 .mart_10{margin-top: 10px;}
 
 .bg{background-color:#F6F6F6;}
+.bg_back{background-color:#F6F6F6;}
 .bg1{background-color:#FFF;}
 .bg2{background-color:#333333;}
 .bg3{background-color:#eaeaea;}
@@ -339,6 +338,7 @@ textarea::-moz-placeholder{
 	font-size:14px;
 	color:#888;
 	margin-top: 5px;
+	display:none;
 }
 #pullUp .pullUpIcon  {
 	display:block; float:left;
@@ -394,7 +394,17 @@ textarea::-moz-placeholder{
 .blank10{width: 100%;height: 10px;clear: both;}
 .blank15{width: 100%;height: 15px;clear: both;}
 
-
+#wrapper_item_detail {
+  position:absolute;
+  z-index:1;
+  top:42px;
+  left:0px;
+  width:100%;
+  bottom:40px;
+  overflow:hidden;
+	
+	
+}
 /* 二级分类  */
 
 #wrapper_second_lv{
@@ -437,7 +447,6 @@ textarea::-moz-placeholder{
 
 #wrapper_second_lv li .box_flex1 {
 	border: 1px solid #D4D4D4;
-	background:url("../data/type.jpg") no-repeat 10px center;
 	background-color: #FFFFFF;
 	background-size:25px;
 	width: 100px;
@@ -453,7 +462,7 @@ textarea::-moz-placeholder{
 }
 
 .item_list{border-top: 1px solid #dedede;}
-.item_list .item{ height:60px;padding:10px 0 10px  10px; border-bottom: 1px solid #dedede;}
+.item_list .item{ min-height:60px;padding:10px 0 10px  10px; border-bottom: 1px solid #dedede;}
 .item_list .item_img {padding-right:10px}
 .item_list .item_img img{width: 100px;height:60px;border: 1px solid #d4d4d4;}
 
@@ -599,10 +608,124 @@ textarea::-webkit-input-placeholder {
 }
 
 
+
+#bijia_detail_wrapper {
+	position: absolute;
+	top: 82px;
+	left: 0;
+	width: 100%;
+	bottom: 50px;
+	overflow:hidden;
+}
+
+#bijia_detail_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#bijia_detail_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+/* 比价 */
+
+#bijia_list_wrapper {
+	position: absolute;
+	top: 82px;
+	left: 0;
+	width: 100%;
+	bottom: 50px;
+	overflow:hidden;
+}
+
+#bijia_list_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#bijia_list_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
+/* 分享  */
+
+#share_requirment_wrapper {
+	position: absolute;
+	top: 82px;
+	left: 0;
+	width: 100%;
+	bottom: 0px;
+	overflow:hidden;
+}
+
+#share_requirment_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#share_requirment_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
+/* 分享  */
+
+#bijia_casereplay_wrapper {
+	position: absolute;
+	top: 42px;
+	left: 0;
+	width: 100%;
+	bottom: 0px;
+	overflow:hidden;
+}
+
+#bijia_casereplay_wrapper .scroller {
+	position:absolute; 
+	z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+#bijia_casereplay_wrapper .scroller ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	width:100%;
+	text-align:left;
+}
+
+
 .search_icon {
 	width: 32px;
 	height: 32px;
 	background: url("../images/search.png") no-repeat 0 5px;
+	background-size: 32px;
+}
+
+.release_icon {
+	width: 32px;
+	height: 32px;
+	background: url("../images/release.png") no-repeat 0 5px;
 	background-size: 32px;
 }
 
@@ -626,8 +749,14 @@ textarea::-webkit-input-placeholder {
     color: #FFFFFF;
 }
 
+.none{display:none;}
 
+.like_msg {
+	line-height: 50px;
+}
+.like_msg span {margin-right: 15px; display:inline-block;padding-top: 10px;}
 
-
-
-
+#loading_lv .thelist {height: 100%; list-style:none;}
+#loading_lv li{text-align:center; float: left;}
+#loading_lv li img{width: 320px;display:none;}
+#loading_lv {position:absolute;top: 0;left: 0;bottom: 0;width: 100%;overflow:hidden;}
