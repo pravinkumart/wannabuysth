@@ -19,7 +19,7 @@
 				    <ul class="thelist">
 				    	 
                          {% for catalogs in catalog_list %}
-					      <li style="max-width:100%;min-width:100%; max-height:90px; min-height:90px;">
+					      <li>
 					     {% for catalog in catalogs %}
 					      	<img src="{{ catalog.icon_smaill }}" class="me_tap" width="118" height="90" me_event="gopage" me_data="second_lv/{{ catalog.id }}/" />
 				      	 {% endfor %}
