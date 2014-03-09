@@ -272,7 +272,7 @@ def home_index():
     # 今日推荐
     ad = g.db.query(ProductAds).filter(ProductAds.type == 1, ProductAds.start_time <= now,
                                              ProductAds.end_time >= now).order_by(ProductAds.sort_num).first()
-
+    logging.error(u"ad = %s" % ad)
     catalogs = g.db.query(Catalog).order_by(Catalog.idx.desc())
     #logging.error(u"".join([catalog for catalog in catalogs]))
     total = catalogs.count()

@@ -184,6 +184,8 @@ class ProductAds(Base):
     def get_type_display(self):
         return {0:u'首页广告',1:u'推荐服务置顶',2:u'推荐服务'}.get(self.type,self.type)
 
+    def __repr__(self):
+        return u"product add = %s" % self.product.title
 
 
 
