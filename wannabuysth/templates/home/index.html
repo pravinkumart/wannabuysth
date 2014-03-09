@@ -11,11 +11,11 @@
 			<!--<div class="tc bg2 f18 col1" style="height: 40px;line-height: 40px; width: 230px;">今日推荐</div>-->
             </div>
 			{% endif %}
-			<div id="wrapper_index" >
-				  <div >
+			<div id="wrapper_index" style="height:auto; max-width:100%;" >
+				  <div class="scroller" style="max-width:100%;min-width:100%; height:auto;" >
 				    <ul class="thelist">
-				    	 <li style="background-color:#e64c65; max-width:118px; min-width:118px; max-height:90px; min-height:90px; font-size:inherit;" me_data="catalog_search" me_event="gopage" class="login box_flex3 tc br_5 f18 me_tap">
-				 消费能力评测
+				    	 <li style="background-color:#e64c65; max-width:113px; min-width:113px; max-height:90px; min-height:90px; font-size:inherit;" me_data="catalog_search" me_event="gopage" class="login box_flex3 tc br_5 f18 me_tap">
+				 消费能力
 			</li>
                          {% for catalogs in catalog_list %}
 					      <li style="max-width:118px;min-width:118px; max-height:90px; min-height:90px;">
