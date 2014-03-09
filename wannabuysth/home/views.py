@@ -276,6 +276,7 @@ def home_index():
     catalogs = g.db.query(Catalog).order_by(Catalog.idx.desc()) 
     total = catalogs.count()
     catalog_list = [catalogs[i:(i + 2)] for i in range(0, total, 2)]
+    logging.error("index-catalogs:\n%s" % catalog_list)
     return render_template("home/index.html", **locals())
 
 
