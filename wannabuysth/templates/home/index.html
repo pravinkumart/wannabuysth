@@ -1,24 +1,20 @@
 <div data-role="page" id="index">
 	<div style="padding: 15px 50px 15px 15px;">
-		<div style=" max-width:78%; min-width:78%;overflow:hidden; margin: 0 auto;">
-			{% if ad %}
-            <div style="max-width:100%; min-width:100%; max-height:117px; min-height:117px;">
-			<img src="{{ ad.img }}" id="myImage" class="me_tap"  me_event="gopage" me_data='item_detail/{{ ad.product_id }}'  style="max-width:100%;height: 115px;" />
-			<!--<div class="tc bg2 f18 col1" style="height: 40px;line-height: 40px; width: 230px;">今日推荐</div>-->
-            </div>
-			{% endif %}
+		<div style="width: 230px;overflow:hidden; margin: 0 auto;">
+			<div style="margin: 10px 0;height: 75px;width: 230px;line-height: 75px; background-color:#e64c65;" me_data="catalog_search" me_event="gopage" class="login box_flex3 tc br_5 f18 me_tap">
+				 消费能力评测
+			</div>
 			<div style="margin: 10px 0;height: 75px;width: 230px;line-height: 75px; background-color:#e64c65;" me_data="catalog_list" me_event="gopage" class="login box_flex3 tc br_5 f18 me_tap">
 				 发布消费需求
 			</div>
-			
-			<div id="wrapper_index" style="height:auto; max-width:100%;" >
-				  <div class="scroller" style="max-width:100%;min-width:100%; height:auto;" >
-                  <div style="background-color:#e64c65; max-width:100%px; min-width:100%; max-height:90px; min-height:90px; font-size:inherit;" me_data="catalog_search" me_event="gopage" class="login box_flex3 tc br_5 f18 me_tap">
-				 消费能力
-			</div>
+			{% if ad %}
+			<img src="{{ ad.img }}" id="myImage" class="me_tap"  me_event="gopage" me_data='item_detail/{{ ad.product_id }}'  style="width:230px;height: 115px;" />
+			<div class="tc bg2 f18 col1" style="height: 40px;line-height: 40px; width: 230px;">今日推荐</div>
+			{% endif %}
+			<div id="wrapper_index" style="height: 360px;">
+				  <div class="scroller">
 				    <ul class="thelist">
-				    	 
-                         {% for catalogs in catalog_list %}
+				    	 {% for catalogs in catalog_list %}
 					      <li>
 					     {% for catalog in catalogs %}
 					      	<img src="{{ catalog.icon_smaill }}" class="me_tap" width="118" height="90" me_event="gopage" me_data="second_lv/{{ catalog.id }}/" />
@@ -32,7 +28,7 @@
 			<div class="" style="clear:both;"></div>
 		</div>
 	</div>
-	<div style="width: 15%;position:absolute;right: 10px;top: 10px;" class="tc">
+	<div style="width: 50px;position:absolute;right: 10px;top: 10px;" class="tc">
 			<div class="portrait tr me_tap" me_event="gopage" me_data="my_keeper" >
 				{% if user %}
 					<img src="{{ user.get_portrait() }}"   />
