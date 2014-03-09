@@ -31,7 +31,7 @@ class Catalog(Base):
     idx = Column(SmallInteger)  # 排序
 
     def __repr__(self):
-        return u"".join([u"catalog-id[", self.id, u"]", self.name, u"(", self.idx, u")"])
+        return u"".join([u"catalog-id[", str(self.id), u"]", self.name, u"(", self.idx, u")"])
 
 class SubCatlog(Base):
     """
