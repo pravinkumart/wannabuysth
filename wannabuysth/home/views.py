@@ -280,7 +280,6 @@ def home_index():
     if len(seq2)<len(seq1):
         seq2.append(None)
     catalog_list = zip(seq1, seq2)
-    logging.error(catalog_list)
     return render_template("home/index.html", **locals())
 
 
