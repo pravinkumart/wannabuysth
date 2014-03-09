@@ -30,6 +30,9 @@ class Catalog(Base):
     icon_large = Column(String(200))  # 大图标
     idx = Column(SmallInteger)  # 排序
 
+    def __repr__(self):
+        return u"".join([u"catalog-id[", self.id, u"]", self.name, u"(", self.idx, u")"])
+
 class SubCatlog(Base):
     """
     子目录
