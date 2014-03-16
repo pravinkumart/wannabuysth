@@ -4,7 +4,7 @@
 }
 
 body.body {
-	background:url("../images/bg.png") repeat-y;
+	background:url("images/bg.png") repeat-y;
 	background-size:100%;
 	background-position:center top;
 	min-width:320px;
@@ -31,13 +31,13 @@ body.body {
 	cursor: pointer;
 	height: 32px;
 	background:#E64C65;
-	background:url("../images/back_icon.png") no-repeat 0 0;
+	background:url("images/back_icon.png") no-repeat 0 0;
 	background-size:32px 32px;
 	display:inline-block;
 }
 
 .header_b.on .back{
-	background:url("../images/back_on_icon.png") no-repeat 0 0;
+	background:url("images/back_on_icon.png") no-repeat 0 0;
 	background-size:32px 32px;
 	display:inline-block;
 }
@@ -64,7 +64,7 @@ body.body {
 /*#help {
 	display: none;
 	position: absolute;
-	background: url("../img/logo.png") no-repeat;
+	background: url("img/logo.png") no-repeat;
 	background-size:100%;
 	background-position:center top;
 	top: 0;
@@ -208,7 +208,7 @@ body.body {
 	
 }
 .clear_but{
-	background: url('../images/clear.png') no-repeat center center;
+	background: url('/images/clear.png') no-repeat center center;
 	background-size:16px 16px;
 	width: 16px;
 	height: 16px;
@@ -239,14 +239,14 @@ textarea::-moz-placeholder{
 }
 .username_icon{
 	width: 80px;
-	background:url("../images/regedit.png") no-repeat center center;
+	background:url("images/regedit.png") no-repeat center center;
 	background-size:22px 22px;
 	background-color:#CCCCCC;
 }
 
 .password_icon{
 	width: 80px;
-	background:url("../images/login.png") no-repeat center center;
+	background:url("images/login.png") no-repeat center center;
 	background-size:22px 22px;
 	background-color:#CCCCCC;
 }
@@ -266,7 +266,7 @@ textarea::-moz-placeholder{
 }
 
 .qq_show {
-	background: url('../images/qq.png') no-repeat 10px 10px;
+	background: url('/images/qq.png') no-repeat 10px 10px;
 	background-size: 20px 20px;
 }
 
@@ -321,7 +321,7 @@ textarea::-moz-placeholder{
 .line_top2 {border-top:2px solid #D4D4D4}
 .show_on{display:block;width: 80px;height: 38px;border-bottom: 2px solid #75B953; margin: 0 auto;}
 .pt_bom {position:absolute;left: 0;bottom: 0}
-.sham_line {background:url("../images/sham_line.png") repeat-x ;height: 2px; background-size:320px 2px; background-position: -10px 0;}
+.sham_line {background:url("images/sham_line.png") repeat-x ;height: 2px; background-size:320px 2px; background-position: -10px 0;}
 .footer{height: 50px;position:absolute;left: 0;bottom: 0;background-color: #2c2c2c;width: 100%;z-index: 100;}
 /**
  *
@@ -343,7 +343,7 @@ textarea::-moz-placeholder{
 #pullUp .pullUpIcon  {
 	display:block; float:left;
 	width:40px; height:40px;
-	background:url(../images/pull-icon.png) 0 0 no-repeat;
+	background:url(/images/pull-icon.png) 0 0 no-repeat;
 	-webkit-background-size:40px 80px; background-size:40px 80px;
 	-webkit-transition-property:-webkit-transform;
 	-webkit-transition-duration:250ms;	
@@ -524,7 +524,7 @@ textarea::-webkit-input-placeholder {
 }
 
 .go_grey {
-	background:url('../images/go_grey.png') no-repeat center center;
+	background:url('/images/go_grey.png') no-repeat center center;
 	width: 28px;
 	height: 28px;
 }
@@ -545,7 +545,7 @@ textarea::-webkit-input-placeholder {
 
 
 .show_select_on {
-	background:url('../images/show_on.png') no-repeat center center;
+	background:url('/images/show_on.png') no-repeat center center;
 	width: 52px;
 	height: 32px;
 	background-size: 52px 32px;
@@ -556,7 +556,7 @@ textarea::-webkit-input-placeholder {
 }
 
 .show_select_off {
-	background:url('../images/show_off.png') no-repeat center center;
+	background:url('/images/show_off.png') no-repeat center center;
 	width: 52px;
 	height: 32px;
 	background-size: 52px 32px;
@@ -718,14 +718,14 @@ textarea::-webkit-input-placeholder {
 .search_icon {
 	width: 32px;
 	height: 32px;
-	background: url("../images/search.png") no-repeat 0 5px;
+	background: url("images/search.png") no-repeat 0 5px;
 	background-size: 32px;
 }
 
 .release_icon {
 	width: 32px;
 	height: 32px;
-	background: url("../images/release.png") no-repeat 0 5px;
+	background: url("images/release.png") no-repeat 0 5px;
 	background-size: 32px;
 }
 
