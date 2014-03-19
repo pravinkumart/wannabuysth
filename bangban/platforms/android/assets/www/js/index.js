@@ -894,7 +894,7 @@ $(function(){
 			return false;
 		}
 		if(get_data('user_is_first')){
-			 gopage('home/accounts');
+			 gopage('home/index');
 		 }else{
 			 gopage('home/loading');
 			 my_navigator = [];
